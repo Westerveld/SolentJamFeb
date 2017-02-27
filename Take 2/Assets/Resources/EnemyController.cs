@@ -23,7 +23,7 @@ public class EnemyController : MonoBehaviour {
         MoveTowardsShip();
 	}
 
-    void MoveToward()
+    void MoveTowardsShip()
     {
 
     }

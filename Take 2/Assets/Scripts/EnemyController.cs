@@ -35,11 +35,6 @@ public class EnemyController : MonoBehaviour {
     [SerializeField]
     private float bulletSpeed;
 
-	// Update is called once per frame
-	void Update()
-    {
-        EnemyFunctions();
-	}
 
     public void EnemyFunctions()
     {

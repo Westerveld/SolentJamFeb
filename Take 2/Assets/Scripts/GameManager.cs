@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System;
+//using System;
 using System.Collections.Generic;
 
 enum GameState
@@ -23,26 +23,31 @@ public class GameManager : MonoBehaviour {
     public const int initalWaveSize = 10;
     public const int waveSizeIncrement = 5;
     public const float timeBetweenWavesSeconds = 10.0f;
-    int spawnRangeMin = 10;
-    int spawnWaveMax = 100;
+    int spawnRangeMin = -30;
+    int spawnWaveMax = 30;
 
     float nextWaveTime;
     float nextWaveDelaySeconds = 10.0f;
     float spawnOffsetDistance;
 
-    public GameObject Ship;
-    public GameObject Enemy;
+    public GameObject shipPrefab;
+    public GameObject enemyPrefab;
+    GameObject ship;
     //List enemies
     List<GameObject> enemyList = new List<GameObject>();
 
-    public static event Action EnemyDestoyed;
-    public static event Action ShipDestoyed;
+    public static event System.Action EnemyDestoyed;
+    public static event System.Action ShipDestoyed;
 
     //<A>collection of enemies
     // Use this for initialization
     void Start () {
         EnemyDestoyed += enemyDestroyed;
         ShipDestoyed += shipDestroyed;
+        ship = (GameObject)Instantiate(shipPrefab);
+        currentGameState = GameState.NextWave;
+    
+
 	}
 
     void enemyDestroyed()
@@ -89,6 +94,14 @@ public class GameManager : MonoBehaviour {
         if(enemyCount <= 0)
         {
             EndWave();
+          
+        }
+        else
+        {
+            foreach (GameObject ec in enemyList)
+            {
+                ec.GetComponent<EnemyController>().EnemyFunctions();
+            }
         }
 
     }
@@ -111,20 +124,20 @@ public class GameManager : MonoBehaviour {
        
         for (int i = startCount; i < waveSize; i++ )
         {
-            enemyList.Add(Enemy);
+          GameObject go =  (GameObject)Instantiate(enemyPrefab);
+            go.GetComponent<EnemyController>().Ship = ship;
+            enemyList.Add(go);
         }
 
-        foreach (GameObject enemy in enemyList)
+        foreach (GameObject i in enemyList)
         {
-            Vector3 spawOffset = new Vector3(UnityEngine.Random.Range(spawnRangeMin,spawnWaveMax), UnityEngine.Random.Range(spawnRangeMin, spawnWaveMax), 0);
-            enemy.transform.position = Ship.transform.position + spawOffset;
-            enemy.SetActive(true);
+             i.transform.position = ship.transform.position + new Vector3(Random.Range(spawnRangeMin, spawnWaveMax), Random.Range(spawnRangeMin, spawnWaveMax),0);
+             //enemy.SetActive(true);
         }
         enemyCount = enemyList.Count;
         currentGameState = GameState.InWave;
 
     }
-
     //If Ship Dead 
     void EndGame()
     {

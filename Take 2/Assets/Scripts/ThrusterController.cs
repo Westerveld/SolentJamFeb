@@ -22,7 +22,6 @@ public class ThrusterController : MonoBehaviour
         {
             Rigidbody2D rigidBody = GetComponent<Rigidbody2D>();
             float engineAngle = engine.transform.rotation.eulerAngles.z;
-            //rigidBody.AddForceAtPosition(new Vector2(Mathf.Cos(engineAngle), Mathf.Sin(engineAngle)) * force, engine.transform.position, ForceMode2D.Force);
             rigidBody.AddForce((transform.position - engine.transform.position).normalized * force * Time.fixedDeltaTime, ForceMode2D.Force);
 
             if (rigidBody.velocity.magnitude > maxSpeed)

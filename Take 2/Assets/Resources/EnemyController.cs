@@ -81,6 +81,7 @@ public class EnemyController : MonoBehaviour {
             Vector2 direction = ship.transform.position - transform.position;
             direction.Normalize();
             bullet.gameObject.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed;
+
         }
     }
 }

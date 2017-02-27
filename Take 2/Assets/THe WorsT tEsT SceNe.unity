@@ -249,6 +249,7 @@ GameObject:
   - 4: {fileID: 1728743271}
   - 212: {fileID: 1728743270}
   - 114: {fileID: 1728743272}
+  - 50: {fileID: 1728743273}
   m_Layer: 0
   m_Name: Ship
   m_TagString: Untagged
@@ -285,7 +286,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b929615accd6b02498e64500fff283e6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 48522ac66b4db7a42a80ae2c79dab522, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -316,3 +317,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   engine: {fileID: 679586074}
   rotationSpeed: 100
+  force: 1000000
+  maxSpeed: 100
+  joystick: 1
+--- !u!50 &1728743273
+Rigidbody2D:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1728743269}
+  m_UseAutoMass: 0
+  m_Mass: 1000
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4

@@ -144,4 +144,13 @@ public class GameManager : MonoBehaviour {
         
     }
 
+
+    void Freeze()
+    {
+        foreach (GameObject go in enemyList)
+        {
+       //     go.GetComponent<EnemyController>().fre
+        }
+    }
+
 }

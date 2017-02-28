@@ -30,6 +30,10 @@ public class GameManager : MonoBehaviour {
     float nextWaveDelaySeconds = 10.0f;
     float spawnOffsetDistance;
 
+    //Freeze
+    float freezeTime;
+    bool frozen;
+
     public GameObject shipPrefab;
     public GameObject enemyPrefab;
     GameObject ship;
@@ -60,8 +64,18 @@ public class GameManager : MonoBehaviour {
        currentGameState = GameState.ShipDestroyed;
     }
 	
+
 	// Update is called once per frame
 	void Update () {
+
+               
+        if(frozen && Time.time >= freezeTime)
+        { 
+            foreach (GameObject go in enemyList)
+            {
+                go.GetComponent<EnemyController>().frozen = false;
+            }
+        }
 
 
         switch (currentGameState)
@@ -129,10 +143,11 @@ public class GameManager : MonoBehaviour {
             enemyList.Add(go);
         }
 
-        foreach (GameObject i in enemyList)
+        foreach (GameObject enemy in enemyList)
         {
-             i.transform.position = ship.transform.position + new Vector3(Random.Range(spawnRangeMin, spawnWaveMax), Random.Range(spawnRangeMin, spawnWaveMax),0);
-             //enemy.SetActive(true);
+             enemy.transform.position = ship.transform.position + new Vector3(Random.Range(spawnRangeMin, spawnWaveMax), Random.Range(spawnRangeMin, spawnWaveMax),0);
+             enemy.SetActive(true);
+            //Reset Enemy values - health, position, etc
         }
         enemyCount = enemyList.Count;
         currentGameState = GameState.InWave;
@@ -145,12 +160,17 @@ public class GameManager : MonoBehaviour {
     }
 
 
-    void Freeze()
+   public void Freeze(float timeToFreeze)
     {
+        freezeTime = Time.time + timeToFreeze;
+        frozen = true;
+
         foreach (GameObject go in enemyList)
         {
-       //     go.GetComponent<EnemyController>().fre
+            go.GetComponent<EnemyController>().frozen = true;
         }
+
+        //Call bulete freeze...!!! < < < > > > 
     }
 
 }

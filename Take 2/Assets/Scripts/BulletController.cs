@@ -9,14 +9,4 @@ public class BulletController : MonoBehaviour {
         set { damage = value; }
         get { return damage; }
     }
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }

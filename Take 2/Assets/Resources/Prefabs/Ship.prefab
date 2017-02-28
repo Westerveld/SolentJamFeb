@@ -23,7 +23,8 @@ GameObject:
   - 114: {fileID: 114000012709102438}
   - 50: {fileID: 50000012317026420}
   - 58: {fileID: 58000013901708056}
-  m_Layer: 0
+  - 114: {fileID: 114000011137218426}
+  m_Layer: 11
   m_Name: Ship
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +43,7 @@ GameObject:
   - 92: {fileID: 92000012196212532}
   - 124: {fileID: 124000011043101676}
   - 81: {fileID: 81000011170317096}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -58,7 +59,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000010458659224}
   - 212: {fileID: 212000012066461284}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Engine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -185,6 +186,19 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011689403116}
   m_Enabled: 1
+--- !u!114 &114000011137218426
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010146160784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d45825b3114f524dbae281c05b48661, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  health: 0
 --- !u!114 &114000012709102438
 MonoBehaviour:
   m_ObjectHideFlags: 1

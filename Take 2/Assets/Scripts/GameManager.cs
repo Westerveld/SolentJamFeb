@@ -48,16 +48,19 @@ public class GameManager : MonoBehaviour
     private GameObject ship;
     //List enemies
     private List<GameObject> enemyList = new List<GameObject>();
+    //Sound
+    [SerializeField]
+    private MusicManager musicManager;
 
     //<A>collection of enemies
     // Use this for initialization
     void Start () {
         ShipController.OnPlayerDeath += EndGame;
         ship = (GameObject)Instantiate(shipPrefab);
-        currentGameState = GameState.NextWave;
-    
+        EndWave();
 
-	}
+
+    }
 
     void enemyDestroyed()
     {
@@ -72,7 +75,8 @@ public class GameManager : MonoBehaviour
 
 	// Update is called once per frame
 	void Update () {
-
+        //Debug key space = Freeze
+        if (Input.GetKeyDown(KeyCode.Space)) Freeze(2.0f);
                
         if(frozen && Time.time >= freezeTime)
         { 
@@ -95,6 +99,7 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.InWave:
                     UpdateWave();
+                if(ship.GetComponent<ShipController>().Health<50) musicManager.UpdateMusic(MusicState.InGameIntense);
                 break;
             case GameState.Paused:
                 break;
@@ -130,7 +135,8 @@ public class GameManager : MonoBehaviour
     void EndWave()
     {
         nextWaveTime = Time.time + timeBetweenWavesSeconds;
-
+        currentGameState = GameState.BetweenWaves;
+        musicManager.UpdateMusic(MusicState.MainMenu);
     }
 
     void NextWave()
@@ -151,6 +157,7 @@ public class GameManager : MonoBehaviour
             ec.Bp = bp;
             go.transform.parent = gameObject.transform;
             enemyList.Add(go);
+            musicManager.UpdateMusic(MusicState.InGame);
         }
 
         foreach (GameObject enemy in enemyList)

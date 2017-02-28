@@ -43,12 +43,16 @@ public class EnemyController : MonoBehaviour {
     [SerializeField]
     private float bulletSpeed;
 
+    public bool frozen;
 
     public void EnemyFunctions()
     {
-        Move();
-        Rotate();
-        Shoot();
+        if(frozen)
+        { 
+            Move();
+            Rotate();
+            Shoot();
+        }
     }
 
     void Move()

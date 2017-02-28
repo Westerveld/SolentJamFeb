@@ -43,6 +43,7 @@ GameObject:
   - 92: {fileID: 92000012196212532}
   - 124: {fileID: 124000011043101676}
   - 81: {fileID: 81000011170317096}
+  - 114: {fileID: 114000011025206076}
   m_Layer: 11
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -186,6 +187,19 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011689403116}
   m_Enabled: 1
+--- !u!114 &114000011025206076
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011689403116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29fae99d723e5614ca0f33f50968dbc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shakeDecayStart: 0.002
+  shakeIntensityStart: 0.03
 --- !u!114 &114000011137218426
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -199,6 +213,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   health: 0
+  shipCamera: {fileID: 1000011689403116}
 --- !u!114 &114000012709102438
 MonoBehaviour:
   m_ObjectHideFlags: 1

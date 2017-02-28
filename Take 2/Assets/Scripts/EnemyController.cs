@@ -10,7 +10,6 @@ public class EnemyController : MonoBehaviour {
         set { ship = value; }
         get { return ship;  }
     }
-
     [SerializeField]
     private float damage;
     public float Damage
@@ -18,6 +17,8 @@ public class EnemyController : MonoBehaviour {
         set { damage = value; }
         get { return damage; }
     }
+    private const uint maxHealth = 10;
+    private uint health = maxHealth;
 
     [SerializeField]
     private float distanceToShip;
@@ -112,6 +113,7 @@ public class EnemyController : MonoBehaviour {
     {
         if(col.gameObject.tag == "PlayerProjectile")
         {
+            
             //ToDo:
             //Enemy Colliding with PlayerProjectile
             //Return to object pool
@@ -122,5 +124,12 @@ public class EnemyController : MonoBehaviour {
             //Enemy Colliding With Asteroid
             //Return to object pool
         }
+    }
+
+    void Destroyed()
+    {
+        health = maxHealth;
+        this.gameObject.SetActive(false);
+
     }
 }

@@ -8,7 +8,7 @@ public class EnemyController : MonoBehaviour {
     public GameObject Ship
     {
         set { ship = value; }
-        get { Debug.LogError("Paul sucks giant dick"); return ship;  }
+        get { return ship;  }
     }
 
     [SerializeField]
@@ -77,6 +77,22 @@ public class EnemyController : MonoBehaviour {
             direction.Normalize();
             bullet.gameObject.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed;
 
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if(col.gameObject.tag == "PlayerProjectile")
+        {
+            //ToDo:
+            //Enemy Colliding with PlayerProjectile
+            //Return to object pool
+        }
+        if(col.gameObject.tag == "Asteroid")
+        {
+            //ToDo:
+            //Enemy Colliding With Asteroid
+            //Return to object pool
         }
     }
 }

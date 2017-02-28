@@ -3,55 +3,43 @@ using System.Collections;
 
 public class CameraShake : MonoBehaviour
 {
+    [SerializeField]
+    private float shakeDecayStart = 0.002f;
+    [SerializeField]
+    private float shakeIntensityStart = 0.03f;
 
-    public float shake_decay_start = 0.002f;
-    public float shake_intensity_start = 0.03f;
-
-    private float shake_decay;
-    private float shake_intensity;
+    private float shakeDecay;
+    private float shakeIntensity;
 
     private Vector3 originPosition;
     private Quaternion originRotation;
     private bool shaking;
-    private Transform transformAtOrigin;
 
-    void OnEnable()
+    public IEnumerator Shake()
     {
-        transformAtOrigin = transform;
-    }
+        originPosition = Vector3.zero + Vector3.back * 10f;
+        originRotation = Quaternion.identity;
 
-    void Update()
-    {
-        if (!shaking)
-            return;
-        if (shake_intensity > 0f)
-        {
-            transformAtOrigin.localPosition = originPosition + Random.insideUnitSphere * shake_intensity;
-            transformAtOrigin.localRotation = new Quaternion(
-                originRotation.x + Random.Range(-shake_intensity, shake_intensity) * .2f,
-                originRotation.y + Random.Range(-shake_intensity, shake_intensity) * .2f,
-                originRotation.z + Random.Range(-shake_intensity, shake_intensity) * .2f,
-                originRotation.w + Random.Range(-shake_intensity, shake_intensity) * .2f);
-            shake_intensity -= shake_decay;
-        }
-        else
-        {
-            shaking = false;
-            transformAtOrigin.localPosition = originPosition;
-            transformAtOrigin.localRotation = originRotation;
-        }
-    }
+        shakeDecay = shakeDecayStart;
+        shakeIntensity = shakeIntensityStart;
 
-    public void Shake()
-    {
-        if (!shaking)
+        while (shakeIntensity > 0f)
         {
-            originPosition = transformAtOrigin.localPosition;
-            originRotation = transformAtOrigin.localRotation;
-        }
-        shaking = true;
-        shake_decay = shake_decay_start;
-        shake_intensity = shake_intensity_start;
-    }
+            transform.localPosition = originPosition + Random.insideUnitSphere * shakeIntensity;
 
+            transform.localRotation = new Quaternion(
+                originRotation.x + Random.Range(-shakeIntensity, shakeIntensity) * .2f,
+                originRotation.y + Random.Range(-shakeIntensity, shakeIntensity) * .2f,
+                originRotation.z + Random.Range(-shakeIntensity, shakeIntensity) * .2f,
+                originRotation.w + Random.Range(-shakeIntensity, shakeIntensity) * .2f
+            );
+
+            shakeIntensity -= shakeDecay;
+
+            yield return new WaitForEndOfFrame();
+        }
+
+        transform.localPosition = originPosition;
+        transform.localRotation = originRotation;
+    }
 }

@@ -20,6 +20,9 @@ public class ShipController : MonoBehaviour
         get { return health; }
     }
 
+    [SerializeField]
+    private GameObject shipCamera;
+
     public static event System.Action OnPlayerDeath;
 
     void Start()
@@ -39,6 +42,8 @@ public class ShipController : MonoBehaviour
 
             //Destroy Bullet
             col.gameObject.SetActive(false);
+
+            StartCoroutine(shipCamera.GetComponent<CameraShake>().Shake());
         }
     }
 }

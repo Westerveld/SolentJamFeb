@@ -42,7 +42,6 @@ GameObject:
   - 92: {fileID: 92000012196212532}
   - 124: {fileID: 124000011043101676}
   - 81: {fileID: 81000011170317096}
-  - 114: {fileID: 114000010587121406}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -171,7 +170,7 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 2.4
+  m_Radius: 2.55
 --- !u!81 &81000011170317096
 AudioListener:
   m_ObjectHideFlags: 1
@@ -186,17 +185,6 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011689403116}
   m_Enabled: 1
---- !u!114 &114000010587121406
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011689403116}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114000012709102438
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -249,7 +237,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 48522ac66b4db7a42a80ae2c79dab522, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a1ae0834d8d8cc94996afdf11321ada6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

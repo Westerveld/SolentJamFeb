@@ -4,7 +4,7 @@ using System.Collections;
 public class CameraShake : MonoBehaviour
 {
     [SerializeField]
-    private float shakeDecayStart = 0.002f;
+    private float shakeDecayStart = 0.06f;
     [SerializeField]
     private float shakeIntensityStart = 0.03f;
 
@@ -34,7 +34,7 @@ public class CameraShake : MonoBehaviour
                 originRotation.w + Random.Range(-shakeIntensity, shakeIntensity) * .2f
             );
 
-            shakeIntensity -= shakeDecay;
+            shakeIntensity -= shakeDecay * Time.deltaTime;
 
             yield return new WaitForEndOfFrame();
         }

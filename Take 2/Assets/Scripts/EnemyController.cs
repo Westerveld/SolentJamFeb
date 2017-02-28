@@ -12,6 +12,14 @@ public class EnemyController : MonoBehaviour {
     }
 
     [SerializeField]
+    private float damage;
+    public float Damage
+    {
+        set { damage = value; }
+        get { return damage; }
+    }
+
+    [SerializeField]
     private float distanceToShip;
 
     [SerializeField]
@@ -76,7 +84,7 @@ public class EnemyController : MonoBehaviour {
             Vector2 direction = ship.transform.position - transform.position;
             direction.Normalize();
             bullet.gameObject.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed;
-
+            bullet.gameObject.GetComponent<BulletController>().Damage = damage;
         }
     }
 

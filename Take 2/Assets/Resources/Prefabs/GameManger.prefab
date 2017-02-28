@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000011748727898}
   - 114: {fileID: 114000011820617794}
+  - 114: {fileID: 114000011420112094}
   m_Layer: 0
   m_Name: GameManger
   m_TagString: Untagged
@@ -40,6 +41,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &114000011420112094
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000014279634622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed3449de33ca0b44389be7437533582b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpawnCount: 200
+  bulletPrefab: {fileID: 1000013192284644, guid: 609bcda9d3a94ae40bf0fa4a7afc90ab,
+    type: 2}
 --- !u!114 &114000011820617794
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -51,6 +66,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a7224e3a7b2708419fe04d80c5666e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bp: {fileID: 114000011420112094}
+  score: 0
+  spawnRangeMin: -30
+  spawnWaveMax: 30
+  nextWaveDelaySeconds: 10
   shipPrefab: {fileID: 1000010146160784, guid: 98d4a362c548cae4f98bb0cacf9cd09d, type: 2}
   enemyPrefab: {fileID: 1000014264686240, guid: 88be4f83023a8f742aa77fb119ead548,
     type: 2}

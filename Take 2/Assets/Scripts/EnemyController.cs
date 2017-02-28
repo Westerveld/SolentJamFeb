@@ -42,12 +42,29 @@ public class EnemyController : MonoBehaviour {
 
     [SerializeField]
     private float bulletSpeed;
+    private bool frozen;
 
-    public bool frozen;
+    private BulletPool bp;
+    public BulletPool Bp
+    {
+        set { bp = value; }
+        get { return Bp; }
+    }
 
+    public bool Frozen
+    {
+        set
+        {
+            frozen = value;
+        }
+        get
+        {
+            return frozen;
+        }
+    }
     public void EnemyFunctions()
     {
-        if(frozen)
+        if(!frozen)
         { 
             Move();
             Rotate();
@@ -83,12 +100,11 @@ public class EnemyController : MonoBehaviour {
     {
         if(Time.time > nextShot)
         {
-            nextShot = Time.time + shotInterval;
-            GameObject bullet = (GameObject)Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
             Vector2 direction = ship.transform.position - transform.position;
             direction.Normalize();
-            bullet.gameObject.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed;
-            bullet.gameObject.GetComponent<BulletController>().Damage = damage;
+
+            nextShot = Time.time + shotInterval;
+            bp.ActivateBullet(bulletSpawn.position, bulletSpeed, direction);
         }
     }
 

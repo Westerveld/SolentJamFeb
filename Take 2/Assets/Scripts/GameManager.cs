@@ -11,43 +11,48 @@ enum GameState
     NextWave
 }
 
-public class GameManager : MonoBehaviour {
+public class GameManager : MonoBehaviour
+{
+    [SerializeField]
+    private BulletPool bp;
+    [SerializeField]
+    private int score;
+    private GameState currentGameState;
+    //Enemy/Wake managmeny
+    private int waveNumber = 0;
+    private int enemyCount;
+    private int waveSize;
+    [SerializeField]
+    private const int initalWaveSize = 10;
+    [SerializeField]
+    private const int waveSizeIncrement = 5;
+    [SerializeField]
+    private const float timeBetweenWavesSeconds = 10.0f;
+    [SerializeField]
+    private int spawnRangeMin = -30;
+    [SerializeField]
+    private int spawnWaveMax = 30;
 
-    int score;
-    GameState currentGameState;
-    //Enemy/Wake managment
-    int waveNumber = 0;
-    int enemyCount;
-    int waveSize;
-
-    public const int initalWaveSize = 10;
-    public const int waveSizeIncrement = 5;
-    public const float timeBetweenWavesSeconds = 10.0f;
-    int spawnRangeMin = -30;
-    int spawnWaveMax = 30;
-
-    float nextWaveTime;
-    float nextWaveDelaySeconds = 10.0f;
-    float spawnOffsetDistance;
+    private float nextWaveTime;
+    [SerializeField]
+    private float nextWaveDelaySeconds = 10.0f;
+    private float spawnOffsetDistance;
 
     //Freeze
-    float freezeTime;
-    bool frozen;
-
-    public GameObject shipPrefab;
-    public GameObject enemyPrefab;
-    GameObject ship;
+    private float freezeTime;
+    private bool frozen = false;
+    [SerializeField]
+    private GameObject shipPrefab;
+    [SerializeField]
+    private GameObject enemyPrefab;
+    private GameObject ship;
     //List enemies
-    List<GameObject> enemyList = new List<GameObject>();
-
-    public static event System.Action EnemyDestoyed;
-    public static event System.Action ShipDestoyed;
+    private List<GameObject> enemyList = new List<GameObject>();
 
     //<A>collection of enemies
     // Use this for initialization
     void Start () {
-        EnemyDestoyed += enemyDestroyed;
-        ShipDestoyed += shipDestroyed;
+        ShipController.OnPlayerDeath += EndGame;
         ship = (GameObject)Instantiate(shipPrefab);
         currentGameState = GameState.NextWave;
     
@@ -73,8 +78,10 @@ public class GameManager : MonoBehaviour {
         { 
             foreach (GameObject go in enemyList)
             {
-                go.GetComponent<EnemyController>().frozen = false;
+                go.GetComponent<EnemyController>().Frozen = false;
             }
+
+            bp.UnFreezeBullets();
         }
 
 
@@ -139,7 +146,10 @@ public class GameManager : MonoBehaviour {
         for (int i = startCount; i < waveSize; i++ )
         {
           GameObject go =  (GameObject)Instantiate(enemyPrefab);
-            go.GetComponent<EnemyController>().Ship = ship;
+            EnemyController ec = go.GetComponent<EnemyController>();
+            ec.Ship = ship;
+            ec.Bp = bp;
+            go.transform.parent = gameObject.transform;
             enemyList.Add(go);
         }
 
@@ -156,19 +166,22 @@ public class GameManager : MonoBehaviour {
     //If Ship Dead 
     void EndGame()
     {
-        
+        Debug.Log("End The Game");
     }
 
 
    public void Freeze(float timeToFreeze)
     {
+        Debug.Log("Frozen | GameManager");
         freezeTime = Time.time + timeToFreeze;
         frozen = true;
 
         foreach (GameObject go in enemyList)
         {
-            go.GetComponent<EnemyController>().frozen = true;
+            go.GetComponent<EnemyController>().Frozen = true;
         }
+
+        bp.FreezeBullets();
 
         //Call bulete freeze...!!! < < < > > > 
     }

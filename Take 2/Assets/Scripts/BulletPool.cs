@@ -22,7 +22,7 @@ public class BulletPool : MonoBehaviour {
     }
 
     //Start position
-    public void ActivateBullet(Vector2 startPos, float velocity, Vector2 direction)
+    public void ActivateBullet(Vector2 startPos, float velocity, Vector2 direction, float damage)
     {
         foreach (GameObject bullet in bulletList)
         {
@@ -34,6 +34,7 @@ public class BulletPool : MonoBehaviour {
                 bullet.GetComponent<Rigidbody2D>().velocity = direction * velocity;
                 float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
                 bullet.transform.rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
+                bullet.GetComponent<BulletController>().Damage = damage;
 
                 break;
             }

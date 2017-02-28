@@ -104,7 +104,7 @@ public class EnemyController : MonoBehaviour {
             direction.Normalize();
 
             nextShot = Time.time + shotInterval;
-            bp.ActivateBullet(bulletSpawn.position, bulletSpeed, direction);
+            bp.ActivateBullet(bulletSpawn.position, bulletSpeed, direction, damage);
         }
     }
 

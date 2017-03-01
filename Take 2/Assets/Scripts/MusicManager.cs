@@ -13,48 +13,54 @@ public class MusicManager : MonoBehaviour {
     public AudioSource Base;
     public AudioSource wave;
     public AudioSource intense;
-    float musicTime;
 	// Use this for initialization
 	void Start () {
         DontDestroyOnLoad(transform.gameObject);
-        UpdateMusic(MusicState.MainMenu);
+        GameManager.GameStateChanged += UpdateMusic;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-        if (Input.GetKeyDown(KeyCode.A)) UpdateMusic(MusicState.MainMenu);
-
-        if (Input.GetKeyDown(KeyCode.S)) UpdateMusic(MusicState.InGame);
-
-        if (Input.GetKeyDown(KeyCode.D)) UpdateMusic(MusicState.InGameIntense);
-
-
     }
 
-   public void UpdateMusic(MusicState ms)
+    void UpdateMusic(GameState gs)
     {
-        switch (ms)
+        switch (gs)
         {
-            case MusicState.MainMenu:
+            case GameState.BetweenWaves:
                 Base.mute = false;
                 wave.mute = true;
                 intense.mute = true;
                 break;
-            case MusicState.InGame:
+            case GameState.InWave:
                 Base.mute = false;
                 wave.mute = false;
                 intense.mute = true;
                 break;
-            case MusicState.InGameIntense:
+            case GameState.NextWave:
                 Base.mute = false;
-                wave.mute = false;
-                intense.mute = false;
+                wave.mute = true;
+                intense.mute = true;
+                break;
+            case GameState.Paused:
+                Base.mute = false;
+                wave.mute = true;
+                intense.mute = true;
+                break;
+            case GameState.ShipDestroyed:
+                Base.mute = true;
+                wave.mute = true;
+                intense.mute = true;
                 break;
             default:
                 break;
+            
         }
+
     }
+
+    
 
 
 }

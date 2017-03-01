@@ -2,7 +2,7 @@
 //using System;
 using System.Collections.Generic;
 
-enum GameState
+public enum GameState
 {
     BetweenWaves,
     InWave,
@@ -48,21 +48,20 @@ public class GameManager : MonoBehaviour
     private GameObject ship;
     //List enemies
     private List<GameObject> enemyList = new List<GameObject>();
-    //Sound
-    [SerializeField]
-    private MusicManager musicManager;
+
+    //Action used to update sound & ui based on the changing gamestate
+    public static event System.Action<GameState> GameStateChanged;
 
     //<A>collection of enemies
     // Use this for initialization
     void Start () {
         ShipController.OnPlayerDeath += EndGame;
+        EnemyController.OnEnemyDeath += EnemyDestroyed;
         ship = (GameObject)Instantiate(shipPrefab);
         EndWave();
-
-
     }
 
-    void enemyDestroyed()
+    void EnemyDestroyed()
     {
         enemyCount--;
     }
@@ -70,6 +69,7 @@ public class GameManager : MonoBehaviour
     void shipDestroyed()
     {
        currentGameState = GameState.ShipDestroyed;
+        GameStateChanged(currentGameState);
     }
 	
 
@@ -77,18 +77,12 @@ public class GameManager : MonoBehaviour
 	void Update () {
         //Debug key space = Freeze
         if (Input.GetKeyDown(KeyCode.Space)) Freeze(2.0f);
-               
-        if(frozen && Time.time >= freezeTime)
-        { 
-            foreach (GameObject go in enemyList)
-            {
-                go.GetComponent<EnemyController>().Frozen = false;
-            }
 
-            bp.UnFreezeBullets();
+        //Check if things are frozen and if they need to be unfrozen based on freeze time.
+        if (frozen && Time.time >= freezeTime)
+        {
+            UnFreeze();
         }
-
-
         switch (currentGameState)
         {
             case GameState.BetweenWaves:
@@ -99,7 +93,6 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.InWave:
                     UpdateWave();
-                if(ship.GetComponent<ShipController>().Health<50) musicManager.UpdateMusic(MusicState.InGameIntense);
                 break;
             case GameState.Paused:
                 break;
@@ -120,7 +113,6 @@ public class GameManager : MonoBehaviour
         if(enemyCount <= 0)
         {
             EndWave();
-          
         }
         else
         {
@@ -129,14 +121,13 @@ public class GameManager : MonoBehaviour
                 ec.GetComponent<EnemyController>().EnemyFunctions();
             }
         }
-
     }
 
     void EndWave()
     {
         nextWaveTime = Time.time + timeBetweenWavesSeconds;
         currentGameState = GameState.BetweenWaves;
-        musicManager.UpdateMusic(MusicState.MainMenu);
+        GameStateChanged(currentGameState);
     }
 
     void NextWave()
@@ -157,7 +148,7 @@ public class GameManager : MonoBehaviour
             ec.Bp = bp;
             go.transform.parent = gameObject.transform;
             enemyList.Add(go);
-            musicManager.UpdateMusic(MusicState.InGame);
+         
         }
 
         foreach (GameObject enemy in enemyList)
@@ -168,6 +159,7 @@ public class GameManager : MonoBehaviour
         }
         enemyCount = enemyList.Count;
         currentGameState = GameState.InWave;
+        GameStateChanged(currentGameState);
 
     }
     //If Ship Dead 
@@ -176,21 +168,32 @@ public class GameManager : MonoBehaviour
         Debug.Log("End The Game");
     }
 
-
+    //Freeze all relevent objects (enemy bullets & ships !player ship).
    public void Freeze(float timeToFreeze)
     {
-        Debug.Log("Frozen | GameManager");
         freezeTime = Time.time + timeToFreeze;
         frozen = true;
 
+        //Freeze Enemy ships.
         foreach (GameObject go in enemyList)
         {
             go.GetComponent<EnemyController>().Frozen = true;
         }
 
+        //Freeze bullets
         bp.FreezeBullets();
+    }
 
-        //Call bulete freeze...!!! < < < > > > 
+    //Unfreezes all frozen objects.
+    void UnFreeze()
+    {
+            //Unfreeze the enemy ships
+            foreach (GameObject go in enemyList)
+            {
+                go.GetComponent<EnemyController>().Frozen = false;
+            }
+            //Unfreeze the bullets
+            bp.UnFreezeBullets();
     }
 
 }

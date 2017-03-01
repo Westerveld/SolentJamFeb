@@ -63,6 +63,8 @@ public class EnemyController : MonoBehaviour {
             return frozen;
         }
     }
+
+    public static event System.Action OnEnemyDeath;
     public void EnemyFunctions()
     {
         if(!frozen)
@@ -72,7 +74,7 @@ public class EnemyController : MonoBehaviour {
             Shoot();
         }
     }
-
+    
     void Move()
     {
         float distance = Vector2.Distance(ship.transform.position, transform.position);
@@ -132,4 +134,5 @@ public class EnemyController : MonoBehaviour {
         this.gameObject.SetActive(false);
 
     }
+
 }

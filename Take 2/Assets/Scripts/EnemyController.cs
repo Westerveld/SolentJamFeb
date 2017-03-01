@@ -81,7 +81,6 @@ public class EnemyController : MonoBehaviour {
 
         if (distance > distanceToShip)
         {
-            Vector3 myPosition = transform.position;
             Vector3 direction = ship.transform.position - transform.position;
             direction.Normalize();
             transform.position += direction * moveSpeed * Time.deltaTime;

@@ -15,7 +15,6 @@ public class EngineController : ComponentController {
             if (Input.GetAxis("Activate" + joystick) > 0)
             {
                 Rigidbody2D rigidbody = ship.GetComponent<Rigidbody2D>();
-                float engineAngle = transform.rotation.eulerAngles.z;
                 rigidbody.AddForce((ship.transform.position - transform.position).normalized * force * Time.fixedDeltaTime, ForceMode2D.Force);
                 if (rigidbody.velocity.magnitude > ship.GetComponent<ShipController>().MaxSpeed)
                 {

@@ -21,7 +21,6 @@ public class ThrusterController : MonoBehaviour
         if (Input.GetButton("Activate" + joystick))
         {
             Rigidbody2D rigidBody = GetComponent<Rigidbody2D>();
-            float engineAngle = engine.transform.rotation.eulerAngles.z;
             rigidBody.AddForce((transform.position - engine.transform.position).normalized * force * Time.fixedDeltaTime, ForceMode2D.Force);
 
             if (rigidBody.velocity.magnitude > maxSpeed)

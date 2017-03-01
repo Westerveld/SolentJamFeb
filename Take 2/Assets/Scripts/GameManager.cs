@@ -76,8 +76,7 @@ public class GameManager : MonoBehaviour
 
 	// Update is called once per frame
 	void Update () {
-        //Debug key space = Freeze
-        if (Input.GetKeyDown(KeyCode.Space)) Freeze(2.0f);
+  
 
         //Check if things are frozen and if they need to be unfrozen based on freeze time.
         if (frozen && Time.time >= freezeTime)

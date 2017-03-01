@@ -135,7 +135,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8400000, guid: 2c4d01f9430c38343a8e0479fd1556e8, type: 2}
+  m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 0
@@ -248,8 +248,8 @@ MonoBehaviour:
   sepBlurSpread: 3.68
   quality: 1
   bloomIntensity: 2
-  bloomThreshold: 0.5
-  bloomThresholdColor: {r: 0, g: 0, b: 1, a: 1}
+  bloomThreshold: 1
+  bloomThresholdColor: {r: 1, g: 1, b: 1, a: 1}
   bloomBlurIterations: 2
   hollywoodFlareBlurIterations: 2
   flareRotation: 0

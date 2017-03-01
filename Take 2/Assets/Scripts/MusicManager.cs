@@ -19,11 +19,6 @@ public class MusicManager : MonoBehaviour {
         GameManager.GameStateChanged += UpdateMusic;
 	}
 	
-	// Update is called once per frame
-	void Update () {
-
-    }
-
     void UpdateMusic(GameState gs)
     {
         switch (gs)

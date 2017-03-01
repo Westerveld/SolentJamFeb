@@ -112,12 +112,15 @@ public class EnemyController : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if(col.gameObject.tag == "PlayerProjectile")
+        if(col.gameObject.layer == LayerMask.NameToLayer("PlayerProjectile"))
         {
-            
             //ToDo:
             //Enemy Colliding with PlayerProjectile
             //Return to object pool
+            col.gameObject.SetActive(false);
+            //Add score to game manager
+            //Return enemy to pool
+
         }
         if(col.gameObject.tag == "Asteroid")
         {

@@ -84,6 +84,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1000011349276682
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 4000011427474902}
+  - 114: {fileID: 114000010339377142}
+  m_Layer: 11
+  m_Name: PlayerBulletPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1000011598003460
 GameObject:
   m_ObjectHideFlags: 1
@@ -353,6 +369,7 @@ Transform:
   - {fileID: 4000011334583040}
   - {fileID: 4000014159345110}
   - {fileID: 4000010458659224}
+  - {fileID: 4000011427474902}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &4000011334583040
@@ -368,6 +385,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4000011150138690}
   m_RootOrder: 2
+--- !u!4 &4000011427474902
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011349276682}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 4000011150138690}
+  m_RootOrder: 5
 --- !u!4 &4000011472995792
 Transform:
   m_ObjectHideFlags: 1
@@ -701,6 +731,20 @@ MonoBehaviour:
   blurAndFlaresShader: {fileID: 4800000, guid: be6e39cf196f146d5be72fbefb18ed75, type: 3}
   brightPassFilterShader: {fileID: 4800000, guid: 0aeaa4cb29f5d4e9c8455f04c8575c8c,
     type: 3}
+--- !u!114 &114000010339377142
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011349276682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 936d7e2383004974da56fac927471c4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpawnCount: 200
+  bulletPrefab: {fileID: 1000011373685140, guid: e46d1e2cf18b6904a8e3d4dae3f9bbd0,
+    type: 2}
 --- !u!114 &114000010398632588
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -773,7 +817,7 @@ MonoBehaviour:
   bulletSpawn:
   - {fileID: 4000012491253294}
   - {fileID: 4000013658861992}
-  bullet: {fileID: 1000011373685140, guid: e46d1e2cf18b6904a8e3d4dae3f9bbd0, type: 2}
+  playerBulletPool: {fileID: 114000010339377142}
   nextShot: 0
   shotInterval: 0.25
   bulletSpeed: 25

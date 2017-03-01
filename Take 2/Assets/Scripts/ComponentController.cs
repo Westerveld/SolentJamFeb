@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ComponentController : MonoBehaviour {
-    
+public class ComponentController : MonoBehaviour
+{
     [SerializeField]
     protected GameObject ship;
 
@@ -19,7 +19,7 @@ public class ComponentController : MonoBehaviour {
 
 	
 	// Update is called once per frame
-	void FixedUpdate ()
+	void FixedUpdate()
     {
         Rotate();
         Activate();
@@ -37,6 +37,5 @@ public class ComponentController : MonoBehaviour {
 
     protected virtual void Activate()
     {
-        
     }
 }

@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-//using System;
+using System.Collections;
 using System.Collections.Generic;
 
 public enum GameState
@@ -40,8 +40,8 @@ public class GameManager : MonoBehaviour
     private float spawnOffsetDistance;
 
     //Freeze
-    private float freezeTime;
     private bool frozen = false;
+
     [SerializeField]
     private GameObject shipPrefab;
     [SerializeField]
@@ -55,34 +55,33 @@ public class GameManager : MonoBehaviour
 
     //<A>collection of enemies
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         ShipController.OnPlayerDeath += EndGame;
-        EnemyController.OnEnemyDeath += EnemyDestroyed;
+        EnemyController.OnEnemyDeath += OnEnemyDestroyed;
         GameStateChanged += ChangeGameState;
         ship = (GameObject)Instantiate(shipPrefab);
         EndWave();
+
+        FreezeController.OnFreeze += OnFreeze;
     }
 
-    void EnemyDestroyed()
+    void OnDestroy()
+    {
+        ShipController.OnPlayerDeath -= EndGame;
+        EnemyController.OnEnemyDeath -= OnEnemyDestroyed;
+        GameStateChanged -= ChangeGameState;
+        FreezeController.OnFreeze -= OnFreeze;
+    }
+
+    void OnEnemyDestroyed()
     {
         enemyCount--;
     }
 
-    void shipDestroyed()
-    {
-        GameStateChanged(GameState.ShipDestroyed);
-    }
-	
-
 	// Update is called once per frame
-	void Update () {
-  
-
-        //Check if things are frozen and if they need to be unfrozen based on freeze time.
-        if (frozen && Time.time >= freezeTime)
-        {
-            UnFreeze();
-        }
+	void Update()
+    {
         switch (currentGameState)
         {
             case GameState.BetweenWaves:
@@ -189,10 +188,18 @@ public class GameManager : MonoBehaviour
         Debug.Log("End The Game");
     }
 
-    //Freeze all relevent objects (enemy bullets & ships !player ship).
-   public void Freeze()
+    void OnFreeze()
     {
-        freezeTime = Time.time + ship.GetComponent<ShipController>().Health;
+        if (!frozen)
+        {
+            StartCoroutine(Freeze());
+        }
+    }
+
+    //Freeze all relevent objects (enemy bullets & ships !player ship).
+    IEnumerator Freeze()
+    {
+        Debug.Log("Thing");
         frozen = true;
 
         //Freeze Enemy ships.
@@ -203,18 +210,18 @@ public class GameManager : MonoBehaviour
 
         //Freeze bullets
         bp.FreezeBullets();
-    }
 
-    //Unfreezes all frozen objects.
-    void UnFreeze()
-    {
-            //Unfreeze the enemy ships
-            foreach (GameObject go in enemyList)
-            {
-                go.GetComponent<EnemyController>().Frozen = false;
-            }
-            //Unfreeze the bullets
-            bp.UnFreezeBullets();
-    }
+        yield return new WaitForSeconds(2f);
+        
+        //Unfreeze the enemy ships
+        foreach (GameObject go in enemyList)
+        {
+            go.GetComponent<EnemyController>().Frozen = false;
+        }
 
+        //Unfreeze the bullets
+        bp.UnFreezeBullets();
+
+        frozen = false;
+    }
 }

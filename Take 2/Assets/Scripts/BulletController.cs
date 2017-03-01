@@ -10,6 +10,13 @@ public class BulletController : MonoBehaviour {
         get { return damage; }
     }
 
+    private Vector3 velocity;
+    public Vector3 Velocity
+    {
+        get { return velocity; }
+        set { velocity = value; }
+    }
+
     private const float maxTime = 2f;
     private float time = 0f;
 

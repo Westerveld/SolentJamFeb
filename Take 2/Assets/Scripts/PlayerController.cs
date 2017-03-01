@@ -10,8 +10,8 @@ enum CurrentRoom
     Turret
 }
 
-public class PlayerController : MonoBehaviour {
-
+public class PlayerController : MonoBehaviour
+{
     [SerializeField]
     private int controller;
     public int Controller
@@ -35,16 +35,18 @@ public class PlayerController : MonoBehaviour {
     private GunController gun;
 
     [SerializeField]
-    private GameManager gm;
+    private FreezeController freeze;
 
 	// Use this for initialization
-	void Start () {
+	void Start()
+    {
         transform.position = Rooms[0].position;
         room = CurrentRoom.Middle;
 	}
 	
 	// Update is called once per frame
-	void FixedUpdate () {
+	void FixedUpdate()
+    {
         MoveRooms();
 	}
 
@@ -92,6 +94,7 @@ public class PlayerController : MonoBehaviour {
                 Rooms[4].gameObject.GetComponent<RoomManager>().Empty = false;
                 transform.position = Rooms[4].position;
                 room = CurrentRoom.Freeze;
+                freeze.Joystick = controller;
             }
         }
 
@@ -108,7 +111,7 @@ public class PlayerController : MonoBehaviour {
                 break;
             case CurrentRoom.Freeze:
                 Rooms[2].gameObject.GetComponent<RoomManager>().Empty = true;
-
+                freeze.Joystick = 0;
                 break;
             case CurrentRoom.Turret:
                 Rooms[3].gameObject.GetComponent<RoomManager>().Empty = true;

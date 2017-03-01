@@ -131,6 +131,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000010670367532}
   - 114: {fileID: 114000011151709182}
+  - 114: {fileID: 114000012788475692}
   m_Layer: 11
   m_Name: Freeze
   m_TagString: Untagged
@@ -713,7 +714,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ship: {fileID: 1000010146160784}
   rotationSpeed: 100
-  joystick: 
+  joystick: 0
 --- !u!114 &114000011025206076
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -768,7 +769,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ship: {fileID: 1000010146160784}
   rotationSpeed: 100
-  joystick: 
+  joystick: 0
   bulletSpawn:
   - {fileID: 4000012491253294}
   - {fileID: 4000013658861992}
@@ -799,7 +800,7 @@ MonoBehaviour:
   engine: {fileID: 114000013565908310}
   shield: {fileID: 114000010398632588}
   gun: {fileID: 114000011912263948}
-  gm: {fileID: 0}
+  freeze: {fileID: 114000012788475692}
 --- !u!114 &114000012642097294
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -812,6 +813,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   empty: 1
+--- !u!114 &114000012788475692
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012248336818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8efac95f71bf4f348a992feacda47607, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ship: {fileID: 1000010146160784}
+  rotationSpeed: 0
+  joystick: 0
 --- !u!114 &114000013040439612
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -837,7 +852,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ship: {fileID: 1000010146160784}
   rotationSpeed: 100
-  joystick: 
+  joystick: 0
   force: 1000000
   flame: {fileID: 95000010032026166}
 --- !u!124 &124000011043101676

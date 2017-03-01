@@ -47,6 +47,7 @@ public class BulletPool : MonoBehaviour {
         {
             if(bullet.activeSelf)
             {
+                bullet.GetComponent<BulletController>().Velocity = bullet.GetComponent<Rigidbody2D>().velocity;
                 bullet.GetComponent<Rigidbody2D>().isKinematic = true;
             }
         }
@@ -59,6 +60,7 @@ public class BulletPool : MonoBehaviour {
             if(bullet.activeSelf)
             {
                 bullet.GetComponent<Rigidbody2D>().isKinematic = false;
+                bullet.GetComponent<Rigidbody2D>().velocity = bullet.GetComponent<BulletController>().Velocity;
             }
         }
     }

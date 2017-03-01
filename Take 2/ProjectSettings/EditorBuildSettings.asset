@@ -9,3 +9,5 @@ EditorBuildSettings:
     path: Assets/Resources/Scenes/MainMenu.unity
   - enabled: 1
     path: Assets/Resources/Scenes/PaulTesting.unity
+  - enabled: 1
+    path: Assets/Resources/Scenes/EndScreen.unity

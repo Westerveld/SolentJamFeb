@@ -20,6 +20,20 @@ public class ShipController : MonoBehaviour
         get { return health; }
     }
 
+    private float maxSpeed;
+    public float MaxSpeed
+    {
+        set { maxSpeed = value; }
+        get { return maxSpeed; }
+    }
+
+    private float damage;
+    public float Damage
+    {
+        set { damage = value; }
+        get { return damage; }
+    }
+
     [SerializeField]
     private GameObject shipCamera;
 

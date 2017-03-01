@@ -104,6 +104,7 @@ public class PlayerController : MonoBehaviour {
             case CurrentRoom.Engine:
                 Rooms[1].gameObject.GetComponent<RoomManager>().Empty = true;
                 engine.Joystick = null;
+                engine.DisableFlame();
                 break;
             case CurrentRoom.Freeze:
                 Rooms[2].gameObject.GetComponent<RoomManager>().Empty = true;

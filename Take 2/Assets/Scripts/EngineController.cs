@@ -25,8 +25,13 @@ public class EngineController : ComponentController {
             }
             else
             {
-                flame.SetBool("Thrusting", false);
+                DisableFlame();
             }
         }
+    }
+
+    public void DisableFlame()
+    {
+        flame.SetBool("Thrusting", false);
     }
 }

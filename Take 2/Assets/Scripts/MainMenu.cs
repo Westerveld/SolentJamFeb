@@ -9,6 +9,7 @@ public class MainMenu : MonoBehaviour {
     private GameObject HowToPlay;
     [SerializeField]
     private GameObject Credits;
+
     public  void BTN_Begin()
     {
         SceneManager.LoadScene(beginLevelName);

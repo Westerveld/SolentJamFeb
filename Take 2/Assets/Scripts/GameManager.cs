@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
+using UnityEngine.SceneManagement;
 public enum GameState
 {
     BetweenWaves,
@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
         GameStateChanged += ChangeGameState;
         ship = (GameObject)Instantiate(shipPrefab);
         EndWave();
-
+        Time.timeScale = 1;
         FreezeController.OnFreeze += OnFreeze;
     }
 
@@ -185,7 +185,10 @@ public class GameManager : MonoBehaviour
     //If Ship Dead 
     void EndGame()
     {
-        Debug.Log("End The Game");
+        PlayerPrefs.SetInt("FinalScore", score);
+        PlayerPrefs.Save();
+        Time.timeScale = 0;
+        SceneManager.LoadScene("EndScreen", LoadSceneMode.Additive);
     }
 
     void OnFreeze()

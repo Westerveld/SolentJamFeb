@@ -15,11 +15,14 @@ public class MusicManager : MonoBehaviour {
     public AudioSource intense;
 	// Use this for initialization
 	void Start () {
-        DontDestroyOnLoad(transform.gameObject);
         GameManager.GameStateChanged += UpdateMusic;
 	}
-	
-    void UpdateMusic(GameState gs)
+    void OnDestroy()
+    {
+        GameManager.GameStateChanged -= UpdateMusic;
+    }
+
+        void UpdateMusic(GameState gs)
     {
         switch (gs)
         {

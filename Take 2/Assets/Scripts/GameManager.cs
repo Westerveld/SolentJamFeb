@@ -191,9 +191,9 @@ public class GameManager : MonoBehaviour
     }
 
     //Freeze all relevent objects (enemy bullets & ships !player ship).
-   public void Freeze(float timeToFreeze)
+   public void Freeze()
     {
-        freezeTime = Time.time + timeToFreeze;
+        freezeTime = Time.time + ship.GetComponent<ShipController>().Health;
         frozen = true;
 
         //Freeze Enemy ships.

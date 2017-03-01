@@ -11,6 +11,11 @@ public class ComponentController : MonoBehaviour {
 
     [SerializeField]
     protected string joystick;
+    public string Joystick
+    {
+        set { joystick = value; }
+        get { return joystick; }
+    }
 
 	
 	// Update is called once per frame
@@ -23,7 +28,10 @@ public class ComponentController : MonoBehaviour {
     protected virtual void Rotate()
     {
         //Rotates the object around a fixed point, in this instance it rotates around the ships pivot point
-        transform.RotateAround(ship.transform.position, Vector3.back, Input.GetAxis("Horizontal" + joystick) * rotationSpeed * Time.fixedDeltaTime);
+        if (joystick != null)
+        {
+            transform.RotateAround(ship.transform.position, Vector3.back, Input.GetAxis("Horizontal" + joystick) * rotationSpeed * Time.fixedDeltaTime);
+        }
 
     }
 

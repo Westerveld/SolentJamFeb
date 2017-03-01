@@ -20,6 +20,7 @@ public class ShipController : MonoBehaviour
         get { return health; }
     }
 
+    [SerializeField]
     private float maxSpeed;
     public float MaxSpeed
     {
@@ -27,6 +28,7 @@ public class ShipController : MonoBehaviour
         get { return maxSpeed; }
     }
 
+    [SerializeField]
     private float damage;
     public float Damage
     {

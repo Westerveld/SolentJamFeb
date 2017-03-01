@@ -6,9 +6,11 @@ public class EngineController : ComponentController {
     [SerializeField]
     protected float force;
 
+    [SerializeField]
+    protected Animator flame;
     protected override void Activate()
     {
-        if(Input.GetButton("Activate" + joystick))
+        if(Input.GetAxis("Activate" + joystick) > 0)
         {
             Rigidbody2D rigidbody = ship.GetComponent<Rigidbody2D>();
             float engineAngle = transform.rotation.eulerAngles.z;
@@ -17,6 +19,11 @@ public class EngineController : ComponentController {
             {
                 rigidbody.velocity = rigidbody.velocity.normalized * ship.GetComponent<ShipController>().MaxSpeed;
             }
+            flame.SetBool("Thrusting", true);
+        }
+        else
+        {
+            flame.SetBool("Thrusting", false);
         }
     }
 }

@@ -20,14 +20,19 @@ public class GunController : ComponentController {
 
     protected override void Activate()
     {
-        if (Input.GetButton("Activate" + joystick))
+        if (Input.GetAxis("Activate" + joystick) > 0)
         {
-            Vector3 direction = ship.transform.position - transform.position;
-            direction.Normalize();
+            if (Time.time < nextShot)
+            {
+                nextShot = Time.time + shotInterval;
+                Vector3 direction = ship.transform.position - transform.position;
+                direction.Normalize();
 
-            GameObject newBullet = (GameObject)Instantiate(bullet, bulletSpawn);
-            newBullet.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed;
-            newBullet.GetComponent<BulletController>().Damage = ship.GetComponent<ShipController>().Damage;
+                GameObject newBullet = (GameObject)Instantiate(bullet, bulletSpawn);
+                newBullet.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed;
+                newBullet.GetComponent<BulletController>().Damage = ship.GetComponent<ShipController>().Damage;
+            }
+
         }
     }
 }

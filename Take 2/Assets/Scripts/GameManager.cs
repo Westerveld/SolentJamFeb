@@ -2,7 +2,7 @@
 //using System;
 using System.Collections.Generic;
 
-enum GameState
+public enum GameState
 {
     BetweenWaves,
     InWave,
@@ -29,9 +29,10 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private const float timeBetweenWavesSeconds = 10.0f;
     [SerializeField]
-    private int spawnRangeMin = -30;
+    private int waveSpawnDistanceFromPlayerMin = 10;
     [SerializeField]
-    private int spawnWaveMax = 30;
+    private int waveSpawnDistanceFromPlayerMax = 30;
+
 
     private float nextWaveTime;
     [SerializeField]
@@ -48,28 +49,28 @@ public class GameManager : MonoBehaviour
     private GameObject ship;
     //List enemies
     private List<GameObject> enemyList = new List<GameObject>();
-    //Sound
-    [SerializeField]
-    private MusicManager musicManager;
+
+    //Action used to update sound & ui based on the changing gamestate
+    public static event System.Action<GameState> GameStateChanged;
 
     //<A>collection of enemies
     // Use this for initialization
     void Start () {
         ShipController.OnPlayerDeath += EndGame;
+        EnemyController.OnEnemyDeath += EnemyDestroyed;
+        GameStateChanged += ChangeGameState;
         ship = (GameObject)Instantiate(shipPrefab);
         EndWave();
-
-
     }
 
-    void enemyDestroyed()
+    void EnemyDestroyed()
     {
         enemyCount--;
     }
 
     void shipDestroyed()
     {
-       currentGameState = GameState.ShipDestroyed;
+        GameStateChanged(GameState.ShipDestroyed);
     }
 	
 
@@ -77,18 +78,12 @@ public class GameManager : MonoBehaviour
 	void Update () {
         //Debug key space = Freeze
         if (Input.GetKeyDown(KeyCode.Space)) Freeze(2.0f);
-               
-        if(frozen && Time.time >= freezeTime)
-        { 
-            foreach (GameObject go in enemyList)
-            {
-                go.GetComponent<EnemyController>().Frozen = false;
-            }
 
-            bp.UnFreezeBullets();
+        //Check if things are frozen and if they need to be unfrozen based on freeze time.
+        if (frozen && Time.time >= freezeTime)
+        {
+            UnFreeze();
         }
-
-
         switch (currentGameState)
         {
             case GameState.BetweenWaves:
@@ -99,7 +94,6 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.InWave:
                     UpdateWave();
-                if(ship.GetComponent<ShipController>().Health<50) musicManager.UpdateMusic(MusicState.InGameIntense);
                 break;
             case GameState.Paused:
                 break;
@@ -120,7 +114,6 @@ public class GameManager : MonoBehaviour
         if(enemyCount <= 0)
         {
             EndWave();
-          
         }
         else
         {
@@ -129,14 +122,12 @@ public class GameManager : MonoBehaviour
                 ec.GetComponent<EnemyController>().EnemyFunctions();
             }
         }
-
     }
 
     void EndWave()
     {
         nextWaveTime = Time.time + timeBetweenWavesSeconds;
-        currentGameState = GameState.BetweenWaves;
-        musicManager.UpdateMusic(MusicState.MainMenu);
+        GameStateChanged(GameState.BetweenWaves);
     }
 
     void NextWave()
@@ -157,40 +148,74 @@ public class GameManager : MonoBehaviour
             ec.Bp = bp;
             go.transform.parent = gameObject.transform;
             enemyList.Add(go);
-            musicManager.UpdateMusic(MusicState.InGame);
+         
         }
 
         foreach (GameObject enemy in enemyList)
         {
-             enemy.transform.position = ship.transform.position + new Vector3(Random.Range(spawnRangeMin, spawnWaveMax), Random.Range(spawnRangeMin, spawnWaveMax),0);
+             enemy.transform.position = ship.transform.position + GetRandomSpawnPosition();
              enemy.SetActive(true);
-            //Reset Enemy values - health, position, etc
+            //Enemy values are reset when destroyed.
         }
         enemyCount = enemyList.Count;
-        currentGameState = GameState.InWave;
+        GameStateChanged(GameState.InWave);
 
     }
+    Vector3 GetRandomSpawnPosition()
+    {
+        //Get random value between the give distances
+        int x = Random.Range(waveSpawnDistanceFromPlayerMin, waveSpawnDistanceFromPlayerMax);
+        int y = Random.Range(waveSpawnDistanceFromPlayerMin, waveSpawnDistanceFromPlayerMax);
+        //Flip a coin and invert the x value.
+        if (Random.Range(0, 1) == 1)
+        {
+            x = -x;
+        }
+        //Flip a coin and invert the y value.
+        if (Random.Range(0, 1) == 1)
+        {
+            y = -y;
+        }
+
+        return new Vector3(x, y, 0);
+    }
+    private void ChangeGameState(GameState gameState)
+    {
+        currentGameState = gameState;
+    }
+
     //If Ship Dead 
     void EndGame()
     {
         Debug.Log("End The Game");
     }
 
-
-   public void Freeze(float timeToFreeze)
+    //Freeze all relevent objects (enemy bullets & ships !player ship).
+   public void Freeze()
     {
-        Debug.Log("Frozen | GameManager");
-        freezeTime = Time.time + timeToFreeze;
+        freezeTime = Time.time + ship.GetComponent<ShipController>().Health;
         frozen = true;
 
+        //Freeze Enemy ships.
         foreach (GameObject go in enemyList)
         {
             go.GetComponent<EnemyController>().Frozen = true;
         }
 
+        //Freeze bullets
         bp.FreezeBullets();
+    }
 
-        //Call bulete freeze...!!! < < < > > > 
+    //Unfreezes all frozen objects.
+    void UnFreeze()
+    {
+            //Unfreeze the enemy ships
+            foreach (GameObject go in enemyList)
+            {
+                go.GetComponent<EnemyController>().Frozen = false;
+            }
+            //Unfreeze the bullets
+            bp.UnFreezeBullets();
     }
 
 }

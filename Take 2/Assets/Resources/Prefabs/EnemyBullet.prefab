@@ -25,7 +25,7 @@ GameObject:
   - 114: {fileID: 114000011689771510}
   - 96: {fileID: 96000012439686918}
   m_Layer: 8
-  m_Name: Bullet
+  m_Name: EnemyBullet
   m_TagString: Enemy Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -110,16 +110,16 @@ TrailRenderer:
   m_Colors:
     m_Color[0]:
       serializedVersion: 2
-      rgba: 2029977600
+      rgba: 2013266175
     m_Color[1]:
       serializedVersion: 2
-      rgba: 1694433280
+      rgba: 1677721855
     m_Color[2]:
       serializedVersion: 2
-      rgba: 1355284480
+      rgba: 1342177480
     m_Color[3]:
       serializedVersion: 2
-      rgba: 1017118720
+      rgba: 1006633120
     m_Color[4]:
       serializedVersion: 2
       rgba: 16777215
@@ -165,7 +165,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: aab5ff891dd0e09449c20f5bcabbad8c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4e598e219acd1b84885313bbec661285, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

@@ -29,9 +29,10 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private const float timeBetweenWavesSeconds = 10.0f;
     [SerializeField]
-    private int spawnRangeMin = -30;
+    private int waveSpawnDistanceFromPlayerMin = 10;
     [SerializeField]
-    private int spawnWaveMax = 30;
+    private int waveSpawnDistanceFromPlayerMax = 30;
+
 
     private float nextWaveTime;
     [SerializeField]
@@ -57,6 +58,7 @@ public class GameManager : MonoBehaviour
     void Start () {
         ShipController.OnPlayerDeath += EndGame;
         EnemyController.OnEnemyDeath += EnemyDestroyed;
+        GameStateChanged += ChangeGameState;
         ship = (GameObject)Instantiate(shipPrefab);
         EndWave();
     }
@@ -68,8 +70,7 @@ public class GameManager : MonoBehaviour
 
     void shipDestroyed()
     {
-       currentGameState = GameState.ShipDestroyed;
-        GameStateChanged(currentGameState);
+        GameStateChanged(GameState.ShipDestroyed);
     }
 	
 
@@ -126,8 +127,7 @@ public class GameManager : MonoBehaviour
     void EndWave()
     {
         nextWaveTime = Time.time + timeBetweenWavesSeconds;
-        currentGameState = GameState.BetweenWaves;
-        GameStateChanged(currentGameState);
+        GameStateChanged(GameState.BetweenWaves);
     }
 
     void NextWave()
@@ -153,15 +153,37 @@ public class GameManager : MonoBehaviour
 
         foreach (GameObject enemy in enemyList)
         {
-             enemy.transform.position = ship.transform.position + new Vector3(Random.Range(spawnRangeMin, spawnWaveMax), Random.Range(spawnRangeMin, spawnWaveMax),0);
+             enemy.transform.position = ship.transform.position + GetRandomSpawnPosition();
              enemy.SetActive(true);
-            //Reset Enemy values - health, position, etc
+            //Enemy values are reset when destroyed.
         }
         enemyCount = enemyList.Count;
-        currentGameState = GameState.InWave;
-        GameStateChanged(currentGameState);
+        GameStateChanged(GameState.InWave);
 
     }
+    Vector3 GetRandomSpawnPosition()
+    {
+        //Get random value between the give distances
+        int x = Random.Range(waveSpawnDistanceFromPlayerMin, waveSpawnDistanceFromPlayerMax);
+        int y = Random.Range(waveSpawnDistanceFromPlayerMin, waveSpawnDistanceFromPlayerMax);
+        //Flip a coin and invert the x value.
+        if (Random.Range(0, 1) == 1)
+        {
+            x = -x;
+        }
+        //Flip a coin and invert the y value.
+        if (Random.Range(0, 1) == 1)
+        {
+            y = -y;
+        }
+
+        return new Vector3(x, y, 0);
+    }
+    private void ChangeGameState(GameState gameState)
+    {
+        currentGameState = gameState;
+    }
+
     //If Ship Dead 
     void EndGame()
     {

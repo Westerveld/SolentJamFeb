@@ -13,8 +13,8 @@ enum CurrentRoom
 public class PlayerController : MonoBehaviour {
 
     [SerializeField]
-    private string controller;
-    public string Controller
+    private int controller;
+    public int Controller
     {
         set { controller = value; }
         get { return controller; }
@@ -103,7 +103,7 @@ public class PlayerController : MonoBehaviour {
         {
             case CurrentRoom.Engine:
                 Rooms[1].gameObject.GetComponent<RoomManager>().Empty = true;
-                engine.Joystick = null;
+                engine.Joystick = 0;
                 engine.DisableFlame();
                 break;
             case CurrentRoom.Freeze:
@@ -112,11 +112,11 @@ public class PlayerController : MonoBehaviour {
                 break;
             case CurrentRoom.Turret:
                 Rooms[3].gameObject.GetComponent<RoomManager>().Empty = true;
-                gun.Joystick = null;
+                gun.Joystick = 0;
                 break;
             case CurrentRoom.Shield:
                 Rooms[4].gameObject.GetComponent<RoomManager>().Empty = true;
-                shield.Joystick = null;
+                shield.Joystick = 0;
                 break;
             default:
                 break;

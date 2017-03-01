@@ -22,7 +22,7 @@ public class GunController : ComponentController {
 
     protected override void Activate()
     {
-        if (joystick != "")
+        if (joystick > 0)
         {
             if (Input.GetAxis("Activate" + joystick) > 0)
             {

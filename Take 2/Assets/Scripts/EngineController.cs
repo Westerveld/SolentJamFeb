@@ -10,7 +10,7 @@ public class EngineController : ComponentController {
     protected Animator flame;
     protected override void Activate()
     {
-        if (joystick != "")
+        if (joystick >0)
         {
             if (Input.GetAxis("Activate" + joystick) > 0)
             {

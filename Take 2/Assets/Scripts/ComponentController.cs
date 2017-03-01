@@ -10,8 +10,8 @@ public class ComponentController : MonoBehaviour {
     protected float rotationSpeed;
 
     [SerializeField]
-    protected string joystick;
-    public string Joystick
+    protected int joystick;
+    public int Joystick
     {
         set { joystick = value; }
         get { return joystick; }
@@ -28,7 +28,7 @@ public class ComponentController : MonoBehaviour {
     protected virtual void Rotate()
     {
         //Rotates the object around a fixed point, in this instance it rotates around the ships pivot point
-        if (joystick != "")
+        if (joystick > 0 )
         {
             transform.RotateAround(ship.transform.position, Vector3.back, Input.GetAxis("Horizontal" + joystick) * rotationSpeed * Time.fixedDeltaTime);
         }

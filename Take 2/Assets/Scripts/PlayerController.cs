@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour {
     private GunController gun;
 
     [SerializeField]
-    private GameManager g
+    private GameManager gm;
 
 	// Use this for initialization
 	void Start () {

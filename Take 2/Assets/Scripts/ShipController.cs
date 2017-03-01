@@ -48,7 +48,7 @@ public class ShipController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.tag == "Enemy Projectile")
+        if (col.gameObject.layer == LayerMask.NameToLayer("Enemy Projectiles"))
         {
             //Get bullet damage
             float damage = col.GetComponent<BulletController>().Damage;

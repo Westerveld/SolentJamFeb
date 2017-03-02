@@ -33,9 +33,9 @@ public class ComponentController : MonoBehaviour
     protected virtual void Rotate()
     {
         //Rotates the object around a fixed point, in this instance it rotates around the ships pivot point
-        if (joystick > 0 )
+        if (Joystick > 0 )
         {
-            transform.RotateAround(ship.transform.position, Vector3.back, Input.GetAxis("Horizontal" + joystick) * rotationSpeed * Time.fixedDeltaTime);
+            transform.RotateAround(ship.transform.position, Vector3.back, Input.GetAxis("Horizontal" + Joystick) * rotationSpeed * Time.fixedDeltaTime);
         }
 
     }

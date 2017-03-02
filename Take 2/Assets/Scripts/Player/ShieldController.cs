@@ -7,7 +7,6 @@ public class ShieldController : ComponentController {
     {
         if(col.gameObject.layer == LayerMask.NameToLayer("Enemy Projectiles"))
         {
-            print("hit layer " + gameObject.layer.ToString());
             col.gameObject.SetActive(false);
         }
     }

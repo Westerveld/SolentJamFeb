@@ -10,9 +10,9 @@ public class EngineController : ComponentController {
     protected Animator flame;
     protected override void Activate()
     {
-        if (joystick >0)
+        if (Joystick > 0)
         {
-            if (Input.GetAxis("Activate" + joystick) > 0)
+            if (Input.GetAxis("Activate" + Joystick) > 0)
             {
                 Rigidbody2D rigidbody = ship.GetComponent<Rigidbody2D>();
                 rigidbody.AddForce((ship.transform.position - transform.position).normalized * force * Time.fixedDeltaTime, ForceMode2D.Force);

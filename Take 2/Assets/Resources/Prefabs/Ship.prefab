@@ -1401,14 +1401,12 @@ MonoBehaviour:
   maxHealth: 5000000
   health: 0
   freezeCharges: 1
+  startFreezeDuration: 2
   freezeDuration: 2
   maxSpeed: 100
+  rateOfFire: 0.25
   damage: 2
   shipCamera: {fileID: 1000011689403116}
-  blurSprites:
-  - {fileID: 1000010107020172}
-  - {fileID: 1000012582956356}
-  - {fileID: 1000014106127452}
 --- !u!114 &114000011151709182
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1463,7 +1461,6 @@ MonoBehaviour:
   - {fileID: 4000013658861992}
   playerBulletPool: {fileID: 114000010339377142}
   nextShot: 0
-  shotInterval: 0.25
   bulletSpeed: 25
   currentTurret: 0
 --- !u!114 &114000012216113216

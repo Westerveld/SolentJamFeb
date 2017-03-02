@@ -8,9 +8,9 @@ public class FreezeController : ComponentController
     private float freezeDelay = 0.5f;
 	protected override void Activate()
     {
-        if (joystick > 0)
+        if (Joystick > 0)
         {
-            if (Input.GetAxis("Activate" + joystick) > 0 && shipController.FreezeCharges > 0 && Time.time > freezeTime)
+            if (Input.GetAxis("Activate" + Joystick) > 0 && shipController.FreezeCharges > 0 && Time.time > freezeTime)
             {
                 freezeTime = Time.time + freezeDelay;
                 OnFreeze(shipController.FreezeDuration);

@@ -178,7 +178,6 @@ public class GameManager : MonoBehaviour
             //Enemy values are reset when destroyed.
         }
         enemyCount = enemyList.Count;
-        print(enemyCount);
         OnGameStateChanged(GameState.InWave);
 
     }

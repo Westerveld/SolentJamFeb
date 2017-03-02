@@ -19,10 +19,11 @@ public class GunController : ComponentController {
 
     protected override void Activate()
     {
-        if (joystick > 0)
+        if (Joystick > 0)
         {
-            if (Input.GetAxis("Activate" + joystick) > 0)
+            if (Input.GetAxis("Activate" + Joystick) > 0)
             {
+                print("Joystick " + Joystick);
                 if (Time.time > nextShot)
                 {
                     nextShot = Time.time + shipController.RateOfFire;

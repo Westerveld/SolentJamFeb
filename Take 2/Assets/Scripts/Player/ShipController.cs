@@ -53,6 +53,9 @@ public class ShipController : MonoBehaviour
     [SerializeField]
     private GameObject shipCamera;
 
+    [SerializeField]
+    private GameObject[] blurSprites;
+
     public static event System.Action OnPlayerDeath;
     public static event System.Action<float> OnPlayerHit;
     public static event System.Action<float> OnFreezeChargeUsed;
@@ -60,6 +63,14 @@ public class ShipController : MonoBehaviour
     void Start()
     {
         Health = maxHealth;
+    }
+
+    void FixedUpdate()
+    {
+        for (int i = 0; i < blurSprites.Length; i++)
+        {
+            blurSprites[i].transform.localPosition = -GetComponent<Rigidbody2D>().velocity / 20f * i;
+        }
     }
 
     void OnTriggerEnter2D(Collider2D col)

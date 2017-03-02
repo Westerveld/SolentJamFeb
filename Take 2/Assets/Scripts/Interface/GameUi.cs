@@ -26,6 +26,7 @@ public class GameUi : MonoBehaviour
         GameManager.OnScoreChanged -= UpdateScoreDisplay;
         ShipController.OnPlayerHit -= UpdateHealthDisplay;
         GameManager.OnWaveChanged -= UpdateWaveDisplay;
+        ShipController.OnFreezeChargeUsed -= UpdateFreezeDisplay;
     }
 
     void UpdateScoreDisplay(int score)

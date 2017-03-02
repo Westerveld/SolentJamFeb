@@ -44,7 +44,6 @@ public class EnemyController : MonoBehaviour {
 
     [SerializeField]
     private float shotInterval;
-
     [SerializeField]
     private GameObject bulletPrefab;
 
@@ -168,8 +167,19 @@ public class EnemyController : MonoBehaviour {
     {
         health = maxHealth;
         this.gameObject.SetActive(false);
-
     }
     
+
+    void RandomValues()
+    {
+        rotationSpeed = Random.Range(20, 40);
+        if (Random.Range(0,1) == 1)
+        {
+            rotationSpeed = -rotationSpeed;
+        }
+        shotInterval = Random.Range(0.5f, 1.5f);
+        distanceToShip = Random.Range(6, 15);
+        moveSpeed = Random.Range(3, 6);
+    }
 
 }

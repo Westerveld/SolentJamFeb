@@ -10,13 +10,22 @@ public class EnemyController : MonoBehaviour {
         set { ship = value; }
         get { return ship;  }
     }
+
     [SerializeField]
-    private float damage;
-    public float Damage
+    private uint damage;
+    public uint Damage
     {
         set { damage = value; }
         get { return damage; }
     }
+
+    private int score;
+    public int Score
+    {
+        set { score = value; }
+        get { return score; }
+    }
+
     private const uint maxHealth = 10;
     private uint health = maxHealth;
 
@@ -64,7 +73,7 @@ public class EnemyController : MonoBehaviour {
         }
     }
 
-    public static event System.Action OnEnemyDeath;
+    public static event System.Action<int> OnEnemyDeath;
     public void EnemyFunctions()
     {
         if(!frozen)
@@ -72,6 +81,7 @@ public class EnemyController : MonoBehaviour {
             Move();
             Rotate();
             Shoot();
+            CheckHealth();
         }
     }
     
@@ -117,8 +127,9 @@ public class EnemyController : MonoBehaviour {
             //ToDo:
             //Enemy Colliding with PlayerProjectile
             //Return to object pool
-            col.gameObject.SetActive(false);
+            health -= col.gameObject.GetComponent<BulletController>().Damage;
             //Add score to game manager
+
             //Return enemy to pool
 
         }
@@ -135,6 +146,14 @@ public class EnemyController : MonoBehaviour {
         health = maxHealth;
         this.gameObject.SetActive(false);
 
+    }
+
+    void CheckHealth()
+    {
+        if(health < 0)
+        {
+            OnEnemyDeath(score);
+        }
     }
 
 }

@@ -29,8 +29,8 @@ public class ShipController : MonoBehaviour
     }
 
     [SerializeField]
-    private float damage;
-    public float Damage
+    private uint damage;
+    public uint Damage
     {
         set { damage = value; }
         get { return damage; }

@@ -8,7 +8,8 @@ public enum GameState
     InWave,
     Paused,
     ShipDestroyed,
-    NextWave
+    NextWave,
+    EndGame
 }
 
 public class GameManager : MonoBehaviour
@@ -60,6 +61,7 @@ public class GameManager : MonoBehaviour
     public static event System.Action<int> OnScoreChanged;
     public static event System.Action<int> OnWaveChanged;
 
+    bool gameOver = false;
     //<A>collection of enemies
     // Use this for initialization
     void Start()
@@ -73,7 +75,7 @@ public class GameManager : MonoBehaviour
         FreezeController.OnFreeze += OnFreeze;
     }
 
-    void OnDestroy()
+    void OnDestroy() 
     {
         ShipController.OnPlayerDeath -= EndGame;
         EnemyController.OnEnemyDeath -= OnEnemyDestroyed;
@@ -93,30 +95,34 @@ public class GameManager : MonoBehaviour
 	// Update is called once per frame
 	void Update()
     {
-        switch (currentGameState)
-        {
-            case GameState.BetweenWaves:
-                if (Time.time > nextWaveTime)
-                {
-                    currentGameState = GameState.NextWave;
-                }
-                break;
-            case GameState.InWave:
-                    UpdateWave();
-                break;
-            case GameState.Paused:
-                break;
-            case GameState.ShipDestroyed:
-                EndGame();
-                break;
-            case GameState.NextWave:
-                NextWave();
-                break;
-            default:
-                break;
+        if (!gameOver)
+        { 
+            switch (currentGameState)
+            {
+                case GameState.BetweenWaves:
+                    if (Time.time > nextWaveTime)
+                    {
+                        currentGameState = GameState.NextWave;
+                    }
+                    break;
+                case GameState.InWave:
+                        UpdateWave();
+                    break;
+                case GameState.Paused:
+                    break;
+                case GameState.ShipDestroyed:
+                    EndGame();
+                    break;
+                case GameState.NextWave:
+                    NextWave();
+                    break;
+                case GameState.EndGame:
+                    break;
+                default:
+                    break;
+            }
         }
-
-	}
+    }
 
     void UpdateWave()
     {
@@ -202,10 +208,12 @@ public class GameManager : MonoBehaviour
     //If Ship Dead 
     void EndGame()
     {
+        gameOver = true;
         PlayerPrefs.SetInt("FinalScore", score);
         PlayerPrefs.Save();
         Time.timeScale = 0;
         SceneManager.LoadScene("EndScreen", LoadSceneMode.Additive);
+        OnGameStateChanged(GameState.ShipDestroyed);
     }
 
     void OnFreeze(float freezeDuration)
@@ -219,7 +227,6 @@ public class GameManager : MonoBehaviour
     //Freeze all relevent objects (enemy bullets & ships !player ship).
     IEnumerator Freeze(float freezeDuration)
     {
-        Debug.Log("Thing");
         frozen = true;
 
         //Freeze Enemy ships.

@@ -11,7 +11,7 @@ public class GameUi : MonoBehaviour
     [SerializeField]
     private Text waveNumberText;
     [SerializeField]
-    private Image frozenIcon;
+    private Image[] frozenIcons;
 
     // Use this for initialization
     void Start()
@@ -42,9 +42,21 @@ public class GameUi : MonoBehaviour
         waveNumberText.text = waveNumber.ToString();
     }
 
-    void UpdateFreezeDisplay(float freezeDuration)
-    {       Color color = new Color(1, 1, 1, 0.5f);
-            frozenIcon.color = color;
+    void UpdateFreezeDisplay(int freezeCharges)
+    {
+        int i = 0;
+        foreach (Image image in frozenIcons)
+        {
+            if(i<freezeCharges)
+            {
+               image.gameObject.SetActive(true);
+            }
+            else
+            {
+                image.gameObject.SetActive(false);
+            }
+            i++;
+        }
     }
 
 }

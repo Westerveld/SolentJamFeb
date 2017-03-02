@@ -29,10 +29,11 @@ public class GunController : ComponentController {
                 if (Time.time > nextShot)
                 {
                     nextShot = Time.time + shotInterval;
-                    Vector2 direction = ship.transform.position - transform.position;
+                    Vector2 direction = transform.position - ship.transform.position;
                     direction.Normalize();
+                    Vector3 shipVelocity = Vector3.Project(ship.GetComponent<Rigidbody2D>().velocity, direction);
 
-                    playerBulletPool.ActivateBullet(bulletSpawn[currentTurret ? 0 : 1].position, -bulletSpeed, direction, ship.GetComponent<ShipController>().Damage);
+                    playerBulletPool.ActivateBullet(bulletSpawn[currentTurret ? 0 : 1].position, bulletSpeed + shipVelocity.magnitude, direction, ship.GetComponent<ShipController>().Damage);
                     gameObject.GetComponent<Animator>().SetTrigger("Shot");
                     currentTurret = !currentTurret;
                 }

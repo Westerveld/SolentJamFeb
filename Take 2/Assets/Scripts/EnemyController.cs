@@ -75,6 +75,8 @@ public class EnemyController : MonoBehaviour {
     private bool frozen;
 
     private bool dead;
+
+    private bool deathAnimation; //Used to stop the coroutine for being called consistantly
     public bool Dead
     {
         set { dead = value; }
@@ -100,6 +102,9 @@ public class EnemyController : MonoBehaviour {
         }
     }
 
+    [SerializeField]
+    private Animator animationController;
+
     public static event System.Action<int> OnEnemyDeath;
     public void EnemyFunctions()
     {
@@ -110,6 +115,11 @@ public class EnemyController : MonoBehaviour {
                 Move();
                 Rotate();
                 Shoot();
+            }
+            if(deathAnimation)
+            {
+                deathAnimation = false;
+                StartCoroutine(Die());
             }
         }
     }
@@ -145,10 +155,11 @@ public class EnemyController : MonoBehaviour {
             direction.Normalize();
 
             float distance = Vector2.Distance(ship.transform.position, transform.position);
-            if (distance > distanceToShoot)
+            if (distance < distanceToShoot)
             {
                 nextShot = Time.time + shotInterval;
                 bp.ActivateBullet(bulletSpawn.position, bulletSpeed, direction, damage);
+                animationController.SetTrigger("shot");
             }
         }
     }
@@ -169,9 +180,9 @@ public class EnemyController : MonoBehaviour {
             else
             {
                 health = 0;
-                OnEnemyDeath(score);
-                gameObject.SetActive(false);
                 dead = true;
+                gameObject.GetComponent<PolygonCollider2D>().enabled = false;
+                deathAnimation = true;
             }
             col.gameObject.SetActive(false);
             //Add score to game manager
@@ -207,4 +218,13 @@ public class EnemyController : MonoBehaviour {
         distanceToShoot = distanceToShip * 2f;
     }
 
+    IEnumerator Die()
+    {
+        OnEnemyDeath(score);
+        dead = true;
+        animationController.SetTrigger("died");
+        yield return new WaitForSeconds(.8f);
+        gameObject.GetComponent<PolygonCollider2D>().enabled = true;
+        gameObject.SetActive(false);
+    }
 }

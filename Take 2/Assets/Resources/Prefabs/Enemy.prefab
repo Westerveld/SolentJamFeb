@@ -132,6 +132,7 @@ MonoBehaviour:
   moveSpeedMax: 6
   shotIntervalMin: 0.5
   shotIntervalMax: 1.5
+  distanceToShoot: 0
   moveSpeed: 4
   nextShot: 1
   shotInterval: 0.75
@@ -139,6 +140,7 @@ MonoBehaviour:
     type: 2}
   bulletSpawn: {fileID: 4000010003899364}
   bulletSpeed: 20
+  animationController: {fileID: 95000011039953746}
 --- !u!212 &212000012767837486
 SpriteRenderer:
   m_ObjectHideFlags: 1

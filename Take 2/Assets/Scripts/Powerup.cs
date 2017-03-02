@@ -19,6 +19,7 @@ public class Powerup : MonoBehaviour {
 
     void Start()
     {
+        
        powerUpType = (PowerUpType)Random.Range(0, (int)PowerUpType.Size);
     }
 }

@@ -25,6 +25,7 @@ public class EnemyController : MonoBehaviour {
         set { score = value; }
         get { return score; }
     }
+  
 
     private const uint maxHealth = 10;
     [SerializeField]
@@ -108,6 +109,11 @@ public class EnemyController : MonoBehaviour {
     [SerializeField]
     private GameObject explosionPrefab;
 
+    [SerializeField]
+    private float dropRate = 5f;
+    [SerializeField]
+    private GameObject powerupPrefab;
+
     public static event System.Action<int> OnEnemyDeath;
     public void EnemyFunctions()
     {
@@ -169,11 +175,9 @@ public class EnemyController : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        print("Hit by " + col.gameObject.name);
-        if(col.gameObject.layer == LayerMask.NameToLayer("Player Projectiles"))
+       if(col.gameObject.layer == LayerMask.NameToLayer("Player Projectiles"))
         {
-            print("Hit by Bullet");
-            //ToDo:
+             //ToDo:
             //Enemy Colliding with PlayerProjectile
             //Return to object pool
             if (col.gameObject.GetComponent<BulletController>().Damage <= health)
@@ -232,5 +236,9 @@ public class EnemyController : MonoBehaviour {
         yield return new WaitForSeconds(.8f);
         gameObject.GetComponent<PolygonCollider2D>().enabled = true;
         gameObject.SetActive(false);
+        if (Random.Range(0,100) < dropRate)
+        {
+            Instantiate(powerupPrefab,transform.position, Quaternion.identity);
+        }
     }
 }

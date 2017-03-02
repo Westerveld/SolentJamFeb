@@ -105,12 +105,14 @@ public class ShipController : MonoBehaviour
         if(col.gameObject.layer == LayerMask.NameToLayer("Powerup"))
         {
             PowerupPickup(col.gameObject.GetComponent<Powerup>().powerUpType);
+            Destroy(col.gameObject);
         }
 
     }
 
     void PowerupPickup(PowerUpType powerUpType)
     {
+        print(powerUpType.ToString());
         switch (powerUpType)
         {
             case PowerUpType.FireRate:

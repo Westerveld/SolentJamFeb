@@ -19,7 +19,7 @@ public class EnemyController : MonoBehaviour {
         get { return damage; }
     }
 
-    private int score;
+    private int score = 10;
     public int Score
     {
         set { score = value; }

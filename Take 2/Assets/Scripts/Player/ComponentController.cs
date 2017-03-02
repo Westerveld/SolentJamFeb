@@ -5,6 +5,7 @@ public class ComponentController : MonoBehaviour
 {
     [SerializeField]
     protected GameObject ship;
+    protected ShipController shipController;
 
     [SerializeField]
     protected float rotationSpeed;
@@ -17,6 +18,10 @@ public class ComponentController : MonoBehaviour
         get { return joystick; }
     }
 
+    void Start()
+    {
+        shipController = ship.GetComponent<ShipController>();
+    }
 	
 	// Update is called once per frame
 	void FixedUpdate()

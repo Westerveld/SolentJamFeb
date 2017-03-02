@@ -56,7 +56,9 @@ public class GameManager : MonoBehaviour
     private List<GameObject> enemyList = new List<GameObject>();
 
     //Action used to update sound & ui based on the changing gamestate
-    public static event System.Action<GameState> GameStateChanged;
+    public static event System.Action<GameState> OnGameStateChanged;
+    public static event System.Action<int> OnScoreChanged;
+    public static event System.Action<int> OnWaveChanged;
 
     //<A>collection of enemies
     // Use this for initialization
@@ -64,7 +66,7 @@ public class GameManager : MonoBehaviour
     {
         ShipController.OnPlayerDeath += EndGame;
         EnemyController.OnEnemyDeath += OnEnemyDestroyed;
-        GameStateChanged += ChangeGameState;
+        OnGameStateChanged += ChangeGameState;
         ship = (GameObject)Instantiate(shipPrefab);
         EndWave();
         Time.timeScale = 1;
@@ -75,7 +77,7 @@ public class GameManager : MonoBehaviour
     {
         ShipController.OnPlayerDeath -= EndGame;
         EnemyController.OnEnemyDeath -= OnEnemyDestroyed;
-        GameStateChanged -= ChangeGameState;
+        OnGameStateChanged -= ChangeGameState;
         FreezeController.OnFreeze -= OnFreeze;
     }
 
@@ -85,6 +87,7 @@ public class GameManager : MonoBehaviour
         score += value;
         enemyCount--;
         print(enemyCount);
+        OnScoreChanged.Invoke(score);
     }
 
 	// Update is called once per frame
@@ -133,13 +136,15 @@ public class GameManager : MonoBehaviour
     void EndWave()
     {
         nextWaveTime = Time.time + timeBetweenWavesSeconds;
-        GameStateChanged(GameState.BetweenWaves);
+        OnGameStateChanged(GameState.BetweenWaves);
     }
 
     void NextWave()
     {
+        
         int startCount = 0;
         waveNumber++;
+        OnWaveChanged.Invoke(waveNumber);
         waveSize = initalWaveSize + waveNumber * waveSizeIncrement;
         if (enemyList.Count < waveSize)
         {
@@ -168,7 +173,7 @@ public class GameManager : MonoBehaviour
         }
         enemyCount = enemyList.Count;
         print(enemyCount);
-        GameStateChanged(GameState.InWave);
+        OnGameStateChanged(GameState.InWave);
 
     }
     Vector3 GetRandomSpawnPosition()
@@ -203,16 +208,16 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("EndScreen", LoadSceneMode.Additive);
     }
 
-    void OnFreeze()
+    void OnFreeze(float freezeDuration)
     {
         if (!frozen)
         {
-            StartCoroutine(Freeze());
+            StartCoroutine(Freeze(freezeDuration));
         }
     }
 
     //Freeze all relevent objects (enemy bullets & ships !player ship).
-    IEnumerator Freeze()
+    IEnumerator Freeze(float freezeDuration)
     {
         Debug.Log("Thing");
         frozen = true;
@@ -226,7 +231,7 @@ public class GameManager : MonoBehaviour
         //Freeze bullets
         bp.FreezeBullets();
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(freezeDuration);
         
         //Unfreeze the enemy ships
         foreach (GameObject go in enemyList)

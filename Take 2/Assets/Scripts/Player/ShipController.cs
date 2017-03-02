@@ -21,6 +21,20 @@ public class ShipController : MonoBehaviour
     }
 
     [SerializeField]
+    private int freezeCharges = 1;
+    public int FreezeCharges
+    {
+        set { freezeCharges = value; }
+        get { return freezeCharges; }
+    }
+    [SerializeField]
+    private float freezeDuration = 2.0f;
+    public float FreezeDuration
+    {
+        set { freezeDuration = value; }
+        get { return freezeDuration; }
+    }
+    [SerializeField]
     private float maxSpeed;
     public float MaxSpeed
     {
@@ -40,6 +54,8 @@ public class ShipController : MonoBehaviour
     private GameObject shipCamera;
 
     public static event System.Action OnPlayerDeath;
+    public static event System.Action<float> OnPlayerHit;
+    public static event System.Action<float> OnFreezeChargeUsed;
 
     void Start()
     {
@@ -55,11 +71,22 @@ public class ShipController : MonoBehaviour
 
             //Remove health from player
             Health = Health - damage;
+            OnPlayerHit.Invoke(Health);
 
             //Destroy Bullet
             col.gameObject.SetActive(false);
 
             StartCoroutine(shipCamera.GetComponent<CameraShake>().Shake());
         }
+    }
+
+    public void UseFreezeCharge()
+    {
+        if(freezeCharges >0)
+        { 
+            FreezeCharges--;
+            OnFreezeChargeUsed.Invoke(freezeDuration);
+        }
+        
     }
 }

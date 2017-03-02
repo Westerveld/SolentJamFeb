@@ -162,6 +162,8 @@ public class GameManager : MonoBehaviour
             enemy.transform.position = ship.transform.position + GetRandomSpawnPosition();
             enemy.SetActive(true);
             enemy.GetComponent<EnemyController>().Dead = false;
+            enemy.GetComponent<EnemyController>().RandomValues();
+
             //Enemy values are reset when destroyed.
         }
         enemyCount = enemyList.Count;
@@ -177,12 +179,12 @@ public class GameManager : MonoBehaviour
         //Flip a coin and invert the x value.
         if (Random.Range(0, 1) == 1)
         {
-            x = -x;
+            x = x*-1;
         }
         //Flip a coin and invert the y value.
         if (Random.Range(0, 1) == 1)
         {
-            y = -y;
+            y = y*-1;
         }
 
         return new Vector3(x, y, 0);

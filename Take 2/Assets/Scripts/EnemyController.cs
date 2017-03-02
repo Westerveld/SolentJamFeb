@@ -170,7 +170,7 @@ public class EnemyController : MonoBehaviour {
     }
     
 
-    void RandomValues()
+   public void RandomValues()
     {
         rotationSpeed = Random.Range(20, 40);
         if (Random.Range(0,1) == 1)

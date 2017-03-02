@@ -27,6 +27,7 @@ public class EnemyController : MonoBehaviour {
     }
 
     private const uint maxHealth = 10;
+    [SerializeField]
     private uint health = maxHealth;
 
     [SerializeField]
@@ -54,6 +55,13 @@ public class EnemyController : MonoBehaviour {
     private float bulletSpeed;
     private bool frozen;
 
+    private bool dead;
+    public bool Dead
+    {
+        set { dead = value; }
+        get { return dead; }
+    }
+
     private BulletPool bp;
     public BulletPool Bp
     {
@@ -77,11 +85,13 @@ public class EnemyController : MonoBehaviour {
     public void EnemyFunctions()
     {
         if(!frozen)
-        { 
-            Move();
-            Rotate();
-            Shoot();
-            CheckHealth();
+        {
+            if (!dead)
+            {
+                Move();
+                Rotate();
+                Shoot();
+            }
         }
     }
     
@@ -122,12 +132,25 @@ public class EnemyController : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if(col.gameObject.layer == LayerMask.NameToLayer("PlayerProjectile"))
+        print("Hit by " + col.gameObject.name);
+        if(col.gameObject.layer == LayerMask.NameToLayer("Player Projectiles"))
         {
+            print("Hit by Bullet");
             //ToDo:
             //Enemy Colliding with PlayerProjectile
             //Return to object pool
-            health -= col.gameObject.GetComponent<BulletController>().Damage;
+            if (col.gameObject.GetComponent<BulletController>().Damage <= health)
+            {
+                health -= col.gameObject.GetComponent<BulletController>().Damage;
+            }
+            else
+            {
+                health = 0;
+                OnEnemyDeath(score);
+                gameObject.SetActive(false);
+                dead = true;
+            }
+            col.gameObject.SetActive(false);
             //Add score to game manager
 
             //Return enemy to pool
@@ -147,13 +170,6 @@ public class EnemyController : MonoBehaviour {
         this.gameObject.SetActive(false);
 
     }
-
-    void CheckHealth()
-    {
-        if(health < 0)
-        {
-            OnEnemyDeath(score);
-        }
-    }
+    
 
 }

@@ -81,8 +81,10 @@ public class GameManager : MonoBehaviour
 
     void OnEnemyDestroyed(int value)
     {
+        print("Enemy Died");
         score += value;
         enemyCount--;
+        print(enemyCount);
     }
 
 	// Update is called once per frame
@@ -146,7 +148,7 @@ public class GameManager : MonoBehaviour
        
         for (int i = startCount; i < waveSize; i++ )
         {
-          GameObject go =  (GameObject)Instantiate(enemyPrefab);
+            GameObject go =  (GameObject)Instantiate(enemyPrefab);
             EnemyController ec = go.GetComponent<EnemyController>();
             ec.Ship = ship;
             ec.Bp = bp;
@@ -157,11 +159,13 @@ public class GameManager : MonoBehaviour
 
         foreach (GameObject enemy in enemyList)
         {
-             enemy.transform.position = ship.transform.position + GetRandomSpawnPosition();
-             enemy.SetActive(true);
+            enemy.transform.position = ship.transform.position + GetRandomSpawnPosition();
+            enemy.SetActive(true);
+            enemy.GetComponent<EnemyController>().Dead = false;
             //Enemy values are reset when destroyed.
         }
         enemyCount = enemyList.Count;
+        print(enemyCount);
         GameStateChanged(GameState.InWave);
 
     }

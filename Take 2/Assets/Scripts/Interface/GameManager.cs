@@ -177,14 +177,14 @@ public class GameManager : MonoBehaviour
         int x = Random.Range(waveSpawnDistanceFromPlayerMin, waveSpawnDistanceFromPlayerMax);
         int y = Random.Range(waveSpawnDistanceFromPlayerMin, waveSpawnDistanceFromPlayerMax);
         //Flip a coin and invert the x value.
-        if (Random.Range(0, 1) == 1)
+        if (Random.Range(0, 2) == 1)
         {
-            x = x*-1;
+            x = -x;
         }
         //Flip a coin and invert the y value.
-        if (Random.Range(0, 1) == 1)
+        if (Random.Range(0, 2) == 1)
         {
-            y = y*-1;
+            y = -y;
         }
 
         return new Vector3(x, y, 0);

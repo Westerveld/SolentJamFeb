@@ -22,7 +22,7 @@ public class BulletPool : MonoBehaviour {
     }
 
     //Start position
-    public void ActivateBullet(Vector2 startPos, float velocity, Vector2 direction, float damage)
+    public void ActivateBullet(Vector2 startPos, float velocity, Vector2 direction, uint damage)
     {
         foreach (GameObject bullet in bulletList)
         {

@@ -110,7 +110,7 @@ public class PlayerController : MonoBehaviour
                 engine.DisableFlame();
                 break;
             case CurrentRoom.Freeze:
-                Rooms[2].gameObject.GetComponent<RoomManager>().Empty = true;
+                Rooms[4].gameObject.GetComponent<RoomManager>().Empty = true;
                 freeze.Joystick = 0;
                 break;
             case CurrentRoom.Turret:
@@ -118,7 +118,7 @@ public class PlayerController : MonoBehaviour
                 gun.Joystick = 0;
                 break;
             case CurrentRoom.Shield:
-                Rooms[4].gameObject.GetComponent<RoomManager>().Empty = true;
+                Rooms[2].gameObject.GetComponent<RoomManager>().Empty = true;
                 shield.Joystick = 0;
                 break;
             default:

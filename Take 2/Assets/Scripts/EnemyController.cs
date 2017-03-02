@@ -105,6 +105,9 @@ public class EnemyController : MonoBehaviour {
     [SerializeField]
     private Animator animationController;
 
+    [SerializeField]
+    private GameObject explosionPrefab;
+
     public static event System.Action<int> OnEnemyDeath;
     public void EnemyFunctions()
     {
@@ -189,6 +192,9 @@ public class EnemyController : MonoBehaviour {
 
             //Return enemy to pool
 
+            GameObject explosion = Instantiate(explosionPrefab);
+            explosion.transform.position = transform.position;
+            Destroy(explosion, explosion.GetComponent<ParticleSystem>().duration);
         }
         if(col.gameObject.tag == "Asteroid")
         {

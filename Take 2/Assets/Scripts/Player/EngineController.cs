@@ -12,7 +12,7 @@ public class EngineController : ComponentController {
     {
         if (Joystick > 0)
         {
-            if (Input.GetAxis("Activate" + Joystick) > 0)
+            if (Input.GetButton("Activate" + Joystick))
             {
                 Rigidbody2D rigidbody = ship.GetComponent<Rigidbody2D>();
                 rigidbody.AddForce((ship.transform.position - transform.position).normalized * force * Time.fixedDeltaTime, ForceMode2D.Force);

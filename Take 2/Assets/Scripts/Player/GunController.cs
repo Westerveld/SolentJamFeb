@@ -21,7 +21,7 @@ public class GunController : ComponentController {
     {
         if (Joystick > 0)
         {
-            if (Input.GetAxis("Activate" + Joystick) > 0)
+            if (Input.GetButton("Activate" + Joystick))
             {
                 print("Joystick " + Joystick);
                 if (Time.time > nextShot)

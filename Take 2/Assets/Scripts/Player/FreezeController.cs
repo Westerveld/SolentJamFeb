@@ -10,7 +10,7 @@ public class FreezeController : ComponentController
     {
         if (Joystick > 0)
         {
-            if (Input.GetAxis("Activate" + Joystick) > 0 && shipController.FreezeCharges > 0 && Time.time > freezeTime)
+            if (Input.GetButtonDown("Activate" + Joystick)&& shipController.FreezeCharges > 0 && Time.time > freezeTime)
             {
                 freezeTime = Time.time + freezeDelay;
                 OnFreeze(shipController.FreezeDuration);

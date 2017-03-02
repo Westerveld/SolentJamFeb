@@ -63,6 +63,8 @@ public class ShipController : MonoBehaviour
         set { damage = value; }
         get { return damage; }
     }
+    [SerializeField]
+    private GameObject[] blurSprites;
 
     [SerializeField]
     private GameObject shipCamera;
@@ -78,6 +80,14 @@ public class ShipController : MonoBehaviour
         //UpdateUi with default values
         OnPlayerHit.Invoke(health);
         OnFreezeChargeUsed(freezeCharges);
+    }
+
+    void FixedUpdate()
+    {
+        for (int i = 0; i < blurSprites.Length; i++)
+        {
+            blurSprites[i].transform.localPosition = -GetComponent<Rigidbody2D>().velocity / 20f * i;
+        }
     }
 
     void OnTriggerEnter2D(Collider2D col)

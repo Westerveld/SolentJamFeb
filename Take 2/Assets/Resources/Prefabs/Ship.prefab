@@ -1406,6 +1406,10 @@ MonoBehaviour:
   maxSpeed: 100
   rateOfFire: 0.25
   damage: 2
+  blurSprites:
+  - {fileID: 1000010107020172}
+  - {fileID: 1000012582956356}
+  - {fileID: 1000014106127452}
   shipCamera: {fileID: 1000011689403116}
 --- !u!114 &114000011151709182
 MonoBehaviour:

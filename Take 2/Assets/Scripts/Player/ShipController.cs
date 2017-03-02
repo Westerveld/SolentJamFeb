@@ -125,9 +125,9 @@ public class ShipController : MonoBehaviour
         print(powerUpType.ToString());
         switch (powerUpType)
         {
-            case PowerUpType.FireRate:
+            /*case PowerUpType.FireRate:
                 RateOfFire -= baseRateOfFire;
-                break;
+                break;*/
             case PowerUpType.TurretDamage:
                 Damage += baseDamage;
                 break;

@@ -37,6 +37,23 @@ public class EnemyController : MonoBehaviour {
     private float rotationSpeed;
 
     [SerializeField]
+    private float rotationSpeedMin;
+    [SerializeField]
+    private float rotationSpeedMax;
+    [SerializeField]
+    private float distanceMin;
+    [SerializeField]
+    private float distanceMax;
+    [SerializeField]
+    private float moveSpeedMin;
+    [SerializeField]
+    private float moveSpeedMax;
+    [SerializeField]
+    private float shotIntervalMin;
+    [SerializeField]
+    private float shotIntervalMax;
+
+    [SerializeField]
     private float moveSpeed;
 
     [SerializeField]
@@ -172,14 +189,14 @@ public class EnemyController : MonoBehaviour {
 
    public void RandomValues()
     {
-        rotationSpeed = Random.Range(20, 40);
-        if (Random.Range(0,1) == 1)
+        rotationSpeed = Random.Range(rotationSpeedMin, rotationSpeedMax);
+        if (Random.Range(0, 2) == 1)
         {
             rotationSpeed = -rotationSpeed;
         }
-        shotInterval = Random.Range(0.5f, 1.5f);
-        distanceToShip = Random.Range(6, 15);
-        moveSpeed = Random.Range(3, 6);
+        shotInterval = Random.Range(shotIntervalMin, shotIntervalMax);
+        distanceToShip = Random.Range(distanceMin, distanceMax);
+        moveSpeed = Random.Range(moveSpeedMin, moveSpeedMax);
     }
 
 }

@@ -12,9 +12,6 @@ public class GunController : ComponentController {
     private float nextShot;
 
     [SerializeField]
-    private float shotInterval;
-
-    [SerializeField]
     private float bulletSpeed;
 
     [SerializeField]
@@ -28,12 +25,12 @@ public class GunController : ComponentController {
             {
                 if (Time.time > nextShot)
                 {
-                    nextShot = Time.time + shotInterval;
+                    nextShot = Time.time + shipController.RateOfFire;
                     Vector2 direction = transform.position - ship.transform.position;
                     direction.Normalize();
                     Vector3 shipVelocity = Vector3.Project(ship.GetComponent<Rigidbody2D>().velocity, direction);
 
-                    playerBulletPool.ActivateBullet(bulletSpawn[currentTurret ? 0 : 1].position, bulletSpeed + shipVelocity.magnitude, direction, ship.GetComponent<ShipController>().Damage);
+                    playerBulletPool.ActivateBullet(bulletSpawn[currentTurret ? 0 : 1].position, bulletSpeed + shipVelocity.magnitude, direction, shipController.Damage);
                     gameObject.GetComponent<Animator>().SetTrigger("Shot");
                     currentTurret = !currentTurret;
                 }

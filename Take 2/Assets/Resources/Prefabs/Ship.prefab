@@ -783,8 +783,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d45825b3114f524dbae281c05b48661, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 5000000
+  maxHealth: 100
   health: 0
+  freezeCharges: 1
+  maxFreezeCharges: 3
+  freezeDuration: 2
   maxSpeed: 100
   damage: 2
   shipCamera: {fileID: 1000011689403116}

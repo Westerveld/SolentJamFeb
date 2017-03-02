@@ -12,16 +12,15 @@ public class ShipController : MonoBehaviour
         set
         {
             health = Mathf.Clamp(value, 0f, maxHealth);
-            if (health == 0f)
-            {
-                OnPlayerDeath();
-            }
+           
         }
         get { return health; }
     }
+    private bool criticalCondition;
 
     [SerializeField]
     private int freezeCharges = 1;
+    private int maxFreezeCharges = 5;
     public int FreezeCharges
     {
         set { freezeCharges = value; }
@@ -52,27 +51,36 @@ public class ShipController : MonoBehaviour
 
     [SerializeField]
     private GameObject shipCamera;
-
+    private bool isDead = false;
     public static event System.Action OnPlayerDeath;
     public static event System.Action<float> OnPlayerHit;
-    public static event System.Action<float> OnFreezeChargeUsed;
+    public static event System.Action<int> OnFreezeChargeUsed;
+    public static event System.Action<bool> OnShipCritical;
 
     void Start()
     {
         Health = maxHealth;
+        //UpdateUi with default values
+        OnPlayerHit.Invoke(health);
+        OnFreezeChargeUsed(freezeCharges);
     }
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.layer == LayerMask.NameToLayer("Enemy Projectiles"))
+        if (col.gameObject.layer == LayerMask.NameToLayer("Enemy Projectiles") && !isDead)
         {
-            //Get bullet damage
+             //Get bullet damage
             float damage = col.GetComponent<BulletController>().Damage;
 
             //Remove health from player
-            Health = Health - damage;
+            Health -= damage;
+            if (Health <= 0f)
+            {
+                isDead = true;
+                OnPlayerDeath.Invoke();
+            }
             OnPlayerHit.Invoke(Health);
-
+            CheckCriticalCondition();
             //Destroy Bullet
             col.gameObject.SetActive(false);
 
@@ -80,12 +88,29 @@ public class ShipController : MonoBehaviour
         }
     }
 
+    void CheckCriticalCondition()
+    {
+        if (health < maxHealth * 0.2f)
+        {
+            criticalCondition = true;
+            OnShipCritical.Invoke(criticalCondition);
+        }
+        else if(criticalCondition = true && health > maxHealth * 0.2f)
+        {
+            criticalCondition = false;
+            OnShipCritical.Invoke(criticalCondition);
+        }
+
+       
+
+    }
+
     public void UseFreezeCharge()
     {
         if(freezeCharges >0)
         { 
             FreezeCharges--;
-            OnFreezeChargeUsed.Invoke(freezeDuration);
+            OnFreezeChargeUsed.Invoke(freezeCharges);
         }
         
     }

@@ -13,17 +13,21 @@ public class MusicManager : MonoBehaviour {
     public AudioSource Base;
     public AudioSource wave;
     public AudioSource intense;
+    GameState currentGamestate;
 	// Use this for initialization
 	void Start () {
         GameManager.OnGameStateChanged += UpdateMusic;
+        ShipController.OnShipCritical += ShipCritical;
 	}
     void OnDestroy()
     {
         GameManager.OnGameStateChanged -= UpdateMusic;
+        ShipController.OnShipCritical -= ShipCritical;
     }
 
         void UpdateMusic(GameState gs)
     {
+        currentGamestate = gs;
         switch (gs)
         {
             case GameState.BetweenWaves:
@@ -46,6 +50,7 @@ public class MusicManager : MonoBehaviour {
                 wave.mute = true;
                 intense.mute = true;
                 break;
+           
             case GameState.ShipDestroyed:
                 Base.mute = true;
                 wave.mute = true;
@@ -56,6 +61,21 @@ public class MusicManager : MonoBehaviour {
             
         }
 
+    }
+
+    void ShipCritical(bool isShipCritical)
+    {
+        if(isShipCritical)
+        {
+            Base.mute = false;
+            wave.mute = false;
+            intense.mute = false;
+        }
+        else
+        {
+            UpdateMusic(currentGamestate);
+        }
+        
     }
 
     

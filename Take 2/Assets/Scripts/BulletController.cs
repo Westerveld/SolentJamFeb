@@ -27,11 +27,6 @@ public class BulletController : MonoBehaviour {
         rigidBody = GetComponent<Rigidbody2D>();
     }
 
-    void OnEnable()
-    {
-        time = 0f;
-    }
-
     void Update()
     {
         if (!rigidBody.isKinematic)
@@ -40,8 +35,52 @@ public class BulletController : MonoBehaviour {
 
             if (time >= maxTime)
             {
-                gameObject.SetActive(false);
+                StartCoroutine(FadeOut());
             }
         }
+    }
+
+    IEnumerator FadeOut()
+    {
+        GetComponent<BoxCollider2D>().enabled = false;
+
+        TrailRenderer trail = GetComponent<TrailRenderer>();
+        SpriteRenderer renderer = GetComponent<SpriteRenderer>();
+
+        Color color = renderer.color;
+        color.a = 0.2f;
+        renderer.color = color;
+
+        while (renderer.color.a > 0f)
+        {
+            color = renderer.color;
+            color.a -= 0.05f;
+            renderer.color = color;
+            Color trailColor = trail.material.GetColor("_Color");
+            trailColor.a = renderer.color.a;
+            trail.material.SetColor("_Color", trailColor);
+
+            yield return new WaitForSeconds(0.125f);
+        }
+        
+        gameObject.SetActive(false);
+    }
+
+    public void Reset()
+    {
+        time = 0f;
+
+        GetComponent<BoxCollider2D>().enabled = true;
+
+        SpriteRenderer renderer = GetComponent<SpriteRenderer>();
+        Color color = renderer.color;
+        color.a = 1f;
+        renderer.color = color;
+
+        TrailRenderer trail = GetComponent<TrailRenderer>();
+        trail.Clear();
+        Color trailColor = trail.material.GetColor("_Color");
+        trailColor.a = 1f;
+        trail.material.SetColor("_Color", trailColor);
     }
 }

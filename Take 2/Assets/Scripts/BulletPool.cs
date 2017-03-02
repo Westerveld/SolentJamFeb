@@ -35,6 +35,7 @@ public class BulletPool : MonoBehaviour {
                 float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
                 bullet.transform.rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
                 bullet.GetComponent<BulletController>().Damage = damage;
+                bullet.GetComponent<BulletController>().Reset();
 
                 break;
             }

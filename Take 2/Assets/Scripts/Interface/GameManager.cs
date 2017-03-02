@@ -79,8 +79,9 @@ public class GameManager : MonoBehaviour
         FreezeController.OnFreeze -= OnFreeze;
     }
 
-    void OnEnemyDestroyed()
+    void OnEnemyDestroyed(int value)
     {
+        score += value;
         enemyCount--;
     }
 

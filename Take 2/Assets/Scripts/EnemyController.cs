@@ -54,6 +54,9 @@ public class EnemyController : MonoBehaviour {
     private float shotIntervalMax;
 
     [SerializeField]
+    private float distanceToShoot;
+
+    [SerializeField]
     private float moveSpeed;
 
     [SerializeField]
@@ -141,8 +144,12 @@ public class EnemyController : MonoBehaviour {
             Vector2 direction = ship.transform.position - transform.position;
             direction.Normalize();
 
-            nextShot = Time.time + shotInterval;
-            bp.ActivateBullet(bulletSpawn.position, bulletSpeed, direction, damage);
+            float distance = Vector2.Distance(ship.transform.position, transform.position);
+            if (distance > distanceToShoot)
+            {
+                nextShot = Time.time + shotInterval;
+                bp.ActivateBullet(bulletSpawn.position, bulletSpeed, direction, damage);
+            }
         }
     }
 
@@ -197,6 +204,7 @@ public class EnemyController : MonoBehaviour {
         shotInterval = Random.Range(shotIntervalMin, shotIntervalMax);
         distanceToShip = Random.Range(distanceMin, distanceMax);
         moveSpeed = Random.Range(moveSpeedMin, moveSpeedMax);
+        distanceToShoot = distanceToShip * 2f;
     }
 
 }

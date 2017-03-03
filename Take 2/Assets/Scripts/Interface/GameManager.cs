@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject shipPrefab;
     [SerializeField]
-    private GameObject enemyPrefab;
+    private GameObject[] enemyPrefabs;
     private GameObject ship;
     //List enemies
     private List<GameObject> enemyList = new List<GameObject>();
@@ -192,17 +192,36 @@ public class GameManager : MonoBehaviour
         {
             startCount = enemyList.Count;
         }
-       
-        for (int i = startCount; i < waveSize; i++ )
+
+        for (int i = startCount; i < waveSize; i++)
         {
-            GameObject go =  (GameObject)Instantiate(enemyPrefab);
+            GameObject go;
+            int rand = Random.Range(0, waveNumber);
+
+            if (waveNumber < 3)
+            {
+                go = Instantiate(enemyPrefabs[0]);
+            }
+            else
+            {
+                if (rand > 3)
+                {
+                    go = Instantiate(enemyPrefabs[1]);
+                }
+                else
+                {
+                    go = Instantiate(enemyPrefabs[0]);
+                }
+            }
+
+       
             EnemyController ec = go.GetComponent<EnemyController>();
             ec.Ship = ship;
             ec.Bp = bp;
             go.transform.parent = gameObject.transform;
             enemyList.Add(go);
-         
         }
+
 
         foreach (GameObject enemy in enemyList)
         {

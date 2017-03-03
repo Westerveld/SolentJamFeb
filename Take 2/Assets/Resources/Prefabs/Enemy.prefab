@@ -65,9 +65,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000014264686240}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.5, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.95170075, w: -0.30702722}
+  m_LocalPosition: {x: 3.8938553, y: -5.406851, z: 0}
+  m_LocalScale: {x: 8, y: 0.8, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4000010003899364}
@@ -138,22 +138,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ship: {fileID: 0}
-  damage: 1
-  health: 10
-  distanceToShip: 7
-  rotationSpeed: 30
-  rotationSpeedMin: 20
-  rotationSpeedMax: 40
-  distanceMin: 5
-  distanceMax: 9
+  damage: 10
+  health: 60
+  distanceToShip: 10
+  rotationSpeed: 20
+  rotationSpeedMin: 10
+  rotationSpeedMax: 30
+  distanceMin: 7
+  distanceMax: 11
   moveSpeedMin: 3
   moveSpeedMax: 6
-  shotIntervalMin: 0.5
-  shotIntervalMax: 1.5
-  distanceToShoot: 0
-  moveSpeed: 4
-  nextShot: 1
-  shotInterval: 0.75
+  shotIntervalMin: 0.75
+  shotIntervalMax: 1
+  distanceToShoot: 13.472351
+  moveSpeed: 5.4311414
+  nextShot: 22.714376
+  shotInterval: 0.62403286
   bulletPrefab: {fileID: 1000013192284644, guid: 609bcda9d3a94ae40bf0fa4a7afc90ab,
     type: 2}
   bulletSpawn: {fileID: 4000010003899364}

@@ -139,8 +139,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ship: {fileID: 0}
   damage: 1
-  health: 10
-  distanceToShip: 7
+  health: 20
+  distanceToShip: 4
   rotationSpeed: 30
   rotationSpeedMin: 20
   rotationSpeedMax: 40

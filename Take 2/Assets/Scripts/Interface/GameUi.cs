@@ -101,8 +101,8 @@ public class GameUi : MonoBehaviour
         switch (powerUpType)
         {
             case PowerUpType.FireRate:
-                fireRateText.text = (1 / value).ToString("F2") + "s/s";
-               // fireRateBar.fillAmount = CalculateBarFillValue((1/maxValue), (1 / value));
+                fireRateText.text = value.ToString("F2") + "s/s";
+                fireRateBar.fillAmount = barValue;
                
                 break;
             case PowerUpType.TurretDamage:

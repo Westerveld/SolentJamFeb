@@ -25,7 +25,7 @@ public class GunController : ComponentController {
             { 
                 if (Time.time > nextShot)
                 {
-                    nextShot = Time.time + shipController.RateOfFire;
+                    nextShot = Time.time + (1f / shipController.RateOfFire);
                     Vector2 direction = transform.position - ship.transform.position;
                     direction.Normalize();
                     Vector3 shipVelocity = Vector3.Project(ship.GetComponent<Rigidbody2D>().velocity, direction);

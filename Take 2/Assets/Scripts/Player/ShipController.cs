@@ -38,25 +38,25 @@ public class ShipController : MonoBehaviour
         set { freezeDuration = value; }
         get { return freezeDuration; }
     }
-    private float baseSpeed = 50.0f;
+    private float baseSpeed = 25;
     [SerializeField]
-    private float speed = 100.0f;
+    private float speed = 50.0f;
     public float Speed
     {
         set { speed = value; }
         get { return speed; }
     }
-    private float maxSpeed = 1000f;
-    private const float baseRateOfFire = 0.1f;
+    private float maxSpeed = 300f;
+    private const float baseRateOfFire = 0.5f;
     [SerializeField]
-    private float startRateOfFire = 0.5f;
+    private float startRateOfFire = 2f;
     [SerializeField]
-    private float rateOfFire = 0.5f;
+    private float rateOfFire = 2f;
     [SerializeField]
-    private float maxRateOfFire = 0.05f; //slowest fire rate.
+    private float maxRateOfFire = 10f;
     public float RateOfFire
     {
-        set { RateOfFire = Mathf.Clamp(value, maxRateOfFire, startRateOfFire); }
+        set { rateOfFire = Mathf.Clamp(value, startRateOfFire, maxRateOfFire); }
         get { return rateOfFire; }
     }
     private const int baseDamage = 1;
@@ -67,7 +67,7 @@ public class ShipController : MonoBehaviour
         set { damage = value; }
         get { return damage; }
     }
-    private int maxDamage = 10;
+    private int maxDamage = 60;
     [SerializeField]
     private GameObject[] blurSprites;
 
@@ -132,8 +132,8 @@ public class ShipController : MonoBehaviour
         switch (powerUpType)
         {
             case PowerUpType.FireRate:
-              //  RateOfFire -= baseRateOfFire;
-                OnStatsChange.Invoke(RateOfFire,startRateOfFire, powerUpType);
+                RateOfFire = RateOfFire + baseRateOfFire;
+                OnStatsChange.Invoke(RateOfFire,maxRateOfFire , powerUpType);
                 break;
             case PowerUpType.TurretDamage:
                 Damage += baseDamage;
@@ -166,7 +166,7 @@ public class ShipController : MonoBehaviour
 
     void InitialiseUIStat()
     {
-        OnStatsChange.Invoke(RateOfFire, startRateOfFire, PowerUpType.FireRate);
+        OnStatsChange.Invoke(rateOfFire, maxRateOfFire, PowerUpType.FireRate);
         OnStatsChange.Invoke(Damage, maxDamage, PowerUpType.TurretDamage);
         OnStatsChange.Invoke(FreezeDuration, maxFreezeDuration, PowerUpType.FreezeTime);
         OnStatsChange.Invoke(freezeCharges, maxFreezeCharges, PowerUpType.FreezeCharge);

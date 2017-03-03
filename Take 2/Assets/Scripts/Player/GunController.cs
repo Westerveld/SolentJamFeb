@@ -22,8 +22,7 @@ public class GunController : ComponentController {
         if (Joystick > 0)
         {
             if (Input.GetButton("Activate" + Joystick))
-            {
-                print("Joystick " + Joystick);
+            { 
                 if (Time.time > nextShot)
                 {
                     nextShot = Time.time + shipController.RateOfFire;

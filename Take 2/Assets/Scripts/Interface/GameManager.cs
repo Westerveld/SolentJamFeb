@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
         set { score = value;}
     }
     private GameState currentGameState;
+    private GameState lastGameState;
     //Enemy/Wake managmeny
     private int waveNumber = 0;
     private int enemyCount;
@@ -73,6 +74,7 @@ public class GameManager : MonoBehaviour
         EndWave();
         Time.timeScale = 1;
         FreezeController.OnFreeze += OnFreeze;
+        PauseMenuController.OnGameResumed += Resume;
     }
 
     void OnDestroy() 
@@ -81,6 +83,7 @@ public class GameManager : MonoBehaviour
         EnemyController.OnEnemyDeath -= OnEnemyDestroyed;
         OnGameStateChanged -= ChangeGameState;
         FreezeController.OnFreeze -= OnFreeze;
+        PauseMenuController.OnGameResumed -= Resume;
     }
 
     void OnEnemyDestroyed(int value)
@@ -122,6 +125,41 @@ public class GameManager : MonoBehaviour
                     break;
             }
         }
+
+        if (Input.GetButtonDown("Pause1"))
+        {
+            SetPause();
+        }
+    }
+
+    void SetPause()
+    {
+        if (currentGameState != GameState.ShipDestroyed && currentGameState != GameState.EndGame)
+        {
+            if (currentGameState == GameState.Paused)
+            {
+                Resume();
+            }
+            else
+            {
+                Pause();
+            }
+        }
+    }
+
+    void Pause()
+    {
+        Time.timeScale = 0;
+        SceneManager.LoadScene("PauseMenu", LoadSceneMode.Additive);
+        lastGameState = currentGameState;
+        OnGameStateChanged(GameState.Paused);
+    }
+
+    void Resume()
+    {
+        Time.timeScale = 1;
+        SceneManager.UnloadScene("PauseMenu");
+        OnGameStateChanged(lastGameState);
     }
 
     void UpdateWave()

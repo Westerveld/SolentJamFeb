@@ -79,6 +79,7 @@ public class Leaderboard {
     {
         entries.Add(new ScoreEntry(name, score));
         SortScores();
+        PlayerPrefs.SetInt("HighestScore", entries[0].mScore);
         if (entries.Count > EntryCount)
         {
             entries.RemoveAt(entries.Count - 1);

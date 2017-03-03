@@ -16,9 +16,9 @@ public class EngineController : ComponentController {
             {
                 Rigidbody2D rigidbody = ship.GetComponent<Rigidbody2D>();
                 rigidbody.AddForce((ship.transform.position - transform.position).normalized * force * Time.fixedDeltaTime, ForceMode2D.Force);
-                if (rigidbody.velocity.magnitude > ship.GetComponent<ShipController>().MaxSpeed)
+                if (rigidbody.velocity.magnitude > ship.GetComponent<ShipController>().Speed)
                 {
-                    rigidbody.velocity = rigidbody.velocity.normalized * ship.GetComponent<ShipController>().MaxSpeed;
+                    rigidbody.velocity = rigidbody.velocity.normalized * ship.GetComponent<ShipController>().Speed;
                 }
                 flame.SetBool("Thrusting", true);
             }

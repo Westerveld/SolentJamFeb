@@ -32,27 +32,31 @@ public class ShipController : MonoBehaviour
     private float startFreezeDuration = 2.0f;
     [SerializeField]
     private float freezeDuration = 2.0f;
+    private float maxFreezeDuration = 10f;
     public float FreezeDuration
     {
         set { freezeDuration = value; }
         get { return freezeDuration; }
     }
-    private float baseSpeed = 0.2f;
+    private float baseSpeed = 50.0f;
     [SerializeField]
-    private float maxSpeed;
-    public float MaxSpeed
+    private float speed = 100.0f;
+    public float Speed
     {
-        set { maxSpeed = value; }
-        get { return maxSpeed; }
+        set { speed = value; }
+        get { return speed; }
     }
-
+    private float maxSpeed = 1000f;
     private const float baseRateOfFire = 0.1f;
     [SerializeField]
-    private float rateOfFire = 1.0f;
-    private float maxRateOfFire; //slowest fire rate.
+    private float startRateOfFire = 0.5f;
+    [SerializeField]
+    private float rateOfFire = 0.5f;
+    [SerializeField]
+    private float maxRateOfFire = 0.05f; //slowest fire rate.
     public float RateOfFire
     {
-        set { RateOfFire = Mathf.Clamp(value,0.1f, maxRateOfFire); }
+        set { RateOfFire = Mathf.Clamp(value, maxRateOfFire, startRateOfFire); }
         get { return rateOfFire; }
     }
     private const int baseDamage = 1;
@@ -63,6 +67,7 @@ public class ShipController : MonoBehaviour
         set { damage = value; }
         get { return damage; }
     }
+    private int maxDamage = 10;
     [SerializeField]
     private GameObject[] blurSprites;
 
@@ -70,16 +75,16 @@ public class ShipController : MonoBehaviour
     private GameObject shipCamera;
     private bool isDead = false;
     public static event System.Action OnPlayerDeath;
-    public static event System.Action<float> OnPlayerHit;
     public static event System.Action<int> OnFreezeChargeUsed;
     public static event System.Action<bool> OnShipCritical;
+    public static event System.Action<float,float, PowerUpType> OnStatsChange;
 
     void Start()
     {
         Health = maxHealth;
         //UpdateUi with default values
-        OnPlayerHit.Invoke(health);
         OnFreezeChargeUsed(freezeCharges);
+        InitialiseUIStat();
     }
 
     void FixedUpdate()
@@ -99,12 +104,12 @@ public class ShipController : MonoBehaviour
 
             //Remove health from player
             Health -= damage;
+            OnStatsChange(Health, maxHealth, PowerUpType.Health);
             if (Health <= 0f)
             {
                 isDead = true;
                 OnPlayerDeath.Invoke();
             }
-            OnPlayerHit.Invoke(Health);
             CheckCriticalCondition();
             //Destroy Bullet
             col.gameObject.SetActive(false);
@@ -119,37 +124,56 @@ public class ShipController : MonoBehaviour
         }
 
     }
+   
 
     void PowerupPickup(PowerUpType powerUpType)
     {
         print(powerUpType.ToString());
         switch (powerUpType)
         {
-            /*case PowerUpType.FireRate:
-                RateOfFire -= baseRateOfFire;
-                break;*/
+            case PowerUpType.FireRate:
+              //  RateOfFire -= baseRateOfFire;
+                OnStatsChange.Invoke(RateOfFire,startRateOfFire, powerUpType);
+                break;
             case PowerUpType.TurretDamage:
                 Damage += baseDamage;
+                OnStatsChange.Invoke(Damage,maxDamage, powerUpType);
                 break;
             case PowerUpType.FreezeTime:
                 FreezeDuration += baseFreeseDuration;
+                OnStatsChange.Invoke(FreezeDuration,maxFreezeDuration, powerUpType);
                 break;
             case PowerUpType.FreezeCharge:
                 FreezeCharges++;
+                OnFreezeChargeUsed(freezeCharges);
                 break;
             case PowerUpType.MoveSpeed:
-                MaxSpeed += baseSpeed;
+                Speed += baseSpeed;
+                OnStatsChange.Invoke(Speed,maxSpeed,powerUpType);
                 break;
             case PowerUpType.MaxHealth:
                 maxHealth += baseMaxHealth;
+                OnStatsChange.Invoke(Health, maxHealth, powerUpType);
                 break;
             case PowerUpType.Health:
                 Health += 50;
+                OnStatsChange.Invoke(Health, maxHealth, powerUpType);
                 break;
             default:
                 break;
         }
     }
+
+    void InitialiseUIStat()
+    {
+        OnStatsChange.Invoke(RateOfFire, startRateOfFire, PowerUpType.FireRate);
+        OnStatsChange.Invoke(Damage, maxDamage, PowerUpType.TurretDamage);
+        OnStatsChange.Invoke(FreezeDuration, maxFreezeDuration, PowerUpType.FreezeTime);
+        OnStatsChange.Invoke(freezeCharges, maxFreezeCharges, PowerUpType.FreezeCharge);
+        OnStatsChange.Invoke(Speed, maxSpeed, PowerUpType.MoveSpeed);
+        OnStatsChange.Invoke(Health, maxHealth, PowerUpType.MaxHealth);
+    }
+
 
     void CheckCriticalCondition()
     {

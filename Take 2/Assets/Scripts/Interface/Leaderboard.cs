@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class Leaderboard {
 
     //Max amount of entries on the leaderboard
-    public const int EntryCount = 10;
+    public const int EntryCount = 5;
 
     //Used to store the name and score
     public struct ScoreEntry

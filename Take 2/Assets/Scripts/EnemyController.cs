@@ -141,7 +141,17 @@ public class EnemyController : MonoBehaviour {
         {
             Vector3 direction = ship.transform.position - transform.position;
             direction.Normalize();
-            transform.position += direction * moveSpeed * Time.deltaTime;
+
+            // If the player tries to escape, fly really fast
+            if (distance > distanceToShoot * 2f)
+            {
+                float speed = Mathf.Max(ship.GetComponent<Rigidbody2D>().velocity.magnitude * 2f, moveSpeed * 2f);
+                transform.position += direction * speed * Time.deltaTime;
+            }
+            else
+            {
+                transform.position += direction * moveSpeed * Time.deltaTime;
+            }
         }
         else
         {

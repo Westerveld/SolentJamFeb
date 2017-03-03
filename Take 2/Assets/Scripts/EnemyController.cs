@@ -141,7 +141,17 @@ public class EnemyController : MonoBehaviour {
         {
             Vector3 direction = ship.transform.position - transform.position;
             direction.Normalize();
-            transform.position += direction * moveSpeed * Time.deltaTime;
+
+            // If the player tries to escape, fly really fast
+            if (distance > distanceToShoot * 2f)
+            {
+                float speed = Mathf.Max(ship.GetComponent<Rigidbody2D>().velocity.magnitude * 2f, moveSpeed * 2f);
+                transform.position += direction * speed * Time.deltaTime;
+            }
+            else
+            {
+                transform.position += direction * moveSpeed * Time.deltaTime;
+            }
         }
         else
         {
@@ -180,25 +190,20 @@ public class EnemyController : MonoBehaviour {
              //ToDo:
             //Enemy Colliding with PlayerProjectile
             //Return to object pool
-            if (col.gameObject.GetComponent<BulletController>().Damage <= health)
+            if (col.gameObject.GetComponent<BulletController>().Damage < health)
             {
                 health -= col.gameObject.GetComponent<BulletController>().Damage;
             }
             else
             {
-                health = 0;
-                dead = true;
-                gameObject.GetComponent<PolygonCollider2D>().enabled = false;
-                deathAnimation = true;
+                Death();
             }
             col.gameObject.SetActive(false);
             //Add score to game manager
 
             //Return enemy to pool
 
-            GameObject explosion = Instantiate(explosionPrefab);
-            explosion.transform.position = transform.position;
-            Destroy(explosion, explosion.GetComponent<ParticleSystem>().duration);
+            SpawnExplosion();
         }
         if(col.gameObject.tag == "Asteroid")
         {
@@ -206,6 +211,36 @@ public class EnemyController : MonoBehaviour {
             //Enemy Colliding With Asteroid
             //Return to object pool
         }
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Player Ships"))
+        {
+            if (collision.relativeVelocity.magnitude > 4f)
+            {
+                collision.gameObject.GetComponent<ShipController>().Health = collision.gameObject.GetComponent<ShipController>().Health - health;
+
+                Death();
+
+                SpawnExplosion();
+            }
+        }
+    }
+
+    void Death()
+    {
+        health = 0;
+        dead = true;
+        gameObject.GetComponent<PolygonCollider2D>().enabled = false;
+        deathAnimation = true;
+    }
+
+    void SpawnExplosion()
+    {
+        GameObject explosion = Instantiate(explosionPrefab);
+        explosion.transform.position = transform.position;
+        Destroy(explosion, explosion.GetComponent<ParticleSystem>().duration);
     }
 
     void Destroyed()

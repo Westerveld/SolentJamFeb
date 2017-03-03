@@ -22,9 +22,20 @@ public class BulletController : MonoBehaviour {
 
     private Rigidbody2D rigidBody;
 
+    [SerializeField]
+    private AudioClip[] shootSounds;
+
     void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
+        
+    }
+
+    void OnEnable()
+    {
+        int clip = Random.Range(0, shootSounds.Length);
+        GetComponent<AudioSource>().clip = shootSounds[clip];
+        GetComponent<AudioSource>().Play();
     }
 
     void Update()

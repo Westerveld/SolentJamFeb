@@ -8,6 +8,9 @@ public class EngineController : ComponentController {
 
     [SerializeField]
     protected Animator flame;
+
+    [SerializeField]
+    protected AudioSource audioSource;
     protected override void Activate()
     {
         if (Joystick > 0)
@@ -20,6 +23,7 @@ public class EngineController : ComponentController {
                 {
                     rigidbody.velocity = rigidbody.velocity.normalized * ship.GetComponent<ShipController>().Speed;
                 }
+                audioSource.Play();
                 flame.SetBool("Thrusting", true);
             }
             else
@@ -32,5 +36,6 @@ public class EngineController : ComponentController {
     public void DisableFlame()
     {
         flame.SetBool("Thrusting", false);
+        audioSource.Stop();
     }
 }

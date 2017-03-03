@@ -13,7 +13,7 @@ public class ShipController : MonoBehaviour
         set
         {
             health = Mathf.Clamp(value, 0f, maxHealth);
-           
+            OnStatsChange(health, maxHealth, PowerUpType.Health);
         }
         get { return health; }
     }
@@ -35,7 +35,7 @@ public class ShipController : MonoBehaviour
     private float maxFreezeDuration = 10f;
     public float FreezeDuration
     {
-        set { freezeDuration = value; }
+        set { if (freezeDuration + value < maxFreezeDuration) { freezeDuration = value; } }
         get { return freezeDuration; }
     }
     private float baseSpeed = 25;

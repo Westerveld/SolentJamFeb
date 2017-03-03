@@ -10,6 +10,7 @@ public class BulletPool : MonoBehaviour {
 
     List<GameObject> bulletList = new List<GameObject>();
 
+
     void Start()
     {
         for(int i = 0; i < SpawnCount; i++)

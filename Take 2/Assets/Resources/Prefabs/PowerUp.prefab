@@ -36,8 +36,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013195116840}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalPosition: {x: -9.48, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
@@ -76,6 +76,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerUpType: 0
+  powerupSprites:
+  - {fileID: 21300000, guid: 9ad61c98399a0e74e906f937e65e2c82, type: 3}
+  - {fileID: 21300000, guid: 08e6f90b78691c445ad88499a3abe2be, type: 3}
+  - {fileID: 21300000, guid: 142eb5c6d2fdae240b4937a2d39a0264, type: 3}
+  - {fileID: 21300000, guid: ae05e69ac70b98c449d1cdbbe40f2a63, type: 3}
+  - {fileID: 21300000, guid: 9a9f19927a6d00241b01522b223ca085, type: 3}
+  - {fileID: 21300000, guid: 20d596fd505af4e4988a31a5e2f0b0d6, type: 3}
+  - {fileID: 21300000, guid: e5f7781df42be214083aa0a0a15e33c2, type: 3}
 --- !u!212 &212000014225633332
 SpriteRenderer:
   m_ObjectHideFlags: 1

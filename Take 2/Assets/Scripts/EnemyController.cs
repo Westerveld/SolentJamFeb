@@ -110,7 +110,7 @@ public class EnemyController : MonoBehaviour {
     private GameObject explosionPrefab;
 
     [SerializeField]
-    private float dropRate = 5f;
+    private float dropRate = 1f;
     [SerializeField]
     private GameObject powerupPrefab;
 
@@ -219,6 +219,7 @@ public class EnemyController : MonoBehaviour {
         {
             if (collision.relativeVelocity.magnitude > 4f)
             {
+                print(health);
                 collision.gameObject.GetComponent<ShipController>().Health = collision.gameObject.GetComponent<ShipController>().Health - health;
 
                 Death();
@@ -268,6 +269,7 @@ public class EnemyController : MonoBehaviour {
         OnEnemyDeath(score);
         dead = true;
         animationController.SetTrigger("died");
+        GetComponent<AudioSource>().Play();
         yield return new WaitForSeconds(.8f);
         gameObject.GetComponent<PolygonCollider2D>().enabled = true;
         gameObject.SetActive(false);

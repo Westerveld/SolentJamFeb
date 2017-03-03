@@ -15,15 +15,17 @@ public class EndScreenScript : MonoBehaviour {
     [SerializeField]
     private GameObject newHighScorePanel;
 
+    private int myScore;
+
     void Start()
     {
         scoreText.text = PlayerPrefs.GetInt("FinalScore").ToString();
-        int myScore = PlayerPrefs.GetInt("FinalScore");
+        myScore = PlayerPrefs.GetInt("FinalScore");
         string highScores = "";
         for(int i = 0; i < Leaderboard.EntryCount; i++)
         {
             Leaderboard.ScoreEntry entry = Leaderboard.GetEntry(i);
-            highScores += (i + 1) + "." + entry.mName + ", " + entry.mScore + "\n";
+            highScores += (i + 1) + ". " + entry.mName + ", " + entry.mScore + "\n";
         }
         highScoresText.text = highScores;
 
@@ -32,6 +34,7 @@ public class EndScreenScript : MonoBehaviour {
             newHighScorePanel.SetActive(true);
         }
 
+        PlayerPrefs.SetInt("FinalScore", 0);
 
     }
 
@@ -51,11 +54,19 @@ public class EndScreenScript : MonoBehaviour {
         string name = "";
         for(int i = 0; i< letters.Length; i++)
         {
-            name += letters[i].text;
+            name += letters[i].text.ToString();
         }
-
-        Leaderboard.Record(name, PlayerPrefs.GetInt("FinalScore"));
+        print(name);
+        Leaderboard.Record(name, myScore);
 
         newHighScorePanel.SetActive(false);
+        string highScores = "";
+        for (int i = 0; i < Leaderboard.EntryCount; i++)
+        {
+            Leaderboard.ScoreEntry entry = Leaderboard.GetEntry(i);
+            highScores += (i + 1) + ". " + entry.mName + ", " + entry.mScore + "\n";
+        }
+        highScoresText.text = highScores;
+
     }
 }

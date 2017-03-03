@@ -88,10 +88,8 @@ public class GameManager : MonoBehaviour
 
     void OnEnemyDestroyed(int value)
     {
-        print("Enemy Died");
         score += value;
         enemyCount--;
-        print(enemyCount);
         OnScoreChanged.Invoke(score);
     }
 

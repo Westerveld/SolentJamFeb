@@ -38,7 +38,6 @@ public class LetterButtons : MonoBehaviour {
     {
         if(currentLetter-- <= minLetter)
         {
-            print("Less than minLetter");
             currentLetter = maxLetter;
         }
         letterChar = (char)currentLetter;

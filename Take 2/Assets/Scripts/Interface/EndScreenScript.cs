@@ -56,7 +56,6 @@ public class EndScreenScript : MonoBehaviour {
         {
             name += letters[i].text.ToString();
         }
-        print(name);
         Leaderboard.Record(name, myScore);
 
         newHighScorePanel.SetActive(false);

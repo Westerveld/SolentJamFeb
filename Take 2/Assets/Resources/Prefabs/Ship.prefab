@@ -605,7 +605,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1000014263288014
 GameObject:
   m_ObjectHideFlags: 1
@@ -661,7 +661,7 @@ Transform:
   m_Children:
   - {fileID: 4000011018188704}
   m_Father: {fileID: 4000011150138690}
-  m_RootOrder: 4
+  m_RootOrder: 3
 --- !u!4 &4000010571151892
 Transform:
   m_ObjectHideFlags: 1
@@ -674,7 +674,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_Children: []
   m_Father: {fileID: 4000011150138690}
-  m_RootOrder: 1
+  m_RootOrder: 8
 --- !u!4 &4000010634030406
 Transform:
   m_ObjectHideFlags: 1
@@ -701,7 +701,7 @@ Transform:
   m_Children:
   - {fileID: 4000013836511934}
   m_Father: {fileID: 4000010828029274}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!4 &4000010828029274
 Transform:
   m_ObjectHideFlags: 1
@@ -713,9 +713,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
+  - {fileID: 4000014037982190}
   - {fileID: 4000011754086832}
   - {fileID: 4000010670367532}
-  - {fileID: 4000014037982190}
   - {fileID: 4000011627878670}
   - {fileID: 4000013469366244}
   - {fileID: 4000010059438242}
@@ -747,7 +747,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000011150138690}
-  m_RootOrder: 8
+  m_RootOrder: 7
 --- !u!4 &4000011080460908
 Transform:
   m_ObjectHideFlags: 1
@@ -788,7 +788,6 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4000010828029274}
-  - {fileID: 4000010571151892}
   - {fileID: 4000011334583040}
   - {fileID: 4000014159345110}
   - {fileID: 4000010458659224}
@@ -796,6 +795,7 @@ Transform:
   - {fileID: 4000011581386448}
   - {fileID: 4000012449291060}
   - {fileID: 4000011040400820}
+  - {fileID: 4000010571151892}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &4000011334583040
@@ -811,7 +811,7 @@ Transform:
   m_Children:
   - {fileID: 4000011080460908}
   m_Father: {fileID: 4000011150138690}
-  m_RootOrder: 2
+  m_RootOrder: 1
 --- !u!4 &4000011355758278
 Transform:
   m_ObjectHideFlags: 1
@@ -837,7 +837,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000011150138690}
-  m_RootOrder: 5
+  m_RootOrder: 4
 --- !u!4 &4000011472995792
 Transform:
   m_ObjectHideFlags: 1
@@ -863,7 +863,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000011150138690}
-  m_RootOrder: 6
+  m_RootOrder: 5
 --- !u!4 &4000011627878670
 Transform:
   m_ObjectHideFlags: 1
@@ -902,7 +902,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000010828029274}
-  m_RootOrder: 0
+  m_RootOrder: 1
 --- !u!4 &4000011841525188
 Transform:
   m_ObjectHideFlags: 1
@@ -954,7 +954,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000011150138690}
-  m_RootOrder: 7
+  m_RootOrder: 6
 --- !u!4 &4000012491253294
 Transform:
   m_ObjectHideFlags: 1
@@ -1110,7 +1110,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000010828029274}
-  m_RootOrder: 2
+  m_RootOrder: 0
 --- !u!4 &4000014063162050
 Transform:
   m_ObjectHideFlags: 1
@@ -1138,7 +1138,7 @@ Transform:
   - {fileID: 4000012491253294}
   - {fileID: 4000013658861992}
   m_Father: {fileID: 4000011150138690}
-  m_RootOrder: 3
+  m_RootOrder: 2
 --- !u!20 &20000013875900952
 Camera:
   m_ObjectHideFlags: 1
@@ -1238,9 +1238,9 @@ PolygonCollider2D:
     - - {x: -1.2235963, y: -0.57199717}
       - {x: -0.651541, y: 0.3024219}
       - {x: 0.10336651, y: 0.9920436}
-      - {x: 1.4855711, y: 1.386053}
-      - {x: 1.495, y: 1.495}
-      - {x: 0.8950179, y: 1.4533222}
+      - {x: 1.5202029, y: 1.377395}
+      - {x: 1.5382898, y: 1.5382895}
+      - {x: 0.9123341, y: 1.4879539}
       - {x: 0.25977984, y: 1.2597803}
       - {x: -0.11378075, y: 1.0389367}
       - {x: -0.3421785, y: 0.86294615}
@@ -1248,9 +1248,9 @@ PolygonCollider2D:
       - {x: -0.82544047, y: 0.4054405}
       - {x: -1.0721787, y: 0.05217862}
       - {x: -1.2785894, y: -0.31705356}
-      - {x: -1.4696915, y: -0.9092959}
-      - {x: -1.495, y: -1.495}
-      - {x: -1.3980808, y: -1.4876276}
+      - {x: -1.512981, y: -1.0997682}
+      - {x: -1.5469472, y: -1.5296314}
+      - {x: -1.3807656, y: -1.5222591}
 --- !u!81 &81000011170317096
 AudioListener:
   m_ObjectHideFlags: 1
@@ -1578,6 +1578,7 @@ MonoBehaviour:
   ship: {fileID: 1000010146160784}
   rotationSpeed: 0
   joystick: 0
+  animationController: {fileID: 95000012804578552}
 --- !u!114 &114000012822344180
 MonoBehaviour:
   m_ObjectHideFlags: 1

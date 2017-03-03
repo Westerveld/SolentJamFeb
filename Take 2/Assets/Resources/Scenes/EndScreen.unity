@@ -226,7 +226,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -235,7 +235,8 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 21300000, guid: be7c7b1348695094e8da753ea36b06f9,
+      type: 3}
     m_PressedSprite: {fileID: 0}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
@@ -1016,6 +1017,12 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 20cf290d4842b3841a3fe92c13906637, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &919737069 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114000013045667194, guid: 20cf290d4842b3841a3fe92c13906637,
+    type: 2}
+  m_PrefabInternal: {fileID: 705658132}
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1 &947819905
 GameObject:
   m_ObjectHideFlags: 0
@@ -1206,7 +1213,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 947819907}
-  letters: []
+  letters:
+  - {fileID: 1905851156}
+  - {fileID: 919737069}
+  - {fileID: 1966935238}
   highScoresText: {fileID: 105553423}
   newHighScorePanel: {fileID: 1772026966}
 --- !u!1 &1554704811
@@ -1452,7 +1462,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1772026967
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1631,6 +1641,12 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1873518629}
+--- !u!114 &1905851156 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114000013045667194, guid: 20cf290d4842b3841a3fe92c13906637,
+    type: 2}
+  m_PrefabInternal: {fileID: 574300736}
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1 &1914176013
 GameObject:
   m_ObjectHideFlags: 0
@@ -1693,6 +1709,12 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
+--- !u!114 &1966935238 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114000013045667194, guid: 20cf290d4842b3841a3fe92c13906637,
+    type: 2}
+  m_PrefabInternal: {fileID: 532046958}
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1 &1990035249
 GameObject:
   m_ObjectHideFlags: 0

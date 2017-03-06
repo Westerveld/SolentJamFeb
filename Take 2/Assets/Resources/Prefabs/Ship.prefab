@@ -1495,7 +1495,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ship: {fileID: 1000010146160784}
-  rotationSpeed: 100
+  rotationSpeed: 200
   joystick: 0
 --- !u!114 &114000011025206076
 MonoBehaviour:

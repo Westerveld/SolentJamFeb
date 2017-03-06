@@ -23,12 +23,7 @@ public class EngineController : ComponentController {
                 {
                     rigidbody.velocity = rigidbody.velocity.normalized * ship.GetComponent<ShipController>().Speed;
                 }
-
-                if (!audioSource.isPlaying)
-                {
-                    audioSource.Play();
-                }
-                
+                audioSource.Play();
                 flame.SetBool("Thrusting", true);
             }
             else
@@ -41,10 +36,6 @@ public class EngineController : ComponentController {
     public void DisableFlame()
     {
         flame.SetBool("Thrusting", false);
-
-        if (audioSource.isPlaying)
-        {
-            audioSource.Stop();
-        }
+        audioSource.Stop();
     }
 }

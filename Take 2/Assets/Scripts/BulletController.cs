@@ -33,9 +33,12 @@ public class BulletController : MonoBehaviour {
 
     void OnEnable()
     {
-        int clip = Random.Range(0, shootSounds.Length);
-        GetComponent<AudioSource>().clip = shootSounds[clip];
-        GetComponent<AudioSource>().Play();
+        if (GetComponent<AudioSource>()) //Error Checking
+        {
+            int clip = Random.Range(0, shootSounds.Length);
+            GetComponent<AudioSource>().clip = shootSounds[clip];
+            GetComponent<AudioSource>().Play();
+        }
     }
 
     void Update()

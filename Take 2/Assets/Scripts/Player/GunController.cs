@@ -17,6 +17,9 @@ public class GunController : ComponentController {
     [SerializeField]
     private bool currentTurret;
 
+    [SerializeField]
+    protected AudioSource audioSource;
+
     protected override void Activate()
     {
         if (Joystick > 0)
@@ -33,6 +36,9 @@ public class GunController : ComponentController {
                     playerBulletPool.ActivateBullet(bulletSpawn[currentTurret ? 0 : 1].position, bulletSpeed + shipVelocity.magnitude, direction, shipController.Damage);
                     gameObject.GetComponent<Animator>().SetTrigger("Shot");
                     currentTurret = !currentTurret;
+
+                    //Trying out the audio for the bullets in this script, as the sound cuts off if the player hits a enemy with the bullet
+                    audioSource.Play();
                 }
 
             }

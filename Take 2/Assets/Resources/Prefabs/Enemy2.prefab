@@ -236,7 +236,7 @@ MonoBehaviour:
   animationController: {fileID: 95000010840856226}
   explosionPrefab: {fileID: 1000010375992616, guid: 3b6634a6b3078574f9cbdc416b392625,
     type: 2}
-  dropRate: 20
+  dropRate: 10
   powerupPrefab: {fileID: 1000013195116840, guid: d1b31bd330fbcef4c9d63fad5ef2f0e9,
     type: 2}
 --- !u!212 &212000011529149592

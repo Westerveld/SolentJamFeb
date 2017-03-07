@@ -110,7 +110,7 @@ public class EnemyController : MonoBehaviour {
     private GameObject explosionPrefab;
 
     [SerializeField]
-    private float dropRate = 1f;
+    private float dropRate = 5.0f;
     [SerializeField]
     private GameObject powerupPrefab;
 
@@ -174,7 +174,7 @@ public class EnemyController : MonoBehaviour {
             direction.Normalize();
 
             float distance = Vector2.Distance(ship.transform.position, transform.position);
-            if (distance < distanceToShoot)
+            if (distance < distanceToShoot) //Enemy only shoots if they are within the distance to shoot
             {
                 nextShot = Time.time + shotInterval;
                 bp.ActivateBullet(bulletSpawn.position, bulletSpeed, direction, damage);
@@ -219,7 +219,6 @@ public class EnemyController : MonoBehaviour {
         {
             if (collision.relativeVelocity.magnitude > 4f)
             {
-                print(health);
                 collision.gameObject.GetComponent<ShipController>().Health = collision.gameObject.GetComponent<ShipController>().Health - health;
 
                 Death();
@@ -243,15 +242,9 @@ public class EnemyController : MonoBehaviour {
         explosion.transform.position = transform.position;
         Destroy(explosion, explosion.GetComponent<ParticleSystem>().duration);
     }
+        
 
-    void Destroyed()
-    {
-        health = maxHealth;
-        this.gameObject.SetActive(false);
-    }
-    
-
-   public void RandomValues()
+   public void RandomValues() //Used to variate the ships to have different values
     {
         rotationSpeed = Random.Range(rotationSpeedMin, rotationSpeedMax);
         if (Random.Range(0, 2) == 1)
@@ -273,7 +266,8 @@ public class EnemyController : MonoBehaviour {
         yield return new WaitForSeconds(.8f);
         gameObject.GetComponent<PolygonCollider2D>().enabled = true;
         gameObject.SetActive(false);
-        if (Random.Range(0,100) < dropRate)
+        float dropChance = Random.Range(0.0f, 100.0f); //Used to determine whether the enemy drops a powerup
+        if (dropChance < dropRate)
         {
             Instantiate(powerupPrefab,transform.position, Quaternion.identity);
         }

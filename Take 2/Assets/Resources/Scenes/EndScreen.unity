@@ -1219,6 +1219,8 @@ MonoBehaviour:
   - {fileID: 1966935238}
   highScoresText: {fileID: 105553423}
   newHighScorePanel: {fileID: 1772026966}
+  replayLevelBtn: {fileID: 274506652}
+  eventSystem: {fileID: 1914176015}
 --- !u!1 &1554704811
 GameObject:
   m_ObjectHideFlags: 0

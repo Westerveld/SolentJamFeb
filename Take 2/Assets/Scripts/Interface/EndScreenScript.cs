@@ -2,6 +2,8 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+
 public class EndScreenScript : MonoBehaviour {
     [SerializeField]
     private Text scoreText;
@@ -15,7 +17,13 @@ public class EndScreenScript : MonoBehaviour {
     [SerializeField]
     private GameObject newHighScorePanel;
 
+    [SerializeField]
+    private GameObject replayLevelBtn;
+
     private int myScore;
+
+    [SerializeField]
+    private EventSystem eventSystem;
 
     void Start()
     {
@@ -66,6 +74,7 @@ public class EndScreenScript : MonoBehaviour {
             highScores += (i + 1) + ". " + entry.mName + ", " + entry.mScore + "\n";
         }
         highScoresText.text = highScores;
+        eventSystem.SetSelectedGameObject(replayLevelBtn);
 
     }
 }

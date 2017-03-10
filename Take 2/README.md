@@ -19,13 +19,13 @@ Additional items:
 
 
 ##Name Ideas:
--Alia Resistance
--Proximus Nine
--Contact Light
-
+- Alia Resistance
+- Proximus Nine
+- Contact Light
+- Romfart
 
 ##Team name Ideas:
--Next Objective
+- Next Objective
 
 ##Bad jokes:
 You've heard of muprhy's law, right?

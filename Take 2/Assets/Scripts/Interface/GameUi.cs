@@ -36,6 +36,8 @@ public class GameUi : MonoBehaviour
     [SerializeField]
     private Text healthText;
 
+    [SerializeField]
+    private Text nextWaveText;
 
  
     // Use this for initialization
@@ -69,6 +71,7 @@ public class GameUi : MonoBehaviour
     void UpdateWaveDisplay(int waveNumber)
     {
         waveNumberText.text = waveNumber.ToString();
+        nextWaveText.GetComponent<Animator>().SetTrigger("NextWave");
     }
 
     void UpdateFreezeDisplay(int freezeCharges)

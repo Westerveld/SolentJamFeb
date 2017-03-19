@@ -14,8 +14,8 @@ public class ComponentController : MonoBehaviour
     protected int joystick;
     public int Joystick
     {
-        set { joystick = value; }
         get { return joystick; }
+        set { joystick = value; }
     }
 
     void Start()

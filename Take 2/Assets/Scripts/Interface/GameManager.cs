@@ -57,10 +57,19 @@ public class GameManager : MonoBehaviour
     //List enemies
     private List<GameObject> enemyList = new List<GameObject>();
 
+    //Multiplier
+    private int multiplier = 1;
+    public int Multiplier
+    {
+        get { return multiplier; }
+        set { multiplier = value; OnMultiplierChanged(multiplier); }
+    }
+
     //Action used to update sound & ui based on the changing gamestate
     public static event System.Action<GameState> OnGameStateChanged;
     public static event System.Action<int> OnScoreChanged;
     public static event System.Action<int> OnWaveChanged;
+    public static event System.Action<int> OnMultiplierChanged;
 
     bool gameOver = false;
     //<A>collection of enemies
@@ -88,7 +97,7 @@ public class GameManager : MonoBehaviour
 
     void OnEnemyDestroyed(int value)
     {
-        score += value;
+        score += (value * multiplier);
         enemyCount--;
         OnScoreChanged.Invoke(score);
     }

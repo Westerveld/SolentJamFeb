@@ -7,7 +7,7 @@ public class RoomManager : MonoBehaviour {
     private bool empty;
     public bool Empty
     {
-        set { empty = value; }
         get { return empty; }
+        set { empty = value; }
     }
 }

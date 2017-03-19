@@ -10,12 +10,12 @@ public class ShipController : MonoBehaviour
     private float health;
     public float Health
     {
+        get { return health; }
         set
         {
             health = Mathf.Clamp(value, 0f, maxHealth);
             OnStatsChange(health, maxHealth, PowerUpType.Health);
         }
-        get { return health; }
     }
     private bool criticalCondition;
 
@@ -24,8 +24,8 @@ public class ShipController : MonoBehaviour
     private int maxFreezeCharges = 5;
     public int FreezeCharges
     {
-        set { freezeCharges = Mathf.Clamp(value,0,maxFreezeCharges); }
         get { return freezeCharges; }
+        set { freezeCharges = Mathf.Clamp(value, 0, maxFreezeCharges); }
     }
     private float baseFreeseDuration = 0.5f;
     [SerializeField]
@@ -35,8 +35,8 @@ public class ShipController : MonoBehaviour
     private float maxFreezeDuration = 10f;
     public float FreezeDuration
     {
-        set { if (freezeDuration + value < maxFreezeDuration) { freezeDuration = value; } }
         get { return freezeDuration; }
+        set { if (freezeDuration + value < maxFreezeDuration) { freezeDuration = value; } }
     }
     private float baseSpeed = 25;
     [SerializeField]
@@ -56,16 +56,16 @@ public class ShipController : MonoBehaviour
     private float maxRateOfFire = 10f;
     public float RateOfFire
     {
-        set { rateOfFire = Mathf.Clamp(value, startRateOfFire, maxRateOfFire); }
         get { return rateOfFire; }
+        set { rateOfFire = Mathf.Clamp(value, startRateOfFire, maxRateOfFire); }
     }
     private const int baseDamage = 1;
     [SerializeField]
     private uint damage;
     public uint Damage
     {
-        set { damage = value; }
         get { return damage; }
+        set { damage = value; }
     }
     private int maxDamage = 60;
     [SerializeField]
@@ -120,6 +120,12 @@ public class ShipController : MonoBehaviour
         if(col.gameObject.layer == LayerMask.NameToLayer("Powerup"))
         {
             PowerupPickup(col.gameObject.GetComponent<Powerup>().powerUpType);
+            Destroy(col.gameObject);
+        }
+
+        if(col.gameObject.layer == LayerMask.NameToLayer("Multiplier"))
+        {
+
             Destroy(col.gameObject);
         }
 

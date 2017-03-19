@@ -16,8 +16,8 @@ public class PlayerController : MonoBehaviour
     private int controller;
     public int Controller
     {
-        set { controller = value; }
         get { return controller; }
+        set { controller = value; }
     }
 
     [SerializeField]

@@ -39,12 +39,15 @@ public class GameUi : MonoBehaviour
     [SerializeField]
     private Text nextWaveText;
 
+    [SerializeField]
+    private Text multiplierText;
  
     // Use this for initialization
     void Start()
     {
         GameManager.OnScoreChanged += UpdateScoreDisplay;
         GameManager.OnWaveChanged += UpdateWaveDisplay;
+        GameManager.OnMultiplierChanged += UpdateMultiplierDisplay;
         ShipController.OnFreezeChargeUsed += UpdateFreezeDisplay;
         ShipController.OnStatsChange += UpdateUiStats;
         currentHighScore = PlayerPrefs.GetInt("HighestScore");
@@ -54,6 +57,7 @@ public class GameUi : MonoBehaviour
     {
         GameManager.OnScoreChanged -= UpdateScoreDisplay;
         GameManager.OnWaveChanged -= UpdateWaveDisplay;
+        GameManager.OnMultiplierChanged -= UpdateMultiplierDisplay;
         ShipController.OnFreezeChargeUsed -= UpdateFreezeDisplay;
         ShipController.OnStatsChange -= UpdateUiStats;
     }
@@ -134,6 +138,11 @@ public class GameUi : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    void UpdateMultiplierDisplay(int amount)
+    {
+        multiplierText.text = amount + "x";
     }
 
 }

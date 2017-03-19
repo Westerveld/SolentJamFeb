@@ -7,23 +7,23 @@ public class EnemyController : MonoBehaviour {
     private GameObject ship;
     public GameObject Ship
     {
+        get { return ship; }
         set { ship = value; }
-        get { return ship;  }
     }
 
     [SerializeField]
     private uint damage;
     public uint Damage
     {
-        set { damage = value; }
         get { return damage; }
+        set { damage = value; }
     }
 
     private int score = 10;
     public int Score
     {
-        set { score = value; }
         get { return score; }
+        set { score = value; }
     }
   
 
@@ -80,27 +80,21 @@ public class EnemyController : MonoBehaviour {
     private bool deathAnimation; //Used to stop the coroutine for being called consistantly
     public bool Dead
     {
-        set { dead = value; }
         get { return dead; }
+        set { dead = value; }
     }
 
     private BulletPool bp;
     public BulletPool Bp
     {
-        set { bp = value; }
         get { return Bp; }
+        set { bp = value; }
     }
 
     public bool Frozen
     {
-        set
-        {
-            frozen = value;
-        }
-        get
-        {
-            return frozen;
-        }
+        get { return frozen; }
+        set { frozen = value; }
     }
 
     [SerializeField]

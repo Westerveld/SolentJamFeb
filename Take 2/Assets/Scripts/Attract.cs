@@ -8,8 +8,8 @@ public class Attract : MonoBehaviour {
     private GameObject ship;
     public GameObject Ship
     {
-        set { ship = value; }
         get { return ship; }
+        set { ship = value; }
     }
 
     [SerializeField]

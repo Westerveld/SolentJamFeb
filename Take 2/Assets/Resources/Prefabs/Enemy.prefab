@@ -225,10 +225,13 @@ MonoBehaviour:
   moveSpeedMax: 6
   shotIntervalMin: 0.75
   shotIntervalMax: 1
+  minMultipliers: 1
+  maxMultipliers: 5
   distanceToShoot: 13.472351
   moveSpeed: 5.4311414
   nextShot: 22.714376
   shotInterval: 0.62403286
+  multipliersToSpawn: 0
   bulletPrefab: {fileID: 1000013192284644, guid: 609bcda9d3a94ae40bf0fa4a7afc90ab,
     type: 2}
   bulletSpawn: {fileID: 4000010003899364}
@@ -239,6 +242,9 @@ MonoBehaviour:
   dropRate: 20
   powerupPrefab: {fileID: 1000013195116840, guid: d1b31bd330fbcef4c9d63fad5ef2f0e9,
     type: 2}
+  multiplierPrefab: {fileID: 1000011758521550, guid: 2a822baa0b4a3fc4898d10a41b405d07,
+    type: 2}
+  variation: 0.05
 --- !u!212 &212000012767837486
 SpriteRenderer:
   m_ObjectHideFlags: 1

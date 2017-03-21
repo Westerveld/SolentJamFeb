@@ -3,6 +3,7 @@
 public class ShipController : MonoBehaviour
 {
     private float baseMaxHealth = 20.0f;
+
     [SerializeField]
     private float maxHealth;
 
@@ -27,9 +28,12 @@ public class ShipController : MonoBehaviour
         get { return freezeCharges; }
         set { freezeCharges = Mathf.Clamp(value, 0, maxFreezeCharges); }
     }
+
     private float baseFreeseDuration = 0.5f;
+
     [SerializeField]
     private float startFreezeDuration = 2.0f;
+
     [SerializeField]
     private float freezeDuration = 2.0f;
     private float maxFreezeDuration = 10f;
@@ -39,6 +43,7 @@ public class ShipController : MonoBehaviour
         set { if (freezeDuration + value < maxFreezeDuration) { freezeDuration = value; } }
     }
     private float baseSpeed = 25;
+
     [SerializeField]
     private float speed = 50.0f;
     public float Speed
@@ -46,14 +51,19 @@ public class ShipController : MonoBehaviour
         set { speed = value; }
         get { return speed; }
     }
+
     private float maxSpeed = 300f;
     private const float baseRateOfFire = 0.5f;
+
     [SerializeField]
     private float startRateOfFire = 2f;
+
     [SerializeField]
     private float rateOfFire = 2f;
+
     [SerializeField]
     private float maxRateOfFire = 10f;
+
     public float RateOfFire
     {
         get { return rateOfFire; }
@@ -68,16 +78,19 @@ public class ShipController : MonoBehaviour
         set { damage = value; }
     }
     private int maxDamage = 60;
+
     [SerializeField]
     private GameObject[] blurSprites;
 
     [SerializeField]
     private GameObject shipCamera;
+
     private bool isDead = false;
     public static event System.Action OnPlayerDeath;
     public static event System.Action<int> OnFreezeChargeUsed;
     public static event System.Action<bool> OnShipCritical;
     public static event System.Action<float,float, PowerUpType> OnStatsChange;
+    public static event System.Action<int> OnMultiplierChanged;
 
     void Start()
     {
@@ -125,7 +138,7 @@ public class ShipController : MonoBehaviour
 
         if(col.gameObject.layer == LayerMask.NameToLayer("Multiplier"))
         {
-
+            OnMultiplierChanged.Invoke(1);
             Destroy(col.gameObject);
         }
 
@@ -207,4 +220,5 @@ public class ShipController : MonoBehaviour
         }
         
     }
+
 }

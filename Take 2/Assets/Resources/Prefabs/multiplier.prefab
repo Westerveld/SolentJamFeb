@@ -22,7 +22,8 @@ GameObject:
   - 212: {fileID: 212000011717574468}
   - 114: {fileID: 114000013114701426}
   - 50: {fileID: 50000010455710930}
-  m_Layer: 0
+  - 60: {fileID: 60000013699217064}
+  m_Layer: 14
   m_Name: multiplier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,6 +60,28 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!60 &60000013699217064
+PolygonCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011758521550}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  m_Points:
+    m_Paths:
+    - - {x: 0.58261865, y: -0.0035371932}
+      - {x: 0.4124641, y: 0.41353717}
+      - {x: -0.006771087, y: 0.59600395}
+      - {x: -0.42954123, y: 0.41954127}
+      - {x: -0.5790837, y: 0.013537244}
+      - {x: -0.40600455, y: -0.41615695}
+      - {x: -0.0064627323, y: -0.5893883}
+      - {x: 0.38570082, y: -0.42646274}
 --- !u!114 &114000013114701426
 MonoBehaviour:
   m_ObjectHideFlags: 1

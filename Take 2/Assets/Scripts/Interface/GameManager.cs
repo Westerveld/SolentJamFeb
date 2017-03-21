@@ -62,14 +62,13 @@ public class GameManager : MonoBehaviour
     public int Multiplier
     {
         get { return multiplier; }
-        set { multiplier = value; OnMultiplierChanged(multiplier); }
+        set { multiplier = value; }
     }
 
     //Action used to update sound & ui based on the changing gamestate
     public static event System.Action<GameState> OnGameStateChanged;
     public static event System.Action<int> OnScoreChanged;
     public static event System.Action<int> OnWaveChanged;
-    public static event System.Action<int> OnMultiplierChanged;
 
     bool gameOver = false;
     //<A>collection of enemies
@@ -79,6 +78,7 @@ public class GameManager : MonoBehaviour
         ShipController.OnPlayerDeath += EndGame;
         EnemyController.OnEnemyDeath += OnEnemyDestroyed;
         OnGameStateChanged += ChangeGameState;
+        ShipController.OnMultiplierChanged += AddToMultiplier;
         ship = (GameObject)Instantiate(shipPrefab);
         EndWave();
         Time.timeScale = 1;
@@ -313,5 +313,10 @@ public class GameManager : MonoBehaviour
         bp.UnFreezeBullets();
 
         frozen = false;
+    }
+
+    private void AddToMultiplier(int value)
+    {
+        Multiplier += value;
     }
 }

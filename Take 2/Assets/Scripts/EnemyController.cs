@@ -55,6 +55,13 @@ public class EnemyController : MonoBehaviour {
     private float shotIntervalMax;
 
     [SerializeField]
+    private int minMultipliers;
+    [SerializeField]
+    private int maxMultipliers;
+
+
+
+    [SerializeField]
     private float distanceToShoot;
 
     [SerializeField]
@@ -65,6 +72,10 @@ public class EnemyController : MonoBehaviour {
 
     [SerializeField]
     private float shotInterval;
+
+    [SerializeField]
+    private float multipliersToSpawn;
+
     [SerializeField]
     private GameObject bulletPrefab;
 
@@ -107,6 +118,12 @@ public class EnemyController : MonoBehaviour {
     private float dropRate = 5.0f;
     [SerializeField]
     private GameObject powerupPrefab;
+
+    [SerializeField]
+    private GameObject multiplierPrefab;
+
+    [SerializeField]
+    private float variation = 0.05f;
 
     public static event System.Action<int> OnEnemyDeath;
     public void EnemyFunctions()
@@ -249,6 +266,7 @@ public class EnemyController : MonoBehaviour {
         distanceToShip = Random.Range(distanceMin, distanceMax);
         moveSpeed = Random.Range(moveSpeedMin, moveSpeedMax);
         distanceToShoot = distanceToShip * 2f;
+        multipliersToSpawn = Random.Range(minMultipliers, maxMultipliers);
     }
 
     IEnumerator Die()
@@ -263,7 +281,16 @@ public class EnemyController : MonoBehaviour {
         float dropChance = Random.Range(0.0f, 100.0f); //Used to determine whether the enemy drops a powerup
         if (dropChance < dropRate)
         {
-            Instantiate(powerupPrefab,transform.position, Quaternion.identity);
+            GameObject powerup = (GameObject)Instantiate(powerupPrefab,transform.position, Quaternion.identity);
+            powerup.GetComponent<Attract>().Ship = Ship;
+        }
+        for(int i = 0; i < multipliersToSpawn; i++)
+        {
+            //Add some variation to the spawn location of the multiplier
+            float xPos = Random.Range(transform.position.x - variation, transform.position.x + variation);
+            float yPos = Random.Range(transform.position.y - variation, transform.position.y + variation);
+            GameObject mp = (GameObject)Instantiate(multiplierPrefab, new Vector3(xPos,yPos, transform.position.z), Quaternion.identity);
+            mp.GetComponent<Attract>().Ship = Ship;
         }
     }
 }

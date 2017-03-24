@@ -2,9 +2,9 @@
 
 Tasks to do:
 
-- Name for the game
+- Name for the game - Done, in Transit
 - Artwork for Southampton Game Fest
-- Add multiplier mechanic
+- Add multiplier mechanic - Done
 - Convert rooms to allow free movement for the player
 - Variating enemies
 - Power up system rework
@@ -17,12 +17,6 @@ Additional items:
 - additional weapons
 - general polish
 
-
-##Name Ideas:
-- Alia Resistance
-- Proximus Nine
-- Contact Light
-- Romfart
 
 ##Team name Ideas:
 - Next Objective

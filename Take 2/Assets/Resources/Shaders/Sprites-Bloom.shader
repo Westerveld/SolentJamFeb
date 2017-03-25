@@ -5,6 +5,7 @@ Shader "Sprites/Bloom"
 		[PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
 		_Color ("Tint", Color) = (1,1,1,1)
 		[MaterialToggle] PixelSnap ("Pixel snap", Float) = 0
+        _BloomTexture("Bloom Texture", 2D) = "red" {}
 		_BloomMultiplier ("Bloom multiplier", Float) = 1
 	}
 
@@ -78,13 +79,20 @@ Shader "Sprites/Bloom"
 				return color;
 			}
 
+            sampler2D _BloomTexture;
+
+            fixed4 SampleBloomTexture(float2 uv)
+            {
+                return tex2D(_BloomTexture, uv);
+            }
+
 			uniform float _BloomMultiplier;
 
 			fixed4 frag(v2f IN) : SV_Target
 			{
 				fixed4 c = SampleSpriteTexture (IN.texcoord) * IN.color;
 				c.rgb *= c.a;
-				c.rgb *= _BloomMultiplier;
+				c.rgb *= SampleBloomTexture(IN.texcoord).r * _BloomMultiplier;
 				return c;
 			}
 		ENDCG

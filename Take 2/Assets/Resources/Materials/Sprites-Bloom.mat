@@ -75,7 +75,7 @@ Material:
       second: 0
     - first:
         name: _BloomMultiplier
-      second: 3
+      second: 2
     - first:
         name: _BumpScale
       second: 1

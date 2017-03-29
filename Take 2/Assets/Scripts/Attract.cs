@@ -21,10 +21,23 @@ public class Attract : MonoBehaviour {
     [SerializeField]
     private float attractForce;
 
+    [SerializeField]
+    private float lifeTime;
+
+    private void Start()
+    {
+        if(this.gameObject.layer == LayerMask.NameToLayer("Powerup") || this.gameObject.layer == LayerMask.NameToLayer("Multiplier"))
+        {
+            Destroy(this.gameObject, lifeTime);
+        }
+    }
+
     private void FixedUpdate()
     {
         MoveTowards();
     }
+
+
     
     private void MoveTowards()
     {

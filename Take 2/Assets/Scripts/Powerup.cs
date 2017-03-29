@@ -22,6 +22,7 @@ public class Powerup : MonoBehaviour {
 
     private SpriteRenderer myRenderer;
 
+
     void Start()
     {
         myRenderer = GetComponent<SpriteRenderer>();

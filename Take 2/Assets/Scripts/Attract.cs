@@ -24,10 +24,16 @@ public class Attract : MonoBehaviour {
     [SerializeField]
     private float lifeTime;
 
+    private float startTime;
+
+    [SerializeField]
+    private Animator anim;
+
     private void Start()
     {
         if(this.gameObject.layer == LayerMask.NameToLayer("Powerup") || this.gameObject.layer == LayerMask.NameToLayer("Multiplier"))
         {
+            startTime = Time.time;
             Destroy(this.gameObject, lifeTime);
         }
     }
@@ -35,6 +41,14 @@ public class Attract : MonoBehaviour {
     private void FixedUpdate()
     {
         MoveTowards();
+
+        if (this.gameObject.layer == LayerMask.NameToLayer("Powerup") || this.gameObject.layer == LayerMask.NameToLayer("Multiplier"))
+        {
+            if (Time.time - startTime > (lifeTime / 2))
+            {
+                anim.SetBool("Fade", true);
+            }
+        }
     }
 
 

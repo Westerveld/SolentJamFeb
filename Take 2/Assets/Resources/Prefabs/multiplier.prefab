@@ -23,6 +23,7 @@ GameObject:
   - 114: {fileID: 114000013114701426}
   - 50: {fileID: 50000010455710930}
   - 60: {fileID: 60000013699217064}
+  - 95: {fileID: 95000012445931962}
   m_Layer: 14
   m_Name: multiplier
   m_TagString: Untagged
@@ -82,6 +83,23 @@ PolygonCollider2D:
       - {x: -0.40600455, y: -0.41615695}
       - {x: -0.0064627323, y: -0.5893883}
       - {x: 0.38570082, y: -0.42646274}
+--- !u!95 &95000012445931962
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011758521550}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7a38abd184edd8f4ab2f9dcdc307bda2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114000013114701426
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -97,6 +115,8 @@ MonoBehaviour:
   rigid: {fileID: 50000010455710930}
   minDistance: 5
   attractForce: 6
+  lifeTime: 6
+  anim: {fileID: 95000012445931962}
 --- !u!212 &212000011717574468
 SpriteRenderer:
   m_ObjectHideFlags: 1

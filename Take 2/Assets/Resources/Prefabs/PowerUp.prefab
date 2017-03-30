@@ -98,6 +98,8 @@ MonoBehaviour:
   rigid: {fileID: 50000010011957486}
   minDistance: 10
   attractForce: 3
+  lifeTime: 3
+  anim: {fileID: 0}
 --- !u!114 &114000013599308740
 MonoBehaviour:
   m_ObjectHideFlags: 1

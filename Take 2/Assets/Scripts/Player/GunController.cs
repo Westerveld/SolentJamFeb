@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using XInputDotNetPure;
 
 public class GunController : ComponentController {
     [SerializeField]
@@ -22,9 +23,9 @@ public class GunController : ComponentController {
 
     protected override void Activate()
     {
-        if (Joystick > 0)
+        if (Joystick != PlayerIndex.Four)
         {
-            if (Input.GetButton("Activate" + Joystick))
+            if (currentControllerState.Triggers.Right > 0)
             { 
                 if (Time.time > nextShot)
                 {

@@ -129,6 +129,26 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114000011332824958, guid: 98d4a362c548cae4f98bb0cacf9cd09d,
+        type: 2}
+      propertyPath: controller
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012216113216, guid: 98d4a362c548cae4f98bb0cacf9cd09d,
+        type: 2}
+      propertyPath: controller
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011912263948, guid: 98d4a362c548cae4f98bb0cacf9cd09d,
+        type: 2}
+      propertyPath: joystick
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013565908310, guid: 98d4a362c548cae4f98bb0cacf9cd09d,
+        type: 2}
+      propertyPath: joystick
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 98d4a362c548cae4f98bb0cacf9cd09d, type: 2}
   m_IsPrefabParent: 0

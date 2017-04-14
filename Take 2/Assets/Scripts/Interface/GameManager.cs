@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using XInputDotNetPure;
+
 public enum GameState
 {
     BetweenWaves,
@@ -65,6 +67,8 @@ public class GameManager : MonoBehaviour
         set { multiplier = value; }
     }
 
+    private GamePadState[] controllerStates;
+
     //Action used to update sound & ui based on the changing gamestate
     public static event System.Action<GameState> OnGameStateChanged;
     public static event System.Action<int> OnScoreChanged;
@@ -75,6 +79,12 @@ public class GameManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        controllerStates[0] = GamePad.GetState(PlayerIndex.One);
+
+        if(SceneManager.GetActiveScene().name == "PaulTesting")
+        {
+            controllerStates[0] = GamePad.GetState(PlayerIndex.Two);
+        }
         ShipController.OnPlayerDeath += EndGame;
         EnemyController.OnEnemyDeath += OnEnemyDestroyed;
         OnGameStateChanged += ChangeGameState;
@@ -133,9 +143,13 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (Input.GetButtonDown("Pause1"))
+        for (int i = 0; i < controllerStates.Length; i++)
         {
-            SetPause();
+            controllerStates[i] = GamePad.GetState((PlayerIndex)i);
+            if (controllerStates[i].Buttons.Start == ButtonState.Pressed)
+            {
+                SetPause();
+            }
         }
     }
 

@@ -128,6 +128,7 @@ public class ShipController : MonoBehaviour
             col.gameObject.SetActive(false);
 
             StartCoroutine(shipCamera.GetComponent<CameraShake>().Shake());
+            
         }
 
         if(col.gameObject.layer == LayerMask.NameToLayer("Powerup"))

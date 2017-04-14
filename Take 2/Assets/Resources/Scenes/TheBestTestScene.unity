@@ -149,6 +149,16 @@ Prefab:
       propertyPath: joystick
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 114000012788475692, guid: 98d4a362c548cae4f98bb0cacf9cd09d,
+        type: 2}
+      propertyPath: joystick
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010398632588, guid: 98d4a362c548cae4f98bb0cacf9cd09d,
+        type: 2}
+      propertyPath: joystick
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 98d4a362c548cae4f98bb0cacf9cd09d, type: 2}
   m_IsPrefabParent: 0

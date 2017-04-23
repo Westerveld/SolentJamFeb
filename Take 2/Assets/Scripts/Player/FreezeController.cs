@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using XInputDotNetPure;
 
 public class FreezeController : ComponentController
 {
@@ -10,9 +11,9 @@ public class FreezeController : ComponentController
     private float freezeDelay = 0.5f;
 	protected override void Activate()
     {
-        if (Joystick > 0)
+        if (Joystick != PlayerIndex.Four)
         {
-            if (Input.GetButtonDown("Activate" + Joystick)&& shipController.FreezeCharges > 0 && Time.time > freezeTime)
+            if (currentControllerState.Triggers.Right > 0 && shipController.FreezeCharges > 0 && Time.time > freezeTime)
             {
                 animationController.SetTrigger("Frozen");
                 freezeTime = Time.time + freezeDelay;

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using XInputDotNetPure;
 
 enum CurrentRoom
 {
@@ -13,8 +14,8 @@ enum CurrentRoom
 public class PlayerController : MonoBehaviour
 {
     [SerializeField]
-    private int controller;
-    public int Controller
+    private PlayerIndex controller;
+    public PlayerIndex Controller
     {
         get { return controller; }
         set { controller = value; }
@@ -52,7 +53,8 @@ public class PlayerController : MonoBehaviour
 
     void MoveRooms()
     {
-        if (Input.GetButton("Engine" + controller))
+        GamePadState currentState = GamePad.GetState(Controller);
+        if (currentState.Buttons.Y == ButtonState.Pressed)
         {
             
             if (Rooms[1].gameObject.GetComponent<RoomManager>().Empty)
@@ -64,7 +66,7 @@ public class PlayerController : MonoBehaviour
                 engine.Joystick = controller;
             }
         }
-        else if (Input.GetButton("Shield" + controller))
+        else if (currentState.Buttons.B == ButtonState.Pressed)
         {
             if (Rooms[2].gameObject.GetComponent<RoomManager>().Empty)
             {
@@ -75,7 +77,7 @@ public class PlayerController : MonoBehaviour
                 shield.Joystick = controller;
             }
         }
-        else if (Input.GetButton("Turret" + controller))
+        else if (currentState.Buttons.X == ButtonState.Pressed)
         {
             if (Rooms[3].gameObject.GetComponent<RoomManager>().Empty)
             {
@@ -86,7 +88,7 @@ public class PlayerController : MonoBehaviour
                 gun.Joystick = controller;
             }
         }
-        else if(Input.GetButton("Freeze" + controller))
+        else if(currentState.Buttons.A == ButtonState.Pressed)
         {
             if (Rooms[4].GetComponent<RoomManager>().Empty)
             {
@@ -106,20 +108,20 @@ public class PlayerController : MonoBehaviour
         {
             case CurrentRoom.Engine:
                 Rooms[1].gameObject.GetComponent<RoomManager>().Empty = true;
-                engine.Joystick = 0;
+                engine.Joystick = PlayerIndex.Four;
                 engine.DisableFlame();
                 break;
             case CurrentRoom.Freeze:
                 Rooms[4].gameObject.GetComponent<RoomManager>().Empty = true;
-                freeze.Joystick = 0;
+                freeze.Joystick = PlayerIndex.Four;
                 break;
             case CurrentRoom.Turret:
                 Rooms[3].gameObject.GetComponent<RoomManager>().Empty = true;
-                gun.Joystick = 0;
+                gun.Joystick = PlayerIndex.Four;
                 break;
             case CurrentRoom.Shield:
                 Rooms[2].gameObject.GetComponent<RoomManager>().Empty = true;
-                shield.Joystick = 0;
+                shield.Joystick = PlayerIndex.Four;
                 break;
             default:
                 break;

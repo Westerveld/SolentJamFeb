@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using XInputDotNetPure;
 
 public class ComponentController : MonoBehaviour
 {
@@ -11,12 +12,16 @@ public class ComponentController : MonoBehaviour
     protected float rotationSpeed;
 
     [SerializeField]
-    protected int joystick;
-    public int Joystick
+    protected PlayerIndex joystick;
+    public PlayerIndex Joystick
     {
         get { return joystick; }
         set { joystick = value; }
     }
+
+    protected GamePadState currentControllerState;
+
+    protected GamePad gamePad;
 
     void Start()
     {
@@ -26,6 +31,7 @@ public class ComponentController : MonoBehaviour
 	// Update is called once per frame
 	void FixedUpdate()
     {
+        currentControllerState = GamePad.GetState(Joystick);
         Rotate();
         Activate();
 	}
@@ -33,9 +39,9 @@ public class ComponentController : MonoBehaviour
     protected virtual void Rotate()
     {
         //Rotates the object around a fixed point, in this instance it rotates around the ships pivot point
-        if (Joystick > 0 )
+        if (Joystick != PlayerIndex.Four)
         {
-            transform.RotateAround(ship.transform.position, Vector3.back, Input.GetAxis("Horizontal" + Joystick) * rotationSpeed * Time.fixedDeltaTime);
+            transform.RotateAround(ship.transform.position, Vector3.back, currentControllerState.ThumbSticks.Left.X * rotationSpeed * Time.fixedDeltaTime);
         }
 
     }

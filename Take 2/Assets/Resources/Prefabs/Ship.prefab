@@ -1571,7 +1571,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ship: {fileID: 1000010146160784}
   rotationSpeed: 200
-  joystick: 0
+  joystick: 3
 --- !u!114 &114000011025206076
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1659,7 +1659,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ship: {fileID: 1000010146160784}
   rotationSpeed: 100
-  joystick: 0
+  joystick: 3
   bulletSpawn:
   - {fileID: 4000012491253294}
   - {fileID: 4000013658861992}
@@ -1730,7 +1730,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ship: {fileID: 1000010146160784}
   rotationSpeed: 0
-  joystick: 0
+  joystick: 3
   animationController: {fileID: 95000012804578552}
 --- !u!114 &114000012822344180
 MonoBehaviour:
@@ -1785,7 +1785,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ship: {fileID: 1000010146160784}
   rotationSpeed: 100
-  joystick: 0
+  joystick: 3
   force: 1000000
   flame: {fileID: 95000010032026166}
   audioSource: {fileID: 82000013453813964}

@@ -1465,7 +1465,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ship: {fileID: 1000012655673822}
   rotationSpeed: 100
-  joystick: 0
+  joystick: 3
   bulletSpawn:
   - {fileID: 4000014086642604}
   - {fileID: 4000014244395584}
@@ -1579,7 +1579,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ship: {fileID: 1000012655673822}
   rotationSpeed: 0
-  joystick: 0
+  joystick: 3
   animationController: {fileID: 95000013307879752}
 --- !u!114 &114000012451189220
 MonoBehaviour:
@@ -1594,7 +1594,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ship: {fileID: 1000012655673822}
   rotationSpeed: 200
-  joystick: 0
+  joystick: 3
 --- !u!114 &114000012570867676
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1679,7 +1679,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb690fafd332dfc4593868d77369cedd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: 1
+  controller: 0
   room: 0
   Rooms:
   - {fileID: 4000010258712512}
@@ -1718,7 +1718,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ship: {fileID: 1000012655673822}
   rotationSpeed: 100
-  joystick: 0
+  joystick: 3
   force: 1000000
   flame: {fileID: 95000013613204266}
   audioSource: {fileID: 82000012621996944}

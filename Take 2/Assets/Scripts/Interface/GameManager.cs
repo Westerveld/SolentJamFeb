@@ -67,7 +67,8 @@ public class GameManager : MonoBehaviour
         set { multiplier = value; }
     }
 
-    private GamePadState[] controllerStates;
+    private GamePadState controllerState;
+
 
     //Action used to update sound & ui based on the changing gamestate
     public static event System.Action<GameState> OnGameStateChanged;
@@ -79,12 +80,12 @@ public class GameManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        controllerStates[0] = GamePad.GetState(PlayerIndex.One);
+        //controllerStates[0] = GamePad.GetState(PlayerIndex.One);
 
-        if(SceneManager.GetActiveScene().name == "PaulTesting")
+        /*if(SceneManager.GetActiveScene().name == "PaulTesting")
         {
-            controllerStates[0] = GamePad.GetState(PlayerIndex.Two);
-        }
+            controllerStates[1] = GamePad.GetState(PlayerIndex.Two);
+        }*/
         ShipController.OnPlayerDeath += EndGame;
         EnemyController.OnEnemyDeath += OnEnemyDestroyed;
         OnGameStateChanged += ChangeGameState;
@@ -142,15 +143,7 @@ public class GameManager : MonoBehaviour
                     break;
             }
         }
-
-        for (int i = 0; i < controllerStates.Length; i++)
-        {
-            controllerStates[i] = GamePad.GetState((PlayerIndex)i);
-            if (controllerStates[i].Buttons.Start == ButtonState.Pressed)
-            {
-                SetPause();
-            }
-        }
+        CheckControllers();
     }
 
     void SetPause()
@@ -332,5 +325,17 @@ public class GameManager : MonoBehaviour
     private void AddToMultiplier(int value)
     {
         Multiplier += value;
+    }
+
+    private void CheckControllers()
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            controllerState = GamePad.GetState((PlayerIndex)i);
+            if (controllerState.Buttons.Start == ButtonState.Pressed)
+            {
+                SetPause();
+            }
+        }
     }
 }

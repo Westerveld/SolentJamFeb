@@ -31,7 +31,6 @@ public class EngineController : ComponentController {
                 {
                     audioSource.Play();
                 }
-                GamePad.SetVibration(Joystick, 0.2f, 0.0f);
                 flame.SetBool("Thrusting", true);
             }
             else
@@ -44,7 +43,6 @@ public class EngineController : ComponentController {
     public void DisableFlame()
     {
         flame.SetBool("Thrusting", false);
-        GamePad.SetVibration(Joystick, 0.0f, 0.0f);
         if (audioSource.isPlaying)
         {
             audioSource.Stop();

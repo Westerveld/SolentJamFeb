@@ -1634,7 +1634,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb690fafd332dfc4593868d77369cedd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: 1
+  controller: 0
   room: 0
   Rooms:
   - {fileID: 4000013469366244}
@@ -1679,7 +1679,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb690fafd332dfc4593868d77369cedd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: 2
+  controller: 1
   room: 0
   Rooms:
   - {fileID: 4000013469366244}

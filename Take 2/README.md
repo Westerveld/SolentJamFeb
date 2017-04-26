@@ -1,27 +1,17 @@
-# Take 2
+# In Transit
 
 Tasks to do:
 
-- Name for the game - Done, in Transit
-- Artwork for Southampton Game Fest
-- Add multiplier mechanic - Done
-- Convert rooms to allow free movement for the player
+- Artwork for Southampton Game Fest - Done - Banner needs to be ordered
+- Update triangle enemy to be kamikaze
+- Create a bounds for the arena
+- Sound effects for when the player pickups multipliers/power ups
 - Variating enemies
 - Power up system rework
+- Better indication of next wave incoming
 
 
 Additional items:
 - Animations for players
-- Sounds For collecting power ups
 - wave indication (ui text)
 - additional weapons
-- general polish
-
-
-##Team name Ideas:
-- Next Objective
-
-##Bad jokes:
-You've heard of muprhy's law, right?
-It states that everything that can go wrong will go wrong, but have you heard of cole's law?
-its thinly sliced cabbage

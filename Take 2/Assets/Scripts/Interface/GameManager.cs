@@ -211,7 +211,7 @@ public class GameManager : MonoBehaviour
 
     void NextWave()
     {
-		
+		print ("next wave waveNumber = " + waveNumber);
         int startCount = 0;
         waveNumber++;
         OnWaveChanged.Invoke(waveNumber);
@@ -224,8 +224,6 @@ public class GameManager : MonoBehaviour
         for (int i = startCount; i < waveSize; i++)
         {
 			//Initialise new enemy object when the need is larger than the current pool size.
-           
-
 			int totalWeight = 0;
 			//Calculate total weight for chance to add enemy type.
 			foreach (EnemySpawnObjects eo in enemySpawnObjects)
@@ -240,12 +238,12 @@ public class GameManager : MonoBehaviour
 			int currentWeightCount = 0;
 			int previousWeightCount = 0;
 			GameObject go;
-			for (int j = 0; i< enemySpawnObjects.Length; i++)
+			for (int j = 0; j< enemySpawnObjects.Length; j++)
 			{
-				if (enemySpawnObjects[j].minSpawnwave >= waveNumber) 
+				if (enemySpawnObjects[j].minSpawnwave <= waveNumber) 
 				{
 					currentWeightCount += enemySpawnObjects[j].spawnWeight;
-					if (rand > previousWeightCount && rand < currentWeightCount) 
+					if (rand >= previousWeightCount && rand < currentWeightCount) 
 					{
 						go = Instantiate(enemySpawnObjects[j].prefab);
 						EnemyController ec = go.GetComponent<EnemyController>();
@@ -255,6 +253,7 @@ public class GameManager : MonoBehaviour
 						//Add to enemy list.
 						enemyList.Add(go);
 					}
+					previousWeightCount = currentWeightCount;
 				}
 			}
         
@@ -267,7 +266,6 @@ public class GameManager : MonoBehaviour
             enemy.SetActive(true);
             enemy.GetComponent<EnemyController>().Dead = false;
             enemy.GetComponent<EnemyController>().RandomValues();
-
             //Enemy values are reset when destroyed.
         }
         enemyCount = enemyList.Count;

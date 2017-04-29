@@ -172,7 +172,7 @@ public class GameManager : MonoBehaviour
     void Resume()
     {
         Time.timeScale = 1;
-        SceneManager.UnloadScene("PauseMenu");
+        SceneManager.UnloadSceneAsync("PauseMenu");
         OnGameStateChanged(lastGameState);
     }
 

@@ -226,6 +226,15 @@ Prefab:
       propertyPath: controller
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4000011334583040, guid: 98d4a362c548cae4f98bb0cacf9cd09d, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -7.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 20000013875900952, guid: 98d4a362c548cae4f98bb0cacf9cd09d,
+        type: 2}
+      propertyPath: orthographic size
+      value: 20.13
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 98d4a362c548cae4f98bb0cacf9cd09d, type: 2}
   m_IsPrefabParent: 0

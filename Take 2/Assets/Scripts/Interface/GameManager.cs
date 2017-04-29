@@ -14,6 +14,13 @@ public enum GameState
     EndGame
 }
 
+public class EnemySpawnObjects : MonoBehaviour
+{
+	public   GameObject prefab;
+	public int spawnWeight;
+	public int minSpawnwave;
+}
+
 public class GameManager : MonoBehaviour
 {
     [SerializeField]
@@ -42,7 +49,6 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private int waveSpawnDistanceFromPlayerMax = 30;
 
-
     private float nextWaveTime;
     [SerializeField]
     private float nextWaveDelaySeconds = 10.0f;
@@ -53,8 +59,10 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private GameObject shipPrefab;
-    [SerializeField]
-    private GameObject[] enemyPrefabs;
+  //  [SerializeField]
+
+    //private GameObject[] enemyPrefabs;
+    public EnemySpawnObjects[] enemySpawnObjects;
     private GameObject ship;
     //List enemies
     private List<GameObject> enemyList = new List<GameObject>();
@@ -95,6 +103,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         FreezeController.OnFreeze += OnFreeze;
         PauseMenuController.OnGameResumed += Resume;
+       
     }
 
     void OnDestroy() 
@@ -199,7 +208,6 @@ public class GameManager : MonoBehaviour
 
     void NextWave()
     {
-        
         int startCount = 0;
         waveNumber++;
         OnWaveChanged.Invoke(waveNumber);
@@ -211,30 +219,40 @@ public class GameManager : MonoBehaviour
 
         for (int i = startCount; i < waveSize; i++)
         {
+			//Initialise new enemy object when the need is larger than the current pool size.
             GameObject go;
-            int rand = Random.Range(0, waveNumber);
 
-            if (waveNumber < 3)
-            {
-                go = Instantiate(enemyPrefabs[0]);
-            }
-            else
-            {
-                if (rand > 3)
-                {
-                    go = Instantiate(enemyPrefabs[1]);
-                }
-                else
-                {
-                    go = Instantiate(enemyPrefabs[0]);
-                }
-            }
-
-       
+			int totalWeight = 0;
+			//Calculate total weight for chance to add enemy type.
+			foreach (EnemySpawnObjects eo in enemySpawnObjects)
+			{
+				if (eo.minSpawnwave >= waveNumber) 
+				{
+					totalWeight += eo.spawnWeight;
+				}
+			}
+			//Calculate enemy type to add to list. 
+			int rand = Random.Range(0, totalWeight);
+			int currentWeightCount = 0;
+			int previousWeightCount = 0;
+			for (int j = 0; i< enemySpawnObjects.Length; i++)
+			{
+				if (enemySpawnObjects[i].minSpawnwave >= waveNumber) 
+				{
+					currentWeightCount += enemySpawnObjects[i].spawnWeight;
+					if (rand > previousWeightCount && rand < currentWeightCount) 
+					{
+						go = Instantiate(enemySpawnObjects[i].prefab);
+					}
+				}
+			}
+				      
+			//Setup new enemy.
             EnemyController ec = go.GetComponent<EnemyController>();
             ec.Ship = ship;
             ec.Bp = bp;
             go.transform.parent = gameObject.transform;
+			//Add to enemy list.
             enemyList.Add(go);
         }
 
@@ -252,6 +270,7 @@ public class GameManager : MonoBehaviour
         OnGameStateChanged(GameState.InWave);
 
     }
+
     Vector3 GetRandomSpawnPosition()
     {
         //Get random value between the give distances

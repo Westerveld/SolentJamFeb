@@ -3,13 +3,11 @@ using System.Collections;
 
 public enum PowerUpType
 {
-    FireRate,
-    TurretDamage,
-    FreezeTime,
-    FreezeCharge,
-    MoveSpeed,
-    MaxHealth,
     Health,
+    Invun,
+    Damage,
+    Explosion,
+    Freeze,
     Size
 }
 
@@ -34,26 +32,22 @@ public class Powerup : MonoBehaviour {
     {
         switch(powerUpType)
         {
-            case PowerUpType.FireRate:
+            case PowerUpType.Health:
                 myRenderer.sprite = powerupSprites[0];
                 break;
-            case PowerUpType.TurretDamage:
+            case PowerUpType.Invun:
                 myRenderer.sprite = powerupSprites[1];
                 break;
-            case PowerUpType.FreezeTime:
+            case PowerUpType.Damage:
                 myRenderer.sprite = powerupSprites[2];
                 break;
-            case PowerUpType.FreezeCharge:
+            case PowerUpType.Explosion:
                 myRenderer.sprite = powerupSprites[3];
                 break;
-            case PowerUpType.MoveSpeed:
+            case PowerUpType.Freeze:
                 myRenderer.sprite = powerupSprites[4];
                 break;
-            case PowerUpType.MaxHealth:
-                myRenderer.sprite = powerupSprites[5];
-                break;
-            case PowerUpType.Health:
-                myRenderer.sprite = powerupSprites[6];
+            default:
                 break;
         }
     }

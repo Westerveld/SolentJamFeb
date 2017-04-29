@@ -15,7 +15,7 @@ public class ShipController : MonoBehaviour
         set
         {
             health = Mathf.Clamp(value, 0f, maxHealth);
-            OnStatsChange(health, maxHealth, PowerUpType.Health);
+            //OnStatsChange(health, maxHealth, PowerUpType.Health);
         }
     }
     private bool criticalCondition;
@@ -89,7 +89,7 @@ public class ShipController : MonoBehaviour
     public static event System.Action OnPlayerDeath;
     public static event System.Action<int> OnFreezeChargeUsed;
     public static event System.Action<bool> OnShipCritical;
-    public static event System.Action<float,float, PowerUpType> OnStatsChange;
+    //public static event System.Action<float,float, PowerUpType> OnStatsChange;
     public static event System.Action<int> OnMultiplierChanged;
 
     void Start()
@@ -97,7 +97,7 @@ public class ShipController : MonoBehaviour
         Health = maxHealth;
         //UpdateUi with default values
         OnFreezeChargeUsed(freezeCharges);
-        InitialiseUIStat();
+        //InitialiseUIStat();
     }
 
     void FixedUpdate()
@@ -117,7 +117,7 @@ public class ShipController : MonoBehaviour
 
             //Remove health from player
             Health -= damage;
-            OnStatsChange(Health, maxHealth, PowerUpType.Health);
+            //OnStatsChange(Health, maxHealth, PowerUpType.Health);
             if (Health <= 0f)
             {
                 isDead = true;
@@ -151,40 +151,29 @@ public class ShipController : MonoBehaviour
         print(powerUpType.ToString());
         switch (powerUpType)
         {
-            case PowerUpType.FireRate:
-                RateOfFire = RateOfFire + baseRateOfFire;
-                OnStatsChange.Invoke(RateOfFire,maxRateOfFire , powerUpType);
-                break;
-            case PowerUpType.TurretDamage:
-                Damage += baseDamage;
-                OnStatsChange.Invoke(Damage,maxDamage, powerUpType);
-                break;
-            case PowerUpType.FreezeTime:
-                FreezeDuration += baseFreeseDuration;
-                OnStatsChange.Invoke(FreezeDuration,maxFreezeDuration, powerUpType);
-                break;
-            case PowerUpType.FreezeCharge:
-                FreezeCharges++;
-                OnFreezeChargeUsed(freezeCharges);
-                break;
-            case PowerUpType.MoveSpeed:
-                Speed += baseSpeed;
-                OnStatsChange.Invoke(Speed,maxSpeed,powerUpType);
-                break;
-            case PowerUpType.MaxHealth:
-                maxHealth += baseMaxHealth;
-                OnStatsChange.Invoke(Health, maxHealth, powerUpType);
-                break;
             case PowerUpType.Health:
                 Health += 50;
-                OnStatsChange.Invoke(Health, maxHealth, powerUpType);
+                break;
+            case PowerUpType.Invun:
+                Damage += baseDamage;
+                //OnStatsChange.Invoke(Damage,maxDamage, powerUpType);
+                break;
+            case PowerUpType.Damage:
+                FreezeDuration += baseFreeseDuration;
+                //OnStatsChange.Invoke(FreezeDuration,maxFreezeDuration, powerUpType);
+                break;
+            case PowerUpType.Explosion:
+                break;
+            case PowerUpType.Freeze:
+                FreezeCharges++;
+                OnFreezeChargeUsed(freezeCharges);
                 break;
             default:
                 break;
         }
     }
 
-    void InitialiseUIStat()
+    /*void InitialiseUIStat()
     {
         OnStatsChange.Invoke(rateOfFire, maxRateOfFire, PowerUpType.FireRate);
         OnStatsChange.Invoke(Damage, maxDamage, PowerUpType.TurretDamage);
@@ -192,7 +181,7 @@ public class ShipController : MonoBehaviour
         OnStatsChange.Invoke(freezeCharges, maxFreezeCharges, PowerUpType.FreezeCharge);
         OnStatsChange.Invoke(Speed, maxSpeed, PowerUpType.MoveSpeed);
         OnStatsChange.Invoke(Health, maxHealth, PowerUpType.MaxHealth);
-    }
+    }*/
 
 
     void CheckCriticalCondition()

@@ -51,7 +51,7 @@ public class GameUi : MonoBehaviour
         GameManager.OnWaveChanged += UpdateWaveDisplay;
         ShipController.OnMultiplierChanged += UpdateMultiplierDisplay;
         ShipController.OnFreezeChargeUsed += UpdateFreezeDisplay;
-        ShipController.OnStatsChange += UpdateUiStats;
+        //ShipController.OnStatsChange += UpdateUiStats;
         currentHighScore = PlayerPrefs.GetInt("HighestScore");
         highScoreText.text = currentHighScore.ToString();
     }
@@ -61,7 +61,7 @@ public class GameUi : MonoBehaviour
         GameManager.OnWaveChanged -= UpdateWaveDisplay;
         ShipController.OnMultiplierChanged -= UpdateMultiplierDisplay;
         ShipController.OnFreezeChargeUsed -= UpdateFreezeDisplay;
-        ShipController.OnStatsChange -= UpdateUiStats;
+        //ShipController.OnStatsChange -= UpdateUiStats;
     }
 
     void UpdateScoreDisplay(int score)
@@ -103,7 +103,7 @@ public class GameUi : MonoBehaviour
     }
 
 
-    void UpdateUiStats(float value, float maxValue, PowerUpType powerUpType)
+   /* void UpdateUiStats(float value, float maxValue, PowerUpType powerUpType)
     {
        float barValue = CalculateBarFillValue(value, maxValue);
 
@@ -140,7 +140,7 @@ public class GameUi : MonoBehaviour
             default:
                 break;
         }
-    }
+    }*/
 
     void UpdateMultiplierDisplay(int amount)
     {

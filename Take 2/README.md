@@ -15,3 +15,10 @@ Additional items:
 - Animations for players
 - wave indication (ui text)
 - additional weapons
+
+Power Ups;
+- Invunreable for short amount of time
+- Increased Damage
+- AOE Explosion that destroys all enemies on screen
+- Freeze pickups
+-

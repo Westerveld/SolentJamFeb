@@ -1,6 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public enum EnemyType
+{
+    Kamikaze,
+    Normal,
+    Advanced
+}
+
 public class EnemyController : MonoBehaviour {
 
     [SerializeField]

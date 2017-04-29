@@ -13,11 +13,14 @@ public enum GameState
     NextWave,
     EndGame
 }
-
-public class EnemySpawnObjects : MonoBehaviour
+[System.Serializable]	
+public class EnemySpawnObjects
 {
-	public   GameObject prefab;
+	[SerializeField]
+	public GameObject prefab;
+	[SerializeField]
 	public int spawnWeight;
+	[SerializeField]
 	public int minSpawnwave;
 }
 
@@ -208,6 +211,7 @@ public class GameManager : MonoBehaviour
 
     void NextWave()
     {
+		
         int startCount = 0;
         waveNumber++;
         OnWaveChanged.Invoke(waveNumber);
@@ -220,7 +224,7 @@ public class GameManager : MonoBehaviour
         for (int i = startCount; i < waveSize; i++)
         {
 			//Initialise new enemy object when the need is larger than the current pool size.
-            GameObject go;
+           
 
 			int totalWeight = 0;
 			//Calculate total weight for chance to add enemy type.
@@ -235,25 +239,25 @@ public class GameManager : MonoBehaviour
 			int rand = Random.Range(0, totalWeight);
 			int currentWeightCount = 0;
 			int previousWeightCount = 0;
+			GameObject go;
 			for (int j = 0; i< enemySpawnObjects.Length; i++)
 			{
-				if (enemySpawnObjects[i].minSpawnwave >= waveNumber) 
+				if (enemySpawnObjects[j].minSpawnwave >= waveNumber) 
 				{
-					currentWeightCount += enemySpawnObjects[i].spawnWeight;
+					currentWeightCount += enemySpawnObjects[j].spawnWeight;
 					if (rand > previousWeightCount && rand < currentWeightCount) 
 					{
-						go = Instantiate(enemySpawnObjects[i].prefab);
+						go = Instantiate(enemySpawnObjects[j].prefab);
+						EnemyController ec = go.GetComponent<EnemyController>();
+						ec.Ship = ship;
+						ec.Bp = bp;
+						go.transform.parent = gameObject.transform;
+						//Add to enemy list.
+						enemyList.Add(go);
 					}
 				}
 			}
-				      
-			//Setup new enemy.
-            EnemyController ec = go.GetComponent<EnemyController>();
-            ec.Ship = ship;
-            ec.Bp = bp;
-            go.transform.parent = gameObject.transform;
-			//Add to enemy list.
-            enemyList.Add(go);
+        
         }
 
 

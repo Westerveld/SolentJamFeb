@@ -251,7 +251,7 @@ public class EnemyController : MonoBehaviour {
     {
         GameObject explosion = Instantiate(explosionPrefab);
         explosion.transform.position = transform.position;
-        Destroy(explosion, explosion.GetComponent<ParticleSystem>().duration);
+        Destroy(explosion, explosion.GetComponent<ParticleSystem>().main.duration);
     }
         
 

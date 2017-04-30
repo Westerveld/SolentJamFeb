@@ -237,7 +237,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ship: {fileID: 0}
-  damage: 10
+  damage: 2
   health: 60
   distanceToShip: 10
   rotationSpeed: 20
@@ -250,7 +250,7 @@ MonoBehaviour:
   shotIntervalMin: 0.75
   shotIntervalMax: 1
   minMultipliers: 1
-  maxMultipliers: 5
+  maxMultipliers: 3
   distanceToShoot: 13.472351
   moveSpeed: 5.4311414
   nextShot: 22.714376

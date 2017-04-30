@@ -85,6 +85,7 @@ public class GameManager : MonoBehaviour
     public static event System.Action<GameState> OnGameStateChanged;
     public static event System.Action<int> OnScoreChanged;
     public static event System.Action<int> OnWaveChanged;
+    public static event System.Action OnWaveEnded;
 
     bool gameOver = false;
     //<A>collection of enemies
@@ -164,7 +165,7 @@ public class GameManager : MonoBehaviour
         {
             if (currentGameState == GameState.Paused)
             {
-                Resume();
+                //Resume();
             }
             else
             {
@@ -206,6 +207,7 @@ public class GameManager : MonoBehaviour
     void EndWave()
     {
         nextWaveTime = Time.time + timeBetweenWavesSeconds;
+        OnWaveEnded.Invoke();
         OnGameStateChanged(GameState.BetweenWaves);
     }
 

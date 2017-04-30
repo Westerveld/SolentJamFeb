@@ -176,8 +176,8 @@ MonoBehaviour:
   moveSpeedMax: 8
   shotIntervalMin: 0.35
   shotIntervalMax: 1.5
-  minMultipliers: 9
-  maxMultipliers: 0
+  minMultipliers: 2
+  maxMultipliers: 5
   distanceToShoot: 3
   moveSpeed: 4
   nextShot: 1

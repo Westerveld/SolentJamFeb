@@ -2,9 +2,12 @@
 
 public class BackgroundController : MonoBehaviour
 {
+    [SerializeField]
+    private float offset;
+
     void Update()
     {
         Vector3 parentPosition = transform.parent.position;
-        transform.localPosition = new Vector3(-parentPosition.x % 20, -parentPosition.y % 20, -parentPosition.z % 20);
+        transform.localPosition = new Vector3(-parentPosition.x % offset, -parentPosition.y % offset, -parentPosition.z % offset);
     }
 }

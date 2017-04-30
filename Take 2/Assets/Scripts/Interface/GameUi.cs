@@ -42,6 +42,7 @@ public class GameUi : MonoBehaviour
     [SerializeField]
     private Text multiplierText;
 
+    // Starting Multiplier
     private int multiplier = 1;
  
     // Use this for initialization
@@ -49,9 +50,11 @@ public class GameUi : MonoBehaviour
     {
         GameManager.OnScoreChanged += UpdateScoreDisplay;
         GameManager.OnWaveChanged += UpdateWaveDisplay;
+        GameManager.OnWaveEnded += WaveIncoming;
         ShipController.OnMultiplierChanged += UpdateMultiplierDisplay;
         ShipController.OnFreezeChargeUsed += UpdateFreezeDisplay;
         //ShipController.OnStatsChange += UpdateUiStats;
+        ShipController.OnHealthChanged += UpdatePlayerHealth;
         currentHighScore = PlayerPrefs.GetInt("HighestScore");
         highScoreText.text = currentHighScore.ToString();
     }
@@ -59,8 +62,10 @@ public class GameUi : MonoBehaviour
     {
         GameManager.OnScoreChanged -= UpdateScoreDisplay;
         GameManager.OnWaveChanged -= UpdateWaveDisplay;
+        GameManager.OnWaveEnded -= WaveIncoming;
         ShipController.OnMultiplierChanged -= UpdateMultiplierDisplay;
         ShipController.OnFreezeChargeUsed -= UpdateFreezeDisplay;
+        ShipController.OnHealthChanged -= UpdatePlayerHealth;
         //ShipController.OnStatsChange -= UpdateUiStats;
     }
 
@@ -77,7 +82,6 @@ public class GameUi : MonoBehaviour
     void UpdateWaveDisplay(int waveNumber)
     {
         waveNumberText.text = waveNumber.ToString();
-        nextWaveText.GetComponent<Animator>().SetTrigger("NextWave");
     }
 
     void UpdateFreezeDisplay(int freezeCharges)
@@ -148,4 +152,22 @@ public class GameUi : MonoBehaviour
         multiplierText.text = multiplier + "x";
     }
 
+    void UpdatePlayerHealth(float currentHealth)
+    {
+        float barValue = CalculateBarFillValue(currentHealth, 100);
+
+        healthText.text = currentHealth.ToString() + " / 100";
+        healthBar.fillAmount = barValue;
+    }
+
+    void WaveIncoming()
+    {
+        StartCoroutine(WaitForTimer());   
+    }
+
+    IEnumerator WaitForTimer()
+    {
+        yield return new WaitForSeconds(5f);
+        nextWaveText.GetComponent<Animator>().SetTrigger("NextWave");
+    }
 }

@@ -15,6 +15,7 @@ public class ShipController : MonoBehaviour
         set
         {
             health = Mathf.Clamp(value, 0f, maxHealth);
+            OnHealthChanged(health);
             //OnStatsChange(health, maxHealth, PowerUpType.Health);
         }
     }
@@ -90,6 +91,7 @@ public class ShipController : MonoBehaviour
     public static event System.Action<int> OnFreezeChargeUsed;
     public static event System.Action<bool> OnShipCritical;
     //public static event System.Action<float,float, PowerUpType> OnStatsChange;
+    public static event System.Action<float> OnHealthChanged;
     public static event System.Action<int> OnMultiplierChanged;
 
     void Start()
@@ -117,6 +119,7 @@ public class ShipController : MonoBehaviour
 
             //Remove health from player
             Health -= damage;
+            OnHealthChanged(Health);
             //OnStatsChange(Health, maxHealth, PowerUpType.Health);
             if (Health <= 0f)
             {
@@ -155,11 +158,10 @@ public class ShipController : MonoBehaviour
                 Health += 50;
                 break;
             case PowerUpType.Invun:
-                Damage += baseDamage;
                 //OnStatsChange.Invoke(Damage,maxDamage, powerUpType);
                 break;
             case PowerUpType.Damage:
-                FreezeDuration += baseFreeseDuration;
+                
                 //OnStatsChange.Invoke(FreezeDuration,maxFreezeDuration, powerUpType);
                 break;
             case PowerUpType.Explosion:

@@ -2,7 +2,6 @@
 
 public class ShipController : MonoBehaviour
 {
-    private float baseMaxHealth = 20.0f;
 
     [SerializeField]
     private float maxHealth;
@@ -30,10 +29,6 @@ public class ShipController : MonoBehaviour
         set { freezeCharges = Mathf.Clamp(value, 0, maxFreezeCharges); }
     }
 
-    private float baseFreeseDuration = 0.5f;
-
-    [SerializeField]
-    private float startFreezeDuration = 2.0f;
 
     [SerializeField]
     private float freezeDuration = 2.0f;
@@ -43,8 +38,7 @@ public class ShipController : MonoBehaviour
         get { return freezeDuration; }
         set { if (freezeDuration + value < maxFreezeDuration) { freezeDuration = value; } }
     }
-    private float baseSpeed = 25;
-
+   
     [SerializeField]
     private float speed = 50.0f;
     public float Speed
@@ -53,7 +47,6 @@ public class ShipController : MonoBehaviour
         get { return speed; }
     }
 
-    private float maxSpeed = 300f;
     private const float baseRateOfFire = 0.5f;
 
     [SerializeField]
@@ -78,7 +71,6 @@ public class ShipController : MonoBehaviour
         get { return damage; }
         set { damage = value; }
     }
-    private int maxDamage = 60;
 
     [SerializeField]
     private GameObject[] blurSprites;
@@ -86,6 +78,26 @@ public class ShipController : MonoBehaviour
     [SerializeField]
     private GameObject shipCamera;
 
+    private bool doubleDamage;
+    public bool DoubleDamage
+    {
+        get { return doubleDamage; }
+        set { doubleDamage = value; }
+    }
+
+    private bool invun;
+    public bool Invun
+    {
+        get { return invun; }
+        set { invun = value; }
+    }
+
+    [SerializeField]
+    private float powerUpActiveTime;
+
+    [SerializeField]
+    private GameObject explosionPrefab;
+    
     private bool isDead = false;
     public static event System.Action OnPlayerDeath;
     public static event System.Action<int> OnFreezeChargeUsed;
@@ -114,23 +126,26 @@ public class ShipController : MonoBehaviour
     {
         if (col.gameObject.layer == LayerMask.NameToLayer("Enemy Projectiles") && !isDead)
         {
-             //Get bullet damage
-            float damage = col.GetComponent<BulletController>().Damage;
-
-            //Remove health from player
-            Health -= damage;
-            OnHealthChanged(Health);
-            //OnStatsChange(Health, maxHealth, PowerUpType.Health);
-            if (Health <= 0f)
+            if (!Invun)
             {
-                isDead = true;
-                OnPlayerDeath.Invoke();
+                //Get bullet damage
+                float damage = col.GetComponent<BulletController>().Damage;
+
+                //Remove health from player
+                Health -= damage;
+                OnHealthChanged(Health);
+                //OnStatsChange(Health, maxHealth, PowerUpType.Health);
+                if (Health <= 0f)
+                {
+                    isDead = true;
+                    OnPlayerDeath.Invoke();
+                }
+                CheckCriticalCondition();
+                StartCoroutine(shipCamera.GetComponent<CameraShake>().Shake());
             }
-            CheckCriticalCondition();
             //Destroy Bullet
             col.gameObject.SetActive(false);
 
-            StartCoroutine(shipCamera.GetComponent<CameraShake>().Shake());
             
         }
 
@@ -158,13 +173,17 @@ public class ShipController : MonoBehaviour
                 Health += 50;
                 break;
             case PowerUpType.Invun:
+                Invun = true;
+                StartCoroutine(InvunCountdown());
                 //OnStatsChange.Invoke(Damage,maxDamage, powerUpType);
                 break;
             case PowerUpType.Damage:
-                
+                DoubleDamage = true;
+                StartCoroutine(DoubleDamageCountdown());
                 //OnStatsChange.Invoke(FreezeDuration,maxFreezeDuration, powerUpType);
                 break;
             case PowerUpType.Explosion:
+                explosionPrefab.GetComponent<Animator>().SetTrigger("Exploding");
                 break;
             case PowerUpType.Freeze:
                 FreezeCharges++;
@@ -210,7 +229,18 @@ public class ShipController : MonoBehaviour
             FreezeCharges--;
             OnFreezeChargeUsed.Invoke(freezeCharges);
         }
-        
     }
 
+    
+    System.Collections.IEnumerator InvunCountdown()
+    {
+        yield return new WaitForSeconds(powerUpActiveTime);
+        Invun = false;
+    }
+
+    System.Collections.IEnumerator DoubleDamageCountdown()
+    {
+        yield return new WaitForSeconds(powerUpActiveTime);
+        DoubleDamage = false;
+    }
 }

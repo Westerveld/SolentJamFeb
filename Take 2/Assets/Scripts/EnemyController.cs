@@ -229,6 +229,11 @@ public class EnemyController : MonoBehaviour {
             //Enemy Colliding With Asteroid
             //Return to object pool
         }
+        if (col.gameObject.layer == LayerMask.NameToLayer("Explosion"))
+        {
+            Death();
+            SpawnExplosion();
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)

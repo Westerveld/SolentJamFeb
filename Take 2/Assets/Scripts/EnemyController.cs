@@ -9,7 +9,8 @@ public enum EnemyType
 }
 
 public class EnemyController : MonoBehaviour {
-
+	[SerializeField]
+	private EnemyType enemyType;
     [SerializeField]
     private GameObject ship;
     public GameObject Ship
@@ -139,9 +140,24 @@ public class EnemyController : MonoBehaviour {
         {
             if (!dead)
             {
-                Move();
-                Rotate();
-                Shoot();
+				switch (enemyType) {
+				case EnemyType.Advanced:
+					Move();
+					Rotate();
+					Shoot();
+					break;
+				case EnemyType.Kamikaze:
+					Kamakasi ();
+					break;
+				case EnemyType.Normal:
+					Move();
+					Rotate();
+					Shoot();
+					break;
+				default:
+					break;
+				}
+              
             }
             if(deathAnimation)
             {
@@ -150,6 +166,19 @@ public class EnemyController : MonoBehaviour {
             }
         }
     }
+	void Kamakasi()
+	{
+		
+			Vector3 direction = ship.transform.position - transform.position;
+			direction.Normalize();
+			float speed = Mathf.Max(ship.GetComponent<Rigidbody2D>().velocity.magnitude * 2f, moveSpeed * 2f);
+				
+			transform.position += direction * moveSpeed * Time.deltaTime;
+
+		float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+		transform.rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
+
+	}
     
     void Move()
     {
@@ -238,16 +267,20 @@ public class EnemyController : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Player Ships"))
+		if (collision.gameObject.layer == LayerMask.NameToLayer("Player Ships") || enemyType != EnemyType.Kamikaze)
         {
-            if (collision.relativeVelocity.magnitude > 4f)
-            {
-                collision.gameObject.GetComponent<ShipController>().Health = collision.gameObject.GetComponent<ShipController>().Health - health;
+			if (collision.relativeVelocity.magnitude > 4f) {
+				collision.gameObject.GetComponent<ShipController> ().Health = collision.gameObject.GetComponent<ShipController> ().Health - health;
 
-                Death();
+				Death ();
 
-                SpawnExplosion();
-            }
+				SpawnExplosion ();
+			} else if (enemyType == EnemyType.Kamikaze) {
+				collision.gameObject.GetComponent<ShipController> ().Health = collision.gameObject.GetComponent<ShipController> ().Health - damage;
+				Death ();
+
+				SpawnExplosion ();
+			}
         }
     }
 

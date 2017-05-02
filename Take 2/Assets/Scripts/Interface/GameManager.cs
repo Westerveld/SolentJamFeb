@@ -80,6 +80,11 @@ public class GameManager : MonoBehaviour
 
     private GamePadState controllerState;
 
+	[SerializeField]
+	Transform WallTopLeft;
+	[SerializeField]
+	Transform WallBottomRight;
+
 
     //Action used to update sound & ui based on the changing gamestate
     public static event System.Action<GameState> OnGameStateChanged;
@@ -117,6 +122,7 @@ public class GameManager : MonoBehaviour
         OnGameStateChanged -= ChangeGameState;
         FreezeController.OnFreeze -= OnFreeze;
         PauseMenuController.OnGameResumed -= Resume;
+
     }
 
     void OnEnemyDestroyed(int value)
@@ -264,7 +270,7 @@ public class GameManager : MonoBehaviour
 
         foreach (GameObject enemy in enemyList)
         {
-            enemy.transform.position = ship.transform.position + GetRandomSpawnPosition();
+            enemy.transform.position = GetRandomSpawnPosition();
             enemy.SetActive(true);
             enemy.GetComponent<EnemyController>().Dead = false;
             enemy.GetComponent<EnemyController>().RandomValues();
@@ -278,8 +284,8 @@ public class GameManager : MonoBehaviour
     Vector3 GetRandomSpawnPosition()
     {
         //Get random value between the give distances
-        int x = Random.Range(waveSpawnDistanceFromPlayerMin, waveSpawnDistanceFromPlayerMax);
-        int y = Random.Range(waveSpawnDistanceFromPlayerMin, waveSpawnDistanceFromPlayerMax);
+		float x = ship.transform.position.x +  Random.Range(waveSpawnDistanceFromPlayerMin, waveSpawnDistanceFromPlayerMax);
+		float y = ship.transform.position.y +  Random.Range(waveSpawnDistanceFromPlayerMin, waveSpawnDistanceFromPlayerMax);
         //Flip a coin and invert the x value.
         if (Random.Range(0, 2) == 1)
         {
@@ -291,8 +297,26 @@ public class GameManager : MonoBehaviour
             y = -y;
         }
 
-        return new Vector3(x, y, 0);
+		if (x < WallTopLeft.position.x) 
+		{
+			x = -x;
+		}
+		if (x > WallBottomRight.position.x) {
+			x = -x;
+		}
+
+		if (y < WallBottomRight.position.y) {
+			y = -y;
+		}
+
+		if (y > WallTopLeft.position.y) {
+			y = -y;
+		}
+
+
+			return new Vector3(x, y, 0);
     }
+
     private void ChangeGameState(GameState gameState)
     {
         currentGameState = gameState;

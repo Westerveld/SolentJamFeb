@@ -163,6 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4b166f0af6379149b15fc09b5b00655, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyType: 1
   ship: {fileID: 0}
   damage: 3
   health: 40

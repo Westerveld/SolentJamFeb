@@ -12,7 +12,8 @@ public class PauseMenuController : MonoBehaviour
 
     public void ReplayLevel()
     {
-        SceneManager.LoadScene("PaulTesting");
+        
+        SceneManager.LoadScene(GameManager.currentScene);
     }
 
     public void Resume()

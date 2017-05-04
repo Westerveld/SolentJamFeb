@@ -93,10 +93,13 @@ public class GameManager : MonoBehaviour
     public static event System.Action OnWaveEnded;
 
     bool gameOver = false;
+
+    public static string currentScene;
     //<A>collection of enemies
     // Use this for initialization
     void Start()
     {
+        currentScene = SceneManager.GetActiveScene().name;
         //controllerStates[0] = GamePad.GetState(PlayerIndex.One);
 
         /*if(SceneManager.GetActiveScene().name == "PaulTesting")
@@ -184,6 +187,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0;
         SceneManager.LoadScene("PauseMenu", LoadSceneMode.Additive);
+        PauseMenuController.OnGameResumed += Resume;
         lastGameState = currentGameState;
         OnGameStateChanged(GameState.Paused);
     }
@@ -192,6 +196,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1;
         SceneManager.UnloadSceneAsync("PauseMenu");
+        PauseMenuController.OnGameResumed -= Resume;
         OnGameStateChanged(lastGameState);
     }
 

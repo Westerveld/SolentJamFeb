@@ -35,7 +35,7 @@ public class Leaderboard {
         }
     }
 
-    private const string PlayerPrefsBaseKey = "leaderboard";
+    public static string PlayerPrefsBaseKey = "leaderboard";
 
     //Compares the score of b to a, and if b is bigger, moves it to a's position in the list
     private static void SortScores()

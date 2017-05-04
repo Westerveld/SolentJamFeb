@@ -1,2 +1,3 @@
 Current Bugs:
 - Replay doesnt work, comes up with null reference error on OnWaveEnded.Invoke();
+- Enemies arent getting frozen. freeze is bugged

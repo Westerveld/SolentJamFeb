@@ -45,7 +45,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &1073625528384218
 GameObject:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
@@ -53,7 +53,8 @@ GameObject:
   - component: {fileID: 4810042967877084}
   - component: {fileID: 212412025283195450}
   - component: {fileID: 95584679845069134}
-  m_Layer: 0
+  - component: {fileID: 58119153477875688}
+  m_Layer: 16
   m_Name: freezeRing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -907,8 +908,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0.75, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 4810042967877084}
+  m_Children: []
   m_Father: {fileID: 4151838373417924}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -971,6 +971,7 @@ Transform:
   - {fileID: 4429055633757744}
   - {fileID: 4707548770616410}
   - {fileID: 4064472306857714}
+  - {fileID: 4810042967877084}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1061,11 +1062,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1073625528384218}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.75, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
-  m_Father: {fileID: 4511051212489594}
-  m_RootOrder: 0
+  m_Father: {fileID: 4708362582085578}
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4823649162694922
 Transform:
@@ -1264,6 +1265,21 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.72
+--- !u!58 &58119153477875688
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1073625528384218}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 2.56
 --- !u!58 &58810627284338674
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -2362,8 +2378,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 497c85d2927eff04aaa709f1ddbdf7a7, type: 3}
+  m_SortingOrder: -1
+  m_Sprite: {fileID: 21300000, guid: d09310f688ca6674795dcf44c5c51a90, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

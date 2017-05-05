@@ -174,12 +174,12 @@ public class ShipController : MonoBehaviour
                 Health += 50;
                 OnPowerUpCollected.Invoke(PowerUpType.Health);
                 break;
-            case PowerUpType.Invun:
+            /*case PowerUpType.Invun:
                 Invun = true;
                 StartCoroutine(InvunCountdown());
                 OnPowerUpCollected.Invoke(PowerUpType.Invun);
                 //OnStatsChange.Invoke(Damage,maxDamage, powerUpType);
-                break;
+                break;*/
             case PowerUpType.Damage:
                 DoubleDamage = true;
                 StartCoroutine(DoubleDamageCountdown());

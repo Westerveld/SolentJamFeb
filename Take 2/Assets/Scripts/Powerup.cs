@@ -4,7 +4,7 @@ using System.Collections;
 public enum PowerUpType
 {
     Health,
-    Invun,
+    //Invun,
     Damage,
     Explosion,
     Freeze,
@@ -35,9 +35,9 @@ public class Powerup : MonoBehaviour {
             case PowerUpType.Health:
                 myRenderer.sprite = powerupSprites[0];
                 break;
-            case PowerUpType.Invun:
+            /*case PowerUpType.Invun:
                 myRenderer.sprite = powerupSprites[1];
-                break;
+                break;*/
             case PowerUpType.Damage:
                 myRenderer.sprite = powerupSprites[2];
                 break;

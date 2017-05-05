@@ -183,9 +183,9 @@ public class GameUi : MonoBehaviour
             case PowerUpType.Health:
                 powerUpText[0].SetTrigger("pickedUp");
                 break;
-            case PowerUpType.Invun:
+            /*case PowerUpType.Invun:
                 powerUpText[1].SetTrigger("pickedUp");
-                break;
+                break;*/
             case PowerUpType.Damage:
                 powerUpText[2].SetTrigger("pickedUp");
                 break;

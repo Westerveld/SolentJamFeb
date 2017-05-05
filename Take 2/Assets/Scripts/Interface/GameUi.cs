@@ -42,6 +42,9 @@ public class GameUi : MonoBehaviour
     [SerializeField]
     private Text multiplierText;
 
+    [SerializeField]
+    private Animator[] powerUpText;
+
     // Starting Multiplier
     private int multiplier = 1;
  
@@ -55,6 +58,7 @@ public class GameUi : MonoBehaviour
         ShipController.OnFreezeChargeUsed += UpdateFreezeDisplay;
         //ShipController.OnStatsChange += UpdateUiStats;
         ShipController.OnHealthChanged += UpdatePlayerHealth;
+        ShipController.OnPowerUpCollected += ShowPowerUpText;
         currentHighScore = PlayerPrefs.GetInt("HighestScore");
         highScoreText.text = currentHighScore.ToString();
     }
@@ -66,6 +70,7 @@ public class GameUi : MonoBehaviour
         ShipController.OnMultiplierChanged -= UpdateMultiplierDisplay;
         ShipController.OnFreezeChargeUsed -= UpdateFreezeDisplay;
         ShipController.OnHealthChanged -= UpdatePlayerHealth;
+        ShipController.OnPowerUpCollected -= ShowPowerUpText;
         //ShipController.OnStatsChange -= UpdateUiStats;
     }
 
@@ -169,5 +174,29 @@ public class GameUi : MonoBehaviour
     {
         yield return new WaitForSeconds(5f);
         nextWaveText.GetComponent<Animator>().SetTrigger("NextWave");
+    }
+
+    void ShowPowerUpText(PowerUpType type)
+    {
+        switch(type)
+        {
+            case PowerUpType.Health:
+                powerUpText[0].SetTrigger("pickedUp");
+                break;
+            case PowerUpType.Invun:
+                powerUpText[1].SetTrigger("pickedUp");
+                break;
+            case PowerUpType.Damage:
+                powerUpText[2].SetTrigger("pickedUp");
+                break;
+            case PowerUpType.Explosion:
+                powerUpText[3].SetTrigger("pickedUp");
+                break;
+            case PowerUpType.Freeze:
+                powerUpText[4].SetTrigger("pickedUp");
+                break;
+            default:
+                break;
+        }
     }
 }

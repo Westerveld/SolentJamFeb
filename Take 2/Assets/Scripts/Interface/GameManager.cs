@@ -111,9 +111,9 @@ public class GameManager : MonoBehaviour
         OnGameStateChanged += ChangeGameState;
         ShipController.OnMultiplierChanged += AddToMultiplier;
         ship = (GameObject)Instantiate(shipPrefab);
+        FreezeController.OnFreeze += OnFreeze;
         EndWave();
         Time.timeScale = 1;
-        FreezeController.OnFreeze += OnFreeze;
         PauseMenuController.OnGameResumed += Resume;
        
     }

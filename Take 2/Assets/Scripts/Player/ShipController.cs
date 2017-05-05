@@ -105,6 +105,7 @@ public class ShipController : MonoBehaviour
     //public static event System.Action<float,float, PowerUpType> OnStatsChange;
     public static event System.Action<float> OnHealthChanged;
     public static event System.Action<int> OnMultiplierChanged;
+    public static event System.Action<PowerUpType> OnPowerUpCollected;
 
     void Start()
     {
@@ -171,23 +172,28 @@ public class ShipController : MonoBehaviour
         {
             case PowerUpType.Health:
                 Health += 50;
+                OnPowerUpCollected.Invoke(PowerUpType.Health);
                 break;
             case PowerUpType.Invun:
                 Invun = true;
                 StartCoroutine(InvunCountdown());
+                OnPowerUpCollected.Invoke(PowerUpType.Invun);
                 //OnStatsChange.Invoke(Damage,maxDamage, powerUpType);
                 break;
             case PowerUpType.Damage:
                 DoubleDamage = true;
                 StartCoroutine(DoubleDamageCountdown());
+                OnPowerUpCollected.Invoke(PowerUpType.Damage);
                 //OnStatsChange.Invoke(FreezeDuration,maxFreezeDuration, powerUpType);
                 break;
             case PowerUpType.Explosion:
                 explosionPrefab.GetComponent<Animator>().SetTrigger("Exploding");
+                OnPowerUpCollected.Invoke(PowerUpType.Explosion);
                 break;
             case PowerUpType.Freeze:
                 FreezeCharges++;
                 OnFreezeChargeUsed(freezeCharges);
+                OnPowerUpCollected.Invoke(PowerUpType.Freeze);
                 break;
             default:
                 break;

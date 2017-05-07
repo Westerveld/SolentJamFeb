@@ -18,7 +18,7 @@ public class EndScreenScript : MonoBehaviour {
     private GameObject newHighScorePanel;
 
     [SerializeField]
-    private GameObject replayLevelBtn;
+    private GameObject exitBtn;
 
     private int myScore;
 
@@ -74,7 +74,7 @@ public class EndScreenScript : MonoBehaviour {
             highScores += (i + 1) + ". " + entry.mName + ", " + entry.mScore + "\n";
         }
         highScoresText.text = highScores;
-        eventSystem.SetSelectedGameObject(replayLevelBtn);
+        eventSystem.SetSelectedGameObject(exitBtn);
 
     }
 }

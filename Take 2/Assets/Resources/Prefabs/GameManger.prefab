@@ -5189,7 +5189,7 @@ MonoBehaviour:
     spawnWeight: 10
     minSpawnwave: 0
   - prefab: {fileID: 1000014264686240, guid: 88be4f83023a8f742aa77fb119ead548, type: 2}
-    spawnWeight: 30
+    spawnWeight: 15
     minSpawnwave: 3
   - prefab: {fileID: 1000011679217890, guid: 14aab1a243bca874cb22f7f37ba10d54, type: 2}
     spawnWeight: 10

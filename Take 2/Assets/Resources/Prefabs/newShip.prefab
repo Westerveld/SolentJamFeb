@@ -53,7 +53,6 @@ GameObject:
   - component: {fileID: 4810042967877084}
   - component: {fileID: 212412025283195450}
   - component: {fileID: 95584679845069134}
-  - component: {fileID: 58119153477875688}
   m_Layer: 16
   m_Name: freezeRing
   m_TagString: Untagged
@@ -1265,21 +1264,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.72
---- !u!58 &58119153477875688
-CircleCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1073625528384218}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 2.56
 --- !u!58 &58810627284338674
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -1654,7 +1638,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ship: {fileID: 1226543467879788}
-  rotationSpeed: 100
+  rotationSpeed: 150
   joystick: 3
   bulletSpawn:
   - {fileID: 4769989405378790}

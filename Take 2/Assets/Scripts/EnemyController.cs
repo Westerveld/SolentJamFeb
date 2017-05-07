@@ -11,6 +11,11 @@ public enum EnemyType
 public class EnemyController : MonoBehaviour {
 	[SerializeField]
 	private EnemyType enemyType;
+    public EnemyType m_enemyType
+    {
+        get { return enemyType;}
+        set { enemyType = value; }
+    }
     [SerializeField]
     private GameObject ship;
     public GameObject Ship
@@ -270,7 +275,7 @@ public class EnemyController : MonoBehaviour {
 		if (collision.gameObject.layer == LayerMask.NameToLayer("Player Ships") || enemyType != EnemyType.Kamikaze)
         {
 			if (collision.relativeVelocity.magnitude > 4f) {
-				collision.gameObject.GetComponent<ShipController> ().Health = collision.gameObject.GetComponent<ShipController> ().Health - health;
+				collision.gameObject.GetComponent<ShipController> ().Health = collision.gameObject.GetComponent<ShipController> ().Health - damage;
 
 				Death ();
 

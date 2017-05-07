@@ -9,6 +9,10 @@ public class ShieldController : ComponentController {
         {
             col.gameObject.SetActive(false);
         }
+        else if(col.gameObject.GetComponent<EnemyController>().m_enemyType == EnemyType.Kamikaze)
+        {
+            col.gameObject.SetActive(false);   
+        }
     }
 	
 }

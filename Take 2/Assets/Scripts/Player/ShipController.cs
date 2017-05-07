@@ -15,6 +15,11 @@ public class ShipController : MonoBehaviour
         {
             health = Mathf.Clamp(value, 0f, maxHealth);
             OnHealthChanged(health);
+            if (health <= 0f)
+            {
+                isDead = true;
+                OnPlayerDeath.Invoke();
+            }
             //OnStatsChange(health, maxHealth, PowerUpType.Health);
         }
     }
@@ -125,7 +130,7 @@ public class ShipController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.layer == LayerMask.NameToLayer("Enemy Projectiles") && !isDead)
+        if ((col.gameObject.layer == LayerMask.NameToLayer("Enemy Projectiles") || col.gameObject.layer == LayerMask.NameToLayer("Enemy Ships") )&& !isDead)
         {
             if (!Invun)
             {
@@ -136,11 +141,7 @@ public class ShipController : MonoBehaviour
                 Health -= damage;
                 OnHealthChanged(Health);
                 //OnStatsChange(Health, maxHealth, PowerUpType.Health);
-                if (Health <= 0f)
-                {
-                    isDead = true;
-                    OnPlayerDeath.Invoke();
-                }
+                
                 CheckCriticalCondition();
                 StartCoroutine(shipCamera.GetComponent<CameraShake>().Shake());
             }
@@ -171,7 +172,7 @@ public class ShipController : MonoBehaviour
         switch (powerUpType)
         {
             case PowerUpType.Health:
-                Health += 50;
+                Health += 25;
                 OnPowerUpCollected.Invoke(PowerUpType.Health);
                 break;
             /*case PowerUpType.Invun:

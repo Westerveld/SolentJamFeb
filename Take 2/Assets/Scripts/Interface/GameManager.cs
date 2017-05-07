@@ -57,6 +57,8 @@ public class GameManager : MonoBehaviour
     private float nextWaveDelaySeconds = 10.0f;
     private float spawnOffsetDistance;
 
+    [SerializeField]
+    private GameObject helpSection;
     //Freeze
     private bool frozen = false;
 
@@ -218,7 +220,7 @@ public class GameManager : MonoBehaviour
     void EndWave()
     {
         nextWaveTime = Time.time + timeBetweenWavesSeconds;
-        OnWaveEnded.Invoke();
+        //OnWaveEnded.Invoke();
         OnGameStateChanged(GameState.BetweenWaves);
     }
 
@@ -388,6 +390,11 @@ public class GameManager : MonoBehaviour
             {
                 SetPause();
             }
+            if (Input.GetKeyDown(KeyCode.I))
+            {
+                helpSection.SetActive(!helpSection.activeSelf);
+            }
+
         }
     }
 }
